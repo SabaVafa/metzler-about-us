@@ -1,0 +1,893 @@
+/* =========================================================
+   About page — section styles.
+   Loads AFTER styles-v2.css; section padding, typography
+   (.section-title, .eyebrow, .section-sub) and buttons (.btn*)
+   come from the homepage system. This file only adds the
+   About-specific layouts, scoped under .about / .about-*.
+   ========================================================= */
+
+.about{ color: var(--schwarz); }
+.about p{ line-height: var(--lh-body); margin: 0 0 1em; }
+
+/* On-dark variant of the homepage eyebrow */
+.eyebrow--on-dark{ color: rgba(255,255,255,.85); }
+
+/* Section-header layout helper (centers title + sub) */
+.about-section-header{
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto var(--sp-12);
+}
+.about-section-header .section-sub{ margin-left: auto; margin-right: auto; }
+
+/* Soft alternating-section background, using homepage token */
+.about-soft{ background: var(--paper-white); }
+
+/* Centered italic hint line under a section */
+.about-hint{
+  color: #6a6a6a;
+  font-size: var(--text-body-sm);
+  text-align: center;
+  margin-top: var(--sp-6);
+  font-style: italic;
+}
+.about-hint a{ color: var(--teal); text-decoration: underline; }
+
+/* ============== SECTION 1 — HERO (Unified Scene, full-bleed) ============== */
+.about-hero{
+  padding: 0;
+  background: var(--white);
+}
+
+/* ─── Primary scene — edge-to-edge single image at natural aspect ─── */
+/* Strategy: panel locks to the image's exact aspect ratio (3840 × 1654 ≈
+   2.32 : 1), so the entire architectural scene shows with zero cropping
+   at every desktop / tablet width. Banner grows taller than the previous
+   440 px (about 827 px at a 1920 px viewport) — that's the deliberate
+   trade-off chosen over the cropped/zoomed look. */
+/* 2-column hero: solid dark copy column on the left (45 %),
+   building image on the right (55 %). High-end agency split-screen. */
+.about-hero__primary{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: calc(55% + 32px) calc(45% - 32px);
+  aspect-ratio: 3.4 / 1;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* Left column — anthracite / dark slate gray.
+   flex-direction: column + justify-content: center vertically centers
+   the copy block reliably within the column. Hairline divider on the
+   right edge gives the column boundary a deliberate geometric edge
+   rather than a happenstance one where image meets text. */
+.about-hero__copy-col{
+  background: #1F2226;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-inline-start: clamp(var(--sp-6), 4vw, 80px);
+  padding-inline-end: var(--sp-10);
+  padding-block: clamp(var(--sp-6), 4vw, 80px);
+  position: relative;
+  z-index: 2;
+  border-right: 1px solid #33363A;
+}
+@media (min-width: 1440px){
+  .about-hero__copy-col{
+    padding-inline-start: clamp(80px, 5vw, 116px);
+  }
+}
+
+/* Right column — edge-to-edge image, no padding. Image fills the entire
+   column, bleeds to the viewport's right edge. Split-screen feel:
+   the column's right edge IS the photo. No asymmetric mat anywhere. */
+.about-hero__photo-col{
+  position: relative;
+  background: #1F2226;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* The building image — anchored to the right, its natural aspect
+   preserved via `object-fit: cover` inside a container sized to roughly
+   the right two-thirds of the panel. The left edge is masked with a
+   linear gradient that fades to fully transparent over the leftmost
+   third of the image, dissolving it into the sky-blue field. */
+/* Image fills the column edge-to-edge. No border, no radius, no shadow —
+   a clean split-screen wall, not a framed print. */
+.about-hero__photo{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Container that holds the copy block, vertically centered over the image */
+.about-hero__copy-wrap{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding-block: var(--sp-10);
+}
+
+/* Base overlay — light, only soft directional darkening */
+.about-hero__overlay{
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.10) 30%, rgba(0,0,0,0) 55%);
+  z-index: 1;
+}
+
+/* No scrim — copy sits directly on the flat gray field. White text on
+   #6A6F74 ≈ 5 : 1 contrast, passes WCAG AA for body text. */
+.about-hero__copy-wrap{
+  position: relative;
+  z-index: 2;
+}
+
+.about-hero__copy{
+  width: 100%;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  margin-block: auto;
+}
+.about-hero__copy > *{ margin: 0; }
+.about-hero__copy .about-hero__chips{ margin: 0; }
+
+/* H1 — slightly reduced font-size cap so the headline reliably fits
+   into 2 lines at common viewport widths (was wrapping to 3 lines at
+   1440 px or below). */
+.about-hero h1{
+  color: var(--white);
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--sp-8);
+}
+.about-hero h1 em{
+  font-style: italic;
+  font-weight: 700;
+  color: var(--teal-mint);
+}
+
+/* Stats row — three small number-tiles between the H1 and the sub.
+   Lifts the numbers out of the dense fact-string and gives them their
+   own typographic moment, in the spirit of premium brand heroes. */
+.about-hero__stats{
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: var(--sp-10);
+  margin: 0 0 var(--sp-8);
+}
+.about-hero__stat{
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.about-hero__stat b{
+  font-size: clamp(20px, 1.6vw, 26px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.about-hero__stat span{
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.62);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+/* Sub — matched to homepage .hero-banner__body */
+.about-hero__sub{
+  margin: 0 0 var(--sp-8);
+  font-size: var(--text-body);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* CTAs — buttons size to content + padding so increased side padding
+   is actually visible (was invisible when buttons were 1fr-fill). */
+.about-hero__ctas{
+  margin-top: var(--sp-8);
+  display: flex;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+.about-hero__ctas .btn{
+  width: auto;
+  min-width: 0;
+  box-sizing: border-box;
+  padding-inline: var(--sp-12);
+}
+/* Arrow icon inside the primary CTA — sized to match the homepage's
+   .btn--arrow svg rule but explicit here so it works regardless of cascade. */
+.about-hero__ctas .btn--arrow svg{
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Secondary CTA polish — over the new anthracite, tweak the inset border
+   to a subtle off-white (rgba) instead of pure white. Reads sharper and
+   more premium than a flat white outline. Crisp 1.5 px stroke retained. */
+.about-hero .hero-banner__cta--secondary{
+  color: #fff;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.78);
+  transition: box-shadow 0.18s ease, background 0.18s ease;
+}
+.about-hero .hero-banner__cta--secondary:hover{
+  background: rgba(255, 255, 255, 0.10);
+  box-shadow: inset 0 0 0 1.5px #fff;
+}
+
+/* Chips position — homepage places them after the H1; here they sit at
+   the top of the copy block, so kill the inherited margin-top and add
+   breathing room below before the H1 starts. */
+.about-hero__chips{
+  margin-top: 0;
+  margin-bottom: var(--sp-8);
+}
+
+/* Secondary CTA on the hero — transparent black tint instead of the
+   homepage's fully-transparent default. Adds contrast against the photo
+   while keeping the button visually "secondary". */
+.about-hero .hero-banner__cta--secondary{
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+}
+.about-hero .hero-banner__cta--secondary:hover{
+  background: rgba(0, 0, 0, 0.50);
+}
+
+/* Visible focus ring for keyboard users — scoped to About so we don't
+   touch the homepage's button system. */
+.about .btn:focus-visible{
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(0, 109, 117, 0.55);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1023px){
+  /* Tablet: tighter split (50 / 50) and the column padding eases off. */
+  .about-hero__primary{
+    grid-template-columns: 50% 50%;
+    aspect-ratio: 2 / 1;
+  }
+  .about-hero__copy-col{
+    padding-inline-start: clamp(var(--sp-6), 4vw, 56px);
+    padding-inline-end: var(--sp-8);
+    padding-block: var(--sp-10);
+  }
+}
+
+@media (max-width: 768px){
+  /* Mobile: columns stack — copy on top of the building image,
+     each section gets full width and a comfortable height. */
+  .about-hero__primary{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    aspect-ratio: auto;
+  }
+  .about-hero__copy-col{
+    padding-inline: clamp(var(--sp-6), 5vw, var(--sp-10));
+    padding-block: var(--sp-12);
+  }
+  .about-hero__photo-col{
+    aspect-ratio: 3 / 2;
+    padding: clamp(1rem, 4vw, 2rem);
+  }
+  .about-hero__photo{
+    object-position: center 35%;
+  }
+  .about-hero h1{
+    font-size: clamp(32px, 8vw, 44px);
+    max-width: none;
+  }
+}
+
+/* ============== TRUST STRIP (under hero) ============== */
+.about-truststrip{
+  background: var(--white);
+  border-bottom: 1px solid var(--graphite-300);
+  padding-block: var(--sp-8);
+  color: var(--schwarz);
+}
+.about-truststrip__inner{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-16);
+}
+.about-truststrip__stat{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+}
+.about-truststrip__stat b{
+  font-size: clamp(20px, 1.6vw, 26px);
+  font-weight: 700;
+  color: var(--schwarz);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.about-truststrip__stat span{
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+/* ============== SECTION 2 — STORY ============== */
+.about-story__grid{
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(var(--sp-10), 6vw, var(--sp-20));
+  align-items: center;
+}
+.about-story__media img{
+  width: 100%;
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Asymmetric ceremony gallery — one dominant hero + two supporting shots. */
+.about-story__gallery{
+  display: grid;
+  gap: var(--sp-3);
+}
+.about-story__main{
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-lg);
+}
+.about-story__row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+.about-story__row img{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-md);
+}
+/* Higher specificity (.about .about-caption) is required — without it
+   the global `.about p { margin: 0 0 1em }` wins and the caption sits
+   flush against the image. */
+.about .about-caption{
+  font-size: var(--text-caption);
+  color: #6a6a6a;
+  margin: var(--sp-3) 0 0;
+  line-height: 1.5;
+}
+
+/* =================================================================
+   NTV Ceremony Carousel — Concept C (Cinematic Slider, pinned copy)
+   Crossfade transitions + subtle Ken-Burns + 6s autoplay.
+   ================================================================= */
+.ntv-carousel{
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ntv-carousel__stage{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1800 / 1286;
+  overflow: hidden;
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-lg);
+  background: #0e0e10;
+}
+
+/* Event badge — small floating label on the image so the meta row stays clean */
+.ntv-event-label{
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-4);
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: var(--r-s);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.ntv-slide{
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 600ms ease-in-out;
+  pointer-events: none;
+}
+.ntv-slide.is-active{
+  opacity: 1;
+  pointer-events: auto;
+}
+.ntv-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+}
+/* Ken Burns — very subtle zoom (1.02 → 1.00) so images feel locked at the
+   same width rather than visibly shifting in size. */
+.ntv-slide.is-active img{
+  animation: ntv-kenburns 4.5s ease-out forwards;
+}
+@keyframes ntv-kenburns{
+  from{ transform: scale(1.02); }
+  to  { transform: scale(1.00); }
+}
+
+/* Meta row — counter + caption + dots.
+   The OUTER row reserves a fixed minimum height (enough for a 2-line
+   caption) so changing text between slides doesn't shift the left
+   column's height — but everything INSIDE vertically centres, so the
+   dots align with the caption text instead of floating at the top. */
+.ntv-carousel__meta{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  /* Exactly 2 lines of caption text — no jump if a caption wraps,
+     no wasted whitespace when it fits on one line. */
+  min-height: 42px;
+}
+.ntv-carousel__meta .about-caption{
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  flex: 1;
+  min-width: 0;
+}
+.ntv-counter{
+  font-size: var(--text-caption);
+  letter-spacing: .18em;
+  font-weight: 700;
+  color: var(--teal);
+  white-space: nowrap;
+}
+.ntv-counter__sep{ opacity: .5; }
+.ntv-caption-text{
+  font-size: var(--text-body-sm);
+  color: #555;
+  transition: opacity 300ms ease;
+}
+.ntv-caption-text.is-fading{ opacity: 0; }
+
+/* Pagination dots — fill bar animates on the active dot over 6 s */
+.ntv-carousel__dots{
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+}
+.ntv-dot{
+  position: relative;
+  width: 32px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  background: var(--graphite-300);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 200ms ease;
+}
+.ntv-dot:hover{ background: #B5B5B5; }
+.ntv-dot:focus-visible{
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+}
+.ntv-dot::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: 2px;
+}
+.ntv-dot.is-active::before{
+  animation: ntv-dot-fill 3s linear forwards;
+}
+@keyframes ntv-dot-fill{
+  from{ transform: scaleX(0); }
+  to  { transform: scaleX(1); }
+}
+
+/* Paused state (hover / focus / reduced-motion) — freeze the dot fill
+   and the Ken-Burns zoom mid-animation. */
+.ntv-carousel.is-paused .ntv-dot.is-active::before,
+.ntv-carousel.is-paused .ntv-slide.is-active img{
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ntv-slide{ transition: none; }
+  .ntv-slide.is-active img{ animation: none; transform: none; }
+  .ntv-dot.is-active::before{ animation: none; transform: scaleX(1); }
+}
+
+@media (max-width: 560px){
+  .ntv-carousel__meta{ flex-direction: column; align-items: flex-start; }
+  .ntv-carousel__meta .about-caption{ width: 100%; }
+}
+.about-story__copy{ align-self: center; }
+.about-story__copy p{ font-size: var(--text-h4); }
+/* Spacing rhythm — matched to the hero banner's chips → H1 → sub → CTAs.
+   eyebrow → H2 = 20 px, H2 → sub = 20 px (same as banner's chips → H1 → sub). */
+.about .eyebrow{ margin-bottom: var(--sp-5); }
+.about .section-sub{ margin-top: var(--sp-5); }
+
+/* Story-section CTA pair — equal-width grid, same pattern as the hero. */
+.about-story__ctas{
+  margin-top: var(--sp-5);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+  max-width: 460px;
+}
+.about-story__ctas .btn{
+  width: 100%;
+  justify-content: center;
+}
+
+.about-sig{
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--graphite-300);
+}
+.about-sig__line{
+  font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+  font-size: 30px;
+  color: var(--schwarz);
+  margin-bottom: var(--sp-1);
+}
+.about-sig__name{ font-weight: 700; color: var(--schwarz); font-size: var(--text-h4); }
+.about-sig__role{ color: #6a6a6a; font-size: var(--text-body-sm); }
+
+/* ============== SECTION 3 — PILLARS ============== */
+.about-pillars__grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(var(--sp-8), 4vw, var(--sp-16));
+}
+.about-pillars article h3{
+  position: relative;
+  padding-top: var(--sp-5);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--schwarz);
+  margin-bottom: var(--sp-3);
+}
+.about-pillars article h3::before{
+  content: "";
+  display: block;
+  width: 42px; height: 3px;
+  background: var(--teal);
+  position: absolute; top: 0; left: 0;
+  border-radius: 2px;
+}
+.about-pillars article p{ font-size: var(--text-body); color: var(--schwarz); }
+
+/* ============== SECTION 4 — SORTIMENT (BENTO) ============== */
+.about-bento{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+}
+.about-tile{
+  position: relative;
+  min-height: 360px;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--r-l);
+  overflow: hidden;
+  color: var(--white);
+  display: block;
+  text-decoration: none;
+  transition: transform .25s ease;
+}
+.about-tile:hover{ transform: translateY(-3px); }
+.about-tile::after{
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.72) 100%);
+}
+.about-tile__body{
+  position: absolute; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  padding: var(--sp-6);
+}
+.about-tile__body h3{
+  color: var(--white);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  margin-bottom: var(--sp-1);
+}
+.about-tile__body p{
+  margin: 0;
+  font-size: var(--text-body-sm);
+  opacity: .92;
+  max-width: 44ch;
+}
+
+.about-bento-secondary{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.about-tile-sm{
+  display: block;
+  text-decoration: none;
+  color: var(--schwarz);
+  border: 1px solid var(--graphite-300);
+  border-radius: var(--r-l);
+  overflow: hidden;
+  background: var(--white);
+  transition: border-color .15s ease;
+}
+.about-tile-sm img{ height: 120px; width: 100%; object-fit: cover; }
+.about-tile-sm span{
+  display: block;
+  padding: var(--sp-3) var(--sp-3);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+}
+.about-tile-sm:hover{ border-color: var(--teal); }
+
+/* ============== SECTION 5 — BESPOKE ============== */
+.about-bespoke__grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(var(--sp-10), 6vw, var(--sp-20));
+  align-items: center;
+}
+.about-bespoke h2 i{
+  font-style: italic;
+  font-weight: 700;
+  color: var(--teal);
+}
+.about-collage{
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--sp-3);
+  aspect-ratio: 1 / 1;
+}
+.about-collage img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: var(--r-l);
+}
+.about-collage img:first-child{ grid-row: span 2; }
+.about-bespoke__copy p{ font-size: var(--text-h4); }
+.about-bespoke__copy .btn{ margin-top: var(--sp-3); }
+
+/* ============== SECTION 6 — RESPONSIBILITY ============== */
+.about-timeline{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(var(--sp-5), 3vw, var(--sp-10));
+  position: relative;
+}
+.about-timeline::before{
+  content: "";
+  position: absolute;
+  top: 34px; left: 8%; right: 8%;
+  height: 2px;
+  background: var(--graphite-300);
+  z-index: 0;
+}
+.about-timeline article{
+  background: var(--white);
+  border: 1px solid var(--graphite-300);
+  border-radius: var(--r-l);
+  padding: var(--sp-8) var(--sp-6);
+  position: relative;
+  z-index: 1;
+}
+.about-timeline__year{
+  display: inline-block;
+  background: var(--teal);
+  color: var(--white);
+  font-weight: 700;
+  font-size: var(--text-body-sm);
+  letter-spacing: .12em;
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--r-s);
+  margin-bottom: var(--sp-5);
+}
+.about-timeline article h3{
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--schwarz);
+  margin-bottom: var(--sp-3);
+}
+.about-timeline article p{ font-size: var(--text-body); color: var(--schwarz); margin: 0; }
+
+/* ============== SECTION 7 — LOCATIONS ============== */
+.about-locations__grid{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-4);
+}
+.about-loc{
+  text-align: center;
+  padding: var(--sp-8) var(--sp-5);
+  border: 1px solid var(--graphite-300);
+  border-radius: var(--r-l);
+  background: var(--white);
+}
+.about-loc__pin{
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: var(--text-h4);
+  margin: 0 auto var(--sp-3);
+}
+.about-loc h3{
+  font-size: var(--text-h4);
+  font-weight: 700;
+  color: var(--schwarz);
+  margin-bottom: var(--sp-1);
+}
+.about-loc p{ font-size: var(--text-caption); color: #6a6a6a; margin: 0; }
+
+/* ============== SECTION 8 — PROOF ============== */
+.about-numbers{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-16);
+  text-align: center;
+}
+.about-numbers > div{
+  padding: var(--sp-8) var(--sp-4);
+  background: var(--white);
+  border: 1px solid var(--graphite-300);
+  border-radius: var(--r-l);
+}
+.about-numbers b{
+  display: block;
+  font-size: var(--text-display);
+  color: var(--schwarz);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin-bottom: var(--sp-1);
+}
+.about-numbers span{ font-size: var(--text-caption); color: #6a6a6a; letter-spacing: .02em; }
+
+.about-testimonials{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-12);
+}
+.about-testimonials blockquote{
+  margin: 0;
+  padding: var(--sp-8);
+  background: var(--white);
+  border: 1px solid var(--graphite-300);
+  border-radius: var(--r-l);
+  position: relative;
+}
+.about-testimonials blockquote::before{
+  content: "\201C";
+  position: absolute;
+  top: -12px; left: var(--sp-5);
+  font-size: 70px;
+  color: var(--teal);
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+.about-testimonials blockquote p{
+  margin: 0 0 var(--sp-3);
+  font-size: var(--text-body);
+  color: var(--schwarz);
+  font-style: italic;
+}
+.about-testimonials blockquote footer{
+  font-size: var(--text-caption);
+  color: #6a6a6a;
+  font-weight: 600;
+}
+
+.about-awards{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-6);
+  align-items: center;
+  padding-top: var(--sp-12);
+  border-top: 1px solid var(--graphite-300);
+}
+.about-awards figure{ margin: 0; text-align: center; }
+.about-awards img{
+  height: 80px; width: auto;
+  margin: 0 auto var(--sp-3);
+  object-fit: contain;
+}
+.about-awards figcaption{ font-size: var(--text-caption); color: #6a6a6a; line-height: 1.4; }
+
+/* ============== SECTION 9 — CLOSING ============== */
+.about-closing{
+  background: var(--teal-dark);
+  color: var(--white);
+  text-align: center;
+}
+/* Keep section-title white on the dark CTA */
+.about-closing .section-title{ color: var(--white); margin-bottom: var(--sp-3); }
+.about-closing p{
+  font-size: var(--text-h4);
+  opacity: .9;
+  max-width: 600px;
+  margin: 0 auto var(--sp-8);
+}
+.about-closing__buttons{
+  display: flex;
+  gap: var(--sp-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.about-closing__reassure{
+  margin-top: var(--sp-10);
+  font-size: var(--text-body-sm);
+  opacity: .75;
+  max-width: none;
+}
+
+/* ============== RESPONSIVE ============== */
+@media (max-width: 960px){
+  .about-story__grid,
+  .about-bespoke__grid{ grid-template-columns: 1fr; }
+  .about-pillars__grid{ grid-template-columns: 1fr; gap: var(--sp-10); }
+  .about-bento{ grid-template-columns: 1fr; }
+  .about-bento-secondary{ grid-template-columns: repeat(3, 1fr); }
+  .about-timeline{ grid-template-columns: 1fr; gap: var(--sp-5); }
+  .about-timeline::before{ display: none; }
+  .about-locations__grid{ grid-template-columns: repeat(2, 1fr); }
+  .about-numbers{ grid-template-columns: repeat(2, 1fr); }
+  .about-testimonials{ grid-template-columns: 1fr; }
+  .about-awards{ grid-template-columns: repeat(2, 1fr); gap: var(--sp-8); }
+}
+@media (max-width: 520px){
+  .about-bento-secondary{ grid-template-columns: repeat(2, 1fr); }
+}
