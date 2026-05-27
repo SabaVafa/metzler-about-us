@@ -1150,5 +1150,27 @@
   });
 </script>
 
+<!-- Trust strip — split each bold into per-character spans with staggered animation -->
+<script>
+  (function(){
+    return;
+    const stats = document.querySelectorAll('.about-truststrip__stat b');
+    if (!stats.length) return;
+    stats.forEach((bold, statIdx) => {
+      const text = bold.textContent;
+      bold.textContent = '';
+      // Use Array.from for proper handling of multi-byte chars (umlauts, etc.)
+      Array.from(text).forEach((ch, charIdx) => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = ch === ' ' ? ' ' : ch;
+        // Stagger: each stat starts 120ms after the previous, each char 28ms after the previous
+        span.style.animationDelay = (200 + statIdx * 120 + charIdx * 28) + 'ms';
+        bold.appendChild(span);
+      });
+    });
+  })();
+</script>
+
 </body>
 </html>
