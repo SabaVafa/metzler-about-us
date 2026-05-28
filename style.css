@@ -94,7 +94,9 @@ main .section{ padding-block: var(--about-section-y); }
    rather than a happenstance one where image meets text. */
 .about-hero__copy-col{
   background: #1F2226;
-  padding-inline: clamp(var(--sp-6), 4vw, 80px);
+  /* Single fluid clamp — scales smoothly from 24px on mobile to 116px on wide,
+     matching the container's --about-section padding rhythm. */
+  padding-inline: clamp(24px, 5vw, 116px);
   padding-block: 0;
   position: relative;
   z-index: 2;
@@ -103,11 +105,6 @@ main .section{ padding-block: var(--about-section-y); }
   box-sizing: border-box;
   min-height: 0;
   min-width: 0;
-}
-@media (min-width: 1440px){
-  .about-hero__copy-col{
-    padding-inline: clamp(80px, 5vw, 116px);
-  }
 }
 
 /* Right column — edge-to-edge image, no padding. Image fills the entire
@@ -166,8 +163,10 @@ main .section{ padding-block: var(--about-section-y); }
 .about-hero__copy{
   position: absolute;
   top: 50%;
-  left: clamp(var(--sp-6), 4vw, 80px);
-  right: clamp(var(--sp-6), 4vw, 80px);
+  /* Same fluid clamp as the column padding — keeps the copy inset consistent
+     across every viewport without breakpoint jumps. */
+  left: clamp(24px, 5vw, 116px);
+  right: clamp(24px, 5vw, 116px);
   transform: translateY(-50%);
   color: var(--white);
   display: flex;
@@ -250,7 +249,8 @@ main .section{ padding-block: var(--about-section-y); }
   width: auto;
   min-width: 0;
   box-sizing: border-box;
-  padding-inline: var(--sp-12);
+  /* Use the base .btn padding so the two CTAs fit side-by-side
+     across viewports without wrapping. */
 }
 /* Arrow icon inside the primary CTA — sized to match the homepage's
    .btn--arrow svg rule but explicit here so it works regardless of cascade. */
@@ -306,14 +306,11 @@ main .section{ padding-block: var(--about-section-y); }
 
 /* ─── Responsive ─── */
 @media (max-width: 1023px){
-  /* Tablet: tighter split (50 / 50) and the column padding eases off. */
+  /* Tablet: tighter split (50 / 50). Padding handled by the single fluid
+     clamp on .about-hero__copy-col — no separate breakpoint override. */
   .about-hero__primary{
     grid-template-columns: 50% 50%;
     aspect-ratio: 2 / 1;
-  }
-  .about-hero__copy-col{
-    padding-inline: clamp(var(--sp-6), 4vw, 56px);
-    padding-block: 0;
   }
 }
 
