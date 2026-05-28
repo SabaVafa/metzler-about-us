@@ -12,11 +12,40 @@
 /* On-dark variant of the homepage eyebrow */
 .eyebrow--on-dark{ color: rgba(255,255,255,.85); }
 
+/* ─────────────────────────────────────────────────────────
+   RHYTHM NORMALIZATION (about page)
+   Single source of truth for section + header spacing so
+   every section breathes at the same rate. 8px-based scale.
+   ───────────────────────────────────────────────────────── */
+:root{
+  --about-section-y: clamp(56px, 6vw, 88px);   /* section block padding */
+  --about-header-gap: clamp(32px, 4vw, 48px);  /* header → content */
+  /* Background palette — duo-tone rhythm.
+     White = brand-showcase sections; soft = human-voice sections. */
+  --about-bg-white: #FFFFFF;
+  --about-bg-soft:  #F5F6FA;  /* matches homepage --paper-white — cool, engineered */
+}
+/* ─────────────────────────────────────────────────────────
+   BACKGROUND RHYTHM — "statement → proof" alternation.
+   Every odd (white) section is a brand statement;
+   every even (soft) section is its supporting voice/proof.
+   ───────────────────────────────────────────────────────── */
+/* Soft (gray) sections — Story, Trustbar, Stories, Newsletter, Closing */
+main.about .about-story,
+main.about .trustbar,
+main.about .news{ background: var(--about-bg-soft); }
+/* Reviews — flip BACK to white (statement of trust) */
+main.about .reviews{ background: var(--about-bg-white); }
+/* Apply unified section padding to every .section on the About page
+   (overrides styles-v2.css default of 80px/64px). Sections with custom
+   padding declared later in this file still win where intentional. */
+main .section{ padding-block: var(--about-section-y); }
+
 /* Section-header layout helper (centers title + sub) */
 .about-section-header{
   text-align: center;
   max-width: 760px;
-  margin: 0 auto var(--sp-12);
+  margin: 0 auto var(--about-header-gap);
 }
 .about-section-header .section-sub{ margin-left: auto; margin-right: auto; }
 
@@ -372,7 +401,7 @@
 .about-story__grid{
   display: grid;
   grid-template-columns: 1.05fr 1fr;
-  gap: clamp(var(--sp-10), 6vw, var(--sp-20));
+  gap: clamp(var(--sp-8), 4vw, var(--sp-12));
   align-items: center;
 }
 .about-story__media img{
@@ -471,15 +500,16 @@
   object-fit: cover;
   display: block;
   transform-origin: center center;
+  /* Heavier overscan to crop out backdrop frames / lighting bars baked
+     into the source photos near their edges. */
+  transform: scale(1.10);
 }
-/* Ken Burns — very subtle zoom (1.02 → 1.00) so images feel locked at the
-   same width rather than visibly shifting in size. */
 .ntv-slide.is-active img{
   animation: ntv-kenburns 4.5s ease-out forwards;
 }
 @keyframes ntv-kenburns{
-  from{ transform: scale(1.02); }
-  to  { transform: scale(1.00); }
+  from{ transform: scale(1.12); }
+  to  { transform: scale(1.10); }
 }
 
 /* Meta row — counter + caption + dots.
@@ -534,7 +564,7 @@
   padding: 0;
   border: 0;
   background: var(--graphite-300);
-  border-radius: 2px;
+  border-radius: var(--r-s);
   cursor: pointer;
   overflow: hidden;
   transition: background-color 200ms ease;
@@ -551,7 +581,7 @@
   background: var(--teal);
   transform: scaleX(0);
   transform-origin: left center;
-  border-radius: 2px;
+  border-radius: var(--r-s);
 }
 .ntv-dot.is-active::before{
   animation: ntv-dot-fill 3s linear forwards;
@@ -582,7 +612,10 @@
 .about-story__copy p{ font-size: var(--text-h4); }
 /* Spacing rhythm — matched to the hero banner's chips → H1 → sub → CTAs.
    eyebrow → H2 = 20 px, H2 → sub = 20 px (same as banner's chips → H1 → sub). */
-.about .eyebrow{ margin-bottom: var(--sp-5); }
+.about .eyebrow{
+  margin-bottom: var(--sp-5);
+  color: var(--graphite-700, #4a4f55);
+}
 .about .section-sub{ margin-top: var(--sp-5); }
 
 /* Story-section CTA pair — equal-width grid, same pattern as the hero. */
@@ -632,7 +665,7 @@
   width: 42px; height: 3px;
   background: var(--teal);
   position: absolute; top: 0; left: 0;
-  border-radius: 2px;
+  border-radius: var(--r-s);
 }
 .about-pillars article p{ font-size: var(--text-body); color: var(--schwarz); }
 
@@ -703,63 +736,229 @@
 }
 .about-tile-sm:hover{ border-color: var(--teal); }
 
-/* ============== SECTION 5 — BESPOKE ============== */
-.about-bespoke__grid{
+/* ============== EDITORIAL ASYMMETRIC LAYOUT (Sections 5 + 6) ==============
+   Magazine-spread pattern:
+   - Left column: 2 overlapping images. Small one top-left, large centered one
+     with a white frame layered over it, extending down to the dark block.
+   - Right column: stacked text tiers. Top tier light, bottom tier dark.
+   - Asterisk mark separates the two tiers.
+*/
+.about-editorial.section{
+  background: var(--white);
+}
+.about-editorial__layout{
+  /* Unified gutter — used as column-gap AND as the image→text gap inside the dark block,
+     so all the marked margins/paddings stay visually consistent. */
+  --editorial-gutter: clamp(40px, 5vw, 96px);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(var(--sp-10), 6vw, var(--sp-20));
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  column-gap: var(--editorial-gutter);
+  row-gap: 0;
+  grid-template-areas:
+    "visuals top"
+    "bottom  bottom";
+  align-items: start;
 }
-.about-bespoke h2 i{
-  font-style: italic;
-  font-weight: 700;
-  color: var(--teal);
-}
-.about-collage{
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  gap: var(--sp-3);
-  aspect-ratio: 1 / 1;
-}
-.about-collage img{
-  width: 100%; height: 100%;
-  object-fit: cover;
-  border-radius: var(--r-l);
-}
-.about-collage img:first-child{ grid-row: span 2; }
-.about-bespoke__copy p{ font-size: var(--text-h4); }
-.about-bespoke__copy .btn{
-  margin-top: var(--sp-3);
-  display: inline-flex;
-  width: auto;
-  align-self: flex-start;
+/* Right column stack — holds the top + middle text tiers with a rhythmic gap */
+.about-editorial__top-stack{
+  grid-area: top;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--sp-8), 4vw, var(--sp-12));
+  padding-block: 0 var(--sp-8);
 }
 
-/* ============== SECTION 6 — ENGINEER'S CONFESSION ============== */
-.about-engineering__grid{
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: clamp(var(--sp-10), 6vw, var(--sp-20));
-  align-items: center;
+/* ----- LEFT: overlapping image collage ----- */
+.about-editorial__visuals{
+  grid-area: visuals;
+  position: relative;
+  height: clamp(260px, 26vw, 380px);
+  overflow: visible;
+  z-index: 1;
 }
-.about-engineering h2 i{
-  font-style: italic;
-  font-weight: 700;
-  color: var(--teal);
+.about-editorial__img{
+  margin: 0;
+  overflow: hidden;
+  background: var(--graphite-200, #e8e9eb);
 }
-.about-engineering__copy p{
-  font-size: var(--text-body);
-  color: var(--schwarz);
-  margin-bottom: var(--sp-4);
-}
-.about-engineering__copy .btn{ margin-top: var(--sp-4); }
-.about-engineering__media img{
+.about-editorial__img img{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--r-l);
-  aspect-ratio: 4 / 5;
+  display: block;
+}
+/* Top-left small detail image — narrower than the center image to create
+   visual hierarchy (small detail vs. dominant portrait). */
+.about-editorial__img--top{
+  position: absolute;
+  inset: 0 32% 22% 0;
+  z-index: 1;
+}
+/* Center large portrait — promoted to a layout-grid item so it can span
+   the visuals row AND the dark-block row. align-self: end pins its bottom
+   to the bottom of the dark block. */
+.about-editorial__img--center{
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: end;
+  justify-self: start;
+  width: clamp(280px, 82%, 88%);
+  margin-left: 12%;
+  aspect-ratio: 5 / 6;  /* portrait — ~32px taller than 8/9 at typical widths */
+  z-index: 3;
+  border: 8px solid var(--white);
+  box-shadow: 0 16px 40px -16px rgba(0,0,0,0.18);
+}
+.about-editorial__img--center img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ----- RIGHT: stacked text tiers ----- */
+.about-editorial__tier{
+  display: flex;
+  flex-direction: column;
+}
+.about-editorial__tier--top{
+  /* now lives inside .about-editorial__top-stack — no grid-area needed */
+  padding-block: 0;
+  /* Shift left so the gap from the (narrower) top image's right edge to the
+     text matches the rhythm gap used elsewhere in the layout */
+  margin-left: clamp(-220px, -12vw, -80px);
+}
+/* Middle tier — subtle asymmetric offset to the right so it doesn't line up with top tier,
+   creating the editorial rhythm seen in the reference */
+.about-editorial__tier--middle{
+  padding-block: 0;
+  margin-left: clamp(20px, 3vw, 64px);
+  max-width: 46ch;
+}
+.about-editorial__tier--top p,
+.about-editorial__tier--middle p{
+  font-size: var(--text-body-sm);
+  color: var(--graphite-700, #4a4f55);
+  line-height: 1.6;
+  margin-bottom: var(--sp-3);
+}
+.about-editorial__tier--top h2 i,
+.about-editorial__tier--middle h2 i{
+  font-style: italic;
+  font-weight: 700;
+  color: var(--teal);
+}
+.about-editorial__tier--middle .section-title{
+  font-size: clamp(1.5rem, 2.2vw, 2.2rem);
+  line-height: 1.15;
+}
+.about-editorial__tier--top p{
+  font-size: var(--text-body-sm);
+  color: var(--graphite-700, #4a4f55);
+  line-height: 1.6;
+  margin-bottom: var(--sp-3);
+}
+/* Separator mark between tiers */
+.about-editorial__mark{
+  align-self: flex-start;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--schwarz);
+  font-weight: 400;
+  padding-block: var(--sp-6);
+  user-select: none;
+}
+/* Dark high-contrast block for the bottom tier — spans the full container width
+   so the overlapping center image lands partly on top of it */
+.about-editorial__tier--bottom{
+  grid-area: bottom;
+  background: var(--schwarz, #1F2226);
+  color: var(--white);
+  padding-block: clamp(28px, 3vw, 48px);
+  /* Reserve the left ~50% for the overlapping image (image fills the left grid column);
+     text right edge aligns with the container content edge so its outer gap to the
+     viewport equals the page-frame's side padding */
+  padding-left: clamp(var(--sp-10), 50%, 54%);
+  padding-right: 0;
+  border-radius: 0;
+  position: relative;
+  z-index: 1;
+  /* Full-bleed: extend the dark fill past the container to both viewport edges
+     without changing layout or padding. */
+  box-shadow:
+    calc(-1 * (50vw - 50%)) 0 0 0 var(--schwarz, #1F2226),
+    calc(50vw - 50%) 0 0 0 var(--schwarz, #1F2226);
+}
+.about-editorial__tier--bottom > *{
+  max-width: 64ch;
+}
+.about-editorial__tier--bottom .section-title{
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  line-height: 1.15;
+  max-width: 28ch;
+}
+.about-editorial__tier--bottom p{
+  max-width: 64ch;
+}
+.about-editorial__tier--bottom .eyebrow{
+  color: rgba(255,255,255,0.55);
+}
+.about-editorial__tier--bottom .section-title{
+  color: var(--white);
+}
+.about-editorial__tier--bottom p{
+  font-size: var(--text-body-sm);
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+  margin-bottom: var(--sp-3);
+}
+.about-editorial__tier--bottom h2 i{
+  color: var(--white);
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Headings — italic accent on light tier stays teal */
+.about-editorial__tier--top h2 i{
+  font-style: italic;
+  font-weight: 700;
+  color: var(--teal);
+}
+.about-editorial__tier .btn{
+  margin-top: var(--sp-4);
+  align-self: flex-start;
+  width: auto;
+  display: inline-flex;
+}
+
+/* ----- Responsive: stack on tablets ----- */
+@media (max-width: 1024px){
+  .about-editorial__layout{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "visuals"
+      "top"
+      "bottom";
+    gap: var(--sp-10);
+    row-gap: var(--sp-10);
+  }
+  .about-editorial__visuals{
+    aspect-ratio: 4 / 3.2;
+    min-height: 0;
+  }
+  .about-editorial__tier--bottom{
+    padding-left: clamp(var(--sp-8), 4vw, var(--sp-12));
+  }
+  .about-editorial__img--center{
+    position: relative;
+    grid-column: 1;
+    grid-row: auto;
+    align-self: auto;
+    justify-self: stretch;
+    width: 100%;
+    margin-left: 0;
+    aspect-ratio: 4 / 5;
+  }
 }
 
 /* ============== SECTION 7 — RESPONSIBILITY ============== */
@@ -1008,7 +1207,7 @@
 
 /* ============== SECTION 9 — METZLER STORIES (anchored chapters + parallax) ============== */
 .msty{
-  --msty-bg: #FAFAF8;
+  --msty-bg: var(--about-bg-soft);
   --msty-fg: #1A1A1A;
   --msty-muted: rgba(0,0,0,0.55);
   --msty-rule: rgba(0,0,0,0.12);
@@ -1178,7 +1377,7 @@
 
 /* ─── Chapter (one story = one composed scene) ─── */
 .msty__chapter{
-  padding-block: clamp(56px, 6vw, 96px);
+  padding-block: clamp(56px, 6vw, 88px);
   position: relative;
   overflow: hidden;
 }
@@ -1210,7 +1409,7 @@
   flex: 1;
   min-height: 480px;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: var(--r-l);
   background: color-mix(in srgb, var(--msty-fg) 6%, var(--msty-bg));
   /* Premium frame: soft elevated shadow + subtle hairline border */
   box-shadow:
@@ -1285,6 +1484,15 @@
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.7,.2,1);
+}
+.msty__quote-mark{
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(88px, 9vw, 160px);
+  line-height: 0.7;
+  color: var(--teal);
+  margin-bottom: clamp(-20px, -1.5vw, -8px);
+  font-weight: 400;
 }
 .msty__headline{
   margin: 0 0 clamp(20px, 2vw, 28px);
@@ -1779,12 +1987,14 @@ END OF LEGACY DEAD CSS */
 /* ============== TRUST BAR — timeline of awards & proof ============== */
 .trustbar{
   background: var(--white);
-  padding-block: clamp(72px, 8vw, 120px);
+  padding-block: clamp(56px, 6vw, 88px);
 }
+/* Suppress the shared hairline divider that styles-v2.css paints at the top */
+.trustbar::before{ display: none; content: none; }
 .trustbar__head{
   text-align: center;
   max-width: 720px;
-  margin: 0 auto clamp(56px, 6vw, 80px);
+  margin: 0 auto clamp(32px, 4vw, 48px);
 }
 .trustbar h2 i{
   font-style: italic;
@@ -1846,7 +2056,7 @@ END OF LEGACY DEAD CSS */
   place-items: center;
   background: var(--white);
   border: 1px solid var(--graphite-300);
-  border-radius: 16px;
+  border-radius: var(--r-l);
   box-shadow: 0 6px 22px rgba(0,0,0,0.05);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -2009,8 +2219,8 @@ END OF LEGACY DEAD CSS */
 
 /* ============== NEWSLETTER — soft promo before the closing CTA ============== */
 .news{
-  background: linear-gradient(180deg, #FAFAF8 0%, #F2EEE6 100%);
-  padding-block: clamp(72px, 8vw, 120px);
+  background: var(--about-bg-soft);
+  padding-block: clamp(56px, 6vw, 88px);
 }
 .news__inner{
   max-width: 720px;
@@ -2022,12 +2232,12 @@ END OF LEGACY DEAD CSS */
   text-align: center !important;
 }
 .news__eyebrow{
-  margin: 0 0 clamp(16px, 1.6vw, 22px);
-  font-size: 12px;
+  margin: 0 0 var(--sp-5);
+  font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--graphite-700, #4a4f55);
   line-height: 1;
 }
 .news__title{
@@ -2151,19 +2361,19 @@ END OF LEGACY DEAD CSS */
 
 /* ============== SECTION 10 — CLOSING ============== */
 .about-closing{
-  background: #FAFAF8;
+  background: var(--about-bg-soft);
   color: var(--schwarz);
   text-align: center;
 }
 /* Eyebrow above the headline */
 .about-closing .cta__eyebrow{
-  margin: 0 auto clamp(14px, 1.4vw, 18px) !important;
+  margin: 0 auto var(--sp-5) !important;
   max-width: 600px;
-  font-size: 12px;
+  font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--graphite-700, #4a4f55);
   line-height: 1;
   text-align: center !important;
 }
