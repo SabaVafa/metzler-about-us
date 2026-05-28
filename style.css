@@ -49,6 +49,14 @@ main .section{ padding-block: var(--about-section-y); }
 }
 .about-section-header .section-sub{ margin-left: auto; margin-right: auto; }
 
+/* Brand pattern: italic accent inside any section-title is teal.
+   Single source of truth — every section's "Heading. <i>accent.</i>" works. */
+main.about .section-title i{
+  font-style: italic;
+  font-weight: 700;
+  color: var(--teal);
+}
+
 /* Soft alternating-section background, using homepage token */
 .about-soft{ background: var(--paper-white); }
 
@@ -790,6 +798,10 @@ main .section{ padding-block: var(--about-section-y); }
   position: absolute;
   inset: 0 32% 22% 0;
   z-index: 1;
+  /* Match the center image's white frame so both photos read as a pair */
+  border: 8px solid var(--white);
+  border-radius: var(--r-l);
+  box-shadow: 0 16px 40px -16px rgba(0,0,0,0.18);
 }
 /* Center large portrait — promoted to a layout-grid item so it can span
    the visuals row AND the dark-block row. align-self: end pins its bottom
@@ -804,6 +816,8 @@ main .section{ padding-block: var(--about-section-y); }
   aspect-ratio: 5 / 6;  /* portrait — ~32px taller than 8/9 at typical widths */
   z-index: 3;
   border: 8px solid var(--white);
+  border-bottom: 0;
+  border-radius: var(--r-l) var(--r-l) 0 0;
   box-shadow: 0 16px 40px -16px rgba(0,0,0,0.18);
 }
 .about-editorial__img--center img{
@@ -909,7 +923,7 @@ main .section{ padding-block: var(--about-section-y); }
   line-height: 1.6;
   margin-bottom: var(--sp-3);
 }
-.about-editorial__tier--bottom h2 i{
+main.about .about-editorial__tier--bottom .section-title i{
   color: var(--white);
   font-style: italic;
   font-weight: 700;
@@ -1042,52 +1056,201 @@ main .section{ padding-block: var(--about-section-y); }
 }
 .about-timeline article p{ font-size: var(--text-body); color: var(--schwarz); margin: 0; }
 
-/* ============== SECTION 8 — LOCATIONS ============== */
+/* ============== SECTION 8 — LOCATIONS (editorial card-less grid) ============== */
 .about-locations h2 i{
   font-style: italic;
   font-weight: 700;
   color: var(--teal);
 }
+/* Full-bleed photo-card style — the photo fills the entire card,
+   typography overlays the lower-third on a soft dark gradient.
+   Inspired by premium travel/booking apps. Asymmetric layout
+   keeps Reutlingen (HQ) as the dominant anchor. */
+/* 3D coverflow — cards arc around the active center card.
+   The five locations form a curved row; click any card to bring it
+   forward and rotate the others into the arc. */
 .about-locations__grid{
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--sp-4);
-}
-.about-loc{
-  text-align: center;
-  padding: 0 0 var(--sp-6);
-  border: 1px solid var(--graphite-300);
-  border-radius: var(--r-l);
-  background: var(--white);
-  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2px, 0.4vw, 8px);
+  perspective: 1400px;
+  padding-block: clamp(var(--sp-8), 4vw, var(--sp-12));
 }
-.about-loc__image{
-  width: 100%;
-  aspect-ratio: 4 / 3;
+
+.about-loc{
+  position: relative;
+  display: block;
+  flex: 0 0 clamp(190px, 16vw, 250px);
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-l);
   overflow: hidden;
   background: color-mix(in srgb, var(--schwarz) 6%, var(--white));
-  margin-bottom: var(--sp-5);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.05),
+    0 14px 36px rgba(0,0,0,0.12);
+  transition: transform 700ms cubic-bezier(.22, .8, .24, 1),
+              filter 700ms cubic-bezier(.22, .8, .24, 1),
+              box-shadow 700ms ease;
+  isolation: isolate;
+  cursor: pointer;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Active card — center of the arc, faces the viewer head-on.
+   Almost no outer shadow + a lighter gradient overlay so it reads bright. */
+.about-loc[data-pos="0"],
+.about-loc.is-active{
+  transform: translateZ(80px) scale(1.05);
+  z-index: 10;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.02),
+    0 6px 14px rgba(0,0,0,0.03);
+}
+.about-loc[data-pos="0"]::after,
+.about-loc.is-active::after{
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 45%,
+    rgba(0,0,0,0.22) 72%,
+    rgba(0,0,0,0.72) 100%
+  );
+}
+/* Step-1 neighbors — slight tilt, slight recede */
+.about-loc[data-pos="-1"]{
+  transform: translateX(38px) rotateY(32deg) scale(0.92);
+  filter: brightness(0.86) saturate(0.92);
+  z-index: 6;
+}
+.about-loc[data-pos="1"]{
+  transform: translateX(-38px) rotateY(-32deg) scale(0.92);
+  filter: brightness(0.86) saturate(0.92);
+  z-index: 6;
+}
+/* Step-2 outer — stronger tilt, deeper recede */
+.about-loc[data-pos="-2"]{
+  transform: translateX(72px) rotateY(48deg) scale(0.82);
+  filter: brightness(0.72) saturate(0.85);
+  z-index: 3;
+}
+.about-loc[data-pos="2"]{
+  transform: translateX(-72px) rotateY(-48deg) scale(0.82);
+  filter: brightness(0.72) saturate(0.85);
+  z-index: 3;
+}
+
+.about-loc__image{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
 }
 .about-loc__image img{
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 800ms cubic-bezier(.2, .7, .2, 1);
+}
+.about-loc:hover .about-loc__image img{ transform: scale(1.05); }
+
+/* Dark gradient — masks the bottom of the image so overlay text reads */
+.about-loc::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 40%,
+    rgba(0,0,0,0.20) 62%,
+    rgba(0,0,0,0.78) 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Body — city + caption pinned to the lower-left, overlaid on the image */
+.about-loc__body{
+  position: absolute;
+  left: clamp(18px, 1.6vw, 28px);
+  right: clamp(18px, 1.6vw, 28px);
+  bottom: clamp(16px, 1.4vw, 26px);
+  z-index: 3;
+  color: var(--white);
 }
 .about-loc h3{
-  font-size: var(--text-h4);
+  font-size: clamp(1.125rem, 1.4vw, 1.5rem);
   font-weight: 700;
-  color: var(--schwarz);
-  margin: 0 var(--sp-4) var(--sp-1);
-  line-height: 1.25;
+  margin: 0 0 4px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--white);
 }
 .about-loc p{
-  font-size: var(--text-caption);
-  color: #6a6a6a;
-  margin: 0 var(--sp-4);
+  font-size: var(--text-body-sm);
+  color: rgba(255,255,255,0.82);
+  margin: 0;
   line-height: 1.4;
+}
+
+/* Editorial number — top-left, large light-weight mono */
+.about-loc__num{
+  position: absolute;
+  top: clamp(14px, 1.2vw, 22px);
+  left: clamp(18px, 1.6vw, 28px);
+  z-index: 3;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 300;
+  font-size: clamp(28px, 2.4vw, 44px);
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 14px rgba(0,0,0,0.4);
+  font-feature-settings: "tnum";
+}
+.about-loc--hq .about-loc__num{
+  font-size: clamp(44px, 4vw, 72px);
+}
+
+/* HQ tag — top-right, solid teal pill */
+.about-loc__hq{
+  position: absolute;
+  top: clamp(14px, 1.2vw, 22px);
+  right: clamp(18px, 1.6vw, 28px);
+  z-index: 3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--teal);
+  padding: 6px 10px 5px;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+/* Tablet: keep HQ anchored, satellite columns compress */
+@media (max-width: 1023px){
+  .about-locations__grid{
+    grid-template-columns: 1.2fr 1fr 1fr;
+  }
+}
+/* Mobile: HQ full-width on top, others 2×2 below */
+@media (max-width: 720px){
+  .about-locations__grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .about-loc--hq{
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 16 / 11;
+  }
 }
 
 
@@ -2306,33 +2469,12 @@ END OF LEGACY DEAD CSS */
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 15%, transparent);
 }
 
-/* Submit button — primary brand styling */
+/* Submit button — inherits .btn .btn--primary from the design system.
+   Only height is bumped so it visually matches the input field next to it. */
 .news__submit{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 28px;
   height: 56px;
-  background: var(--teal);
-  color: var(--white);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  border: 0;
-  border-radius: var(--r-m);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 240ms ease, transform 240ms cubic-bezier(.2,.7,.2,1);
+  padding-inline: var(--sp-7, 28px);
 }
-.news__submit:hover{
-  background: var(--teal-dark, #01292A);
-  transform: translateY(-1px);
-}
-.news__submit:active{ transform: translateY(0); }
-.news__arrow{
-  transition: transform 240ms cubic-bezier(.2,.7,.2,1);
-}
-.news__submit:hover .news__arrow{ transform: translateX(4px); }
 
 /* Privacy note — small icon + line */
 .news__note{
