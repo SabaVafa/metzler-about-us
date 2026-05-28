@@ -101,7 +101,7 @@ main.about .section-title i{
    right edge gives the column boundary a deliberate geometric edge
    rather than a happenstance one where image meets text. */
 .about-hero__copy-col{
-  background: #1F2226;
+  background: #1A171B;
   /* Single fluid clamp — scales smoothly from 24px on mobile to 116px on wide,
      matching the container's --about-section padding rhythm. */
   padding-inline: clamp(24px, 5vw, 116px);
@@ -120,7 +120,7 @@ main.about .section-title i{
    the column's right edge IS the photo. No asymmetric mat anywhere. */
 .about-hero__photo-col{
   position: relative;
-  background: #1F2226;
+  background: #1A171B;
   padding: 0;
   box-sizing: border-box;
   min-height: 0;
@@ -261,8 +261,8 @@ main.about .section-title i{
      across viewports without wrapping. */
 }
 /* Arrow icon inside the primary CTA — sized to match the homepage's
-   .btn--arrow svg rule but explicit here so it works regardless of cascade. */
-.about-hero__ctas .btn--arrow svg{
+   .btn-arrow svg rule but explicit here so it works regardless of cascade. */
+.about-hero__ctas .btn-arrow svg{
   width: 14px;
   height: 14px;
   fill: none;
@@ -619,7 +619,7 @@ main.about .section-title i{
    eyebrow → H2 = 20 px, H2 → sub = 20 px (same as banner's chips → H1 → sub). */
 .about .eyebrow{
   margin-bottom: var(--sp-5);
-  color: var(--graphite-700, #4a4f55);
+  color: var(--graphite-700, #54545C);
 }
 .about .section-sub{ margin-top: var(--sp-5); }
 
@@ -858,7 +858,7 @@ main.about .section-title i{
 .about-editorial__tier--top p,
 .about-editorial__tier--middle p{
   font-size: var(--text-body-sm);
-  color: var(--graphite-700, #4a4f55);
+  color: var(--graphite-700, #54545C);
   line-height: 1.6;
   margin-bottom: var(--sp-3);
 }
@@ -874,7 +874,7 @@ main.about .section-title i{
 }
 .about-editorial__tier--top p{
   font-size: var(--text-body-sm);
-  color: var(--graphite-700, #4a4f55);
+  color: var(--graphite-700, #54545C);
   line-height: 1.6;
   margin-bottom: var(--sp-3);
 }
@@ -892,7 +892,7 @@ main.about .section-title i{
    so the overlapping center image lands partly on top of it */
 .about-editorial__tier--bottom{
   grid-area: bottom;
-  background: var(--schwarz, #1F2226);
+  background: var(--schwarz, #1A171B);
   color: var(--white);
   padding-block: clamp(28px, 3vw, 48px);
   /* Reserve the left ~50% for the overlapping image (image fills the left grid column);
@@ -906,8 +906,8 @@ main.about .section-title i{
   /* Full-bleed: extend the dark fill past the container to both viewport edges
      without changing layout or padding. */
   box-shadow:
-    calc(-1 * (50vw - 50%)) 0 0 0 var(--schwarz, #1F2226),
-    calc(50vw - 50%) 0 0 0 var(--schwarz, #1F2226);
+    calc(-1 * (50vw - 50%)) 0 0 0 var(--schwarz, #1A171B),
+    calc(50vw - 50%) 0 0 0 var(--schwarz, #1A171B);
 }
 .about-editorial__tier--bottom > *{
   max-width: 64ch;
@@ -1098,9 +1098,9 @@ main.about .about-editorial__tier--bottom .section-title i{
   box-shadow:
     0 2px 4px rgba(0,0,0,0.05),
     0 14px 36px rgba(0,0,0,0.12);
-  transition: transform 700ms cubic-bezier(.22, .8, .24, 1),
-              filter 700ms cubic-bezier(.22, .8, .24, 1),
-              box-shadow 700ms ease;
+  transition: transform 1200ms cubic-bezier(.22, .8, .24, 1),
+              filter 1200ms cubic-bezier(.22, .8, .24, 1),
+              box-shadow 1200ms ease;
   isolation: isolate;
   cursor: pointer;
   transform-origin: center center;
@@ -2406,7 +2406,7 @@ END OF LEGACY DEAD CSS */
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--graphite-700, #4a4f55);
+  color: var(--graphite-700, #54545C);
   line-height: 1;
 }
 .news__title{
@@ -2456,34 +2456,27 @@ END OF LEGACY DEAD CSS */
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
 }
+/* Newsletter input — aligned with the DS .form-control pattern
+   (1px graphite-300 border, padding-based sizing, teal focus). */
 .news__input{
   flex: 1;
-  height: 56px;
-  padding: 0 20px;
-  font-size: 15px;
-  font-weight: 500;
+  padding: 0.8rem 1rem;        /* matches .form-control-lg in the DS */
+  font-size: 1.125rem;          /* 18px */
+  font-weight: 400;
   color: var(--schwarz);
   background: var(--white);
   border: 1px solid var(--graphite-300);
   border-radius: var(--r-m);
   outline: none;
-  transition: border-color 240ms ease, box-shadow 240ms ease;
+  transition: border-color 0.15s ease;
   font-family: inherit;
-  letter-spacing: -0.005em;
+  height: 3.125rem;             /* 50px — matches .btn-lg next to it */
+  box-sizing: border-box;
 }
-.news__input::placeholder{ color: #9a9a9a; }
-.news__input:hover{ border-color: color-mix(in srgb, var(--teal) 50%, var(--graphite-300)); }
-.news__input:focus{
-  border-color: var(--teal);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 15%, transparent);
-}
+.news__input::placeholder{ color: var(--graphite-500); }
+.news__input:focus{ border-color: var(--teal); }
 
-/* Submit button — inherits .btn .btn--primary from the design system.
-   Only height is bumped so it visually matches the input field next to it. */
-.news__submit{
-  height: 56px;
-  padding-inline: var(--sp-7, 28px);
-}
+/* Submit button is now plain .btn .btn-primary .btn-lg — no overrides needed. */
 
 /* Privacy note — small icon + line */
 .news__note{
@@ -2521,7 +2514,7 @@ END OF LEGACY DEAD CSS */
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--graphite-700, #4a4f55);
+  color: var(--graphite-700, #54545C);
   line-height: 1;
   text-align: center !important;
 }

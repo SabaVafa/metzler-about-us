@@ -18,7 +18,7 @@
 /* ── Tokens ── */
 :root {
   /* Colors — Primary */
-  --teal: #005253;
+  --teal: #015253;
   --teal-dark: #01292A;
   --teal-hover: #006D75;
   --teal-mint: #5CDBD3;
@@ -36,8 +36,14 @@
   --black-80: rgba(0, 0, 0, 0.8);
   --white: #FFFFFF;
   --white-50: rgba(255, 255, 255, 0.5);
+  --graphite-900: #1A1A1F;
+  --graphite-800: #2E2E36;
+  --graphite-700: #54545C;
+  --graphite-600: #7A7A82;
   --graphite-500: #A1A1A1;
+  --graphite-400: #BFBFC2;
   --graphite-300: #DADADA;
+  --graphite-200: #E6E6E8;
   --graphite-100: #F0F0F0;
   --paper-white: #F5F6FA;
 
@@ -166,33 +172,39 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 48px;
-  padding: 0 var(--sp-6);
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.625rem;         /* 42px — DS medium */
+  padding: 0.7rem 1.2rem;
   border-radius: var(--r-m);
-  font-size: var(--text-body);
-  font-weight: 700;
-  line-height: 1;
-  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
   white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
-.btn--primary { background: #006D75; color: var(--white); }
-.btn--primary:hover { background: #015253; }
-.btn--secondary {
+.btn-lg { height: 3.125rem; font-size: 1.1rem; font-weight: 600; padding-inline: var(--sp-8); }
+.btn-sm { height: 2.1875rem; font-size: 0.9rem; font-weight: 400; }
+.btn-primary { background: var(--teal); color: var(--white); border: none; }
+.btn-primary:hover { background: #014A4B; }
+.btn-primary:active { background: #013E3E; }
+.btn-secondary {
   background: transparent;
   color: var(--teal);
   border: 1.5px solid var(--teal);
 }
-.btn--secondary:hover { background: var(--teal-5); }
-.btn--secondary-light {
+.btn-secondary:hover { background: var(--teal-5); }
+.btn-secondary-light {
   background: transparent;
   color: var(--white);
   border: 1.5px solid var(--white);
 }
-.btn--secondary-light:hover { background: rgba(255, 255, 255, 0.08); }
-.btn--arrow { padding-right: var(--sp-5); }
-.btn--arrow svg { width: 9px; height: 16px; }
-.btn--lg { height: 56px; padding-inline: var(--sp-8); font-size: var(--text-h4); }
+.btn-secondary-light:hover { background: rgba(255, 255, 255, 0.08); }
+.btn-arrow { padding-right: var(--sp-5); }
+.btn-arrow svg { width: 9px; height: 16px; }
+/* Note: .btn-lg defined above (DS-compliant 50px / 3.125rem) */
 
 /* Text link with underline accent */
 .tlink {
@@ -1049,7 +1061,6 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   max-width: 720px;
 }
 .hero-banner__cta {
-  height: 44px;
   justify-content: center;
   font-size: var(--text-body);
   padding-inline: var(--sp-8);
@@ -1793,8 +1804,8 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   line-height: 1.6;
 }
 .faq__support .btn { margin-top: var(--sp-6); width: 100%; justify-content: center; }
-.faq__support .btn--primary { background: var(--teal); }
-.faq__support .btn--primary:hover { background: #006D75; }
+.faq__support .btn-primary { background: var(--teal); }
+.faq__support .btn-primary:hover { background: #006D75; }
 .faq__phone {
   margin-top: var(--sp-6);
   padding: var(--sp-5);
