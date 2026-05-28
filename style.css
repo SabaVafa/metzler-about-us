@@ -2108,7 +2108,7 @@ END OF LEGACY DEAD CSS */
 .trustbar__item:nth-child(3) .trustbar__face--front img{ width: 92px; height: 92px; } /* Red Dot */
 .trustbar__item:nth-child(4) .trustbar__face--front img{ width: 94px; height: 94px; } /* Trusted Shops */
 .trustbar__item:nth-child(5) .trustbar__face--front img{ width: 94px; height: 94px; } /* Garantie */
-.trustbar__item:nth-child(6) .trustbar__face--front img{ width: 88px; height: 88px; } /* Customers */
+.trustbar__item:nth-child(6) .trustbar__face--front img{ width: 84px; height: 84px; } /* Customers */
 
 /* Timeline dots removed */
 .trustbar__node{ display: none; }
