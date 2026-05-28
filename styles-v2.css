@@ -132,6 +132,12 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
 @media (min-width: 2560px) {
   :root { --container: 2040px; }
 }
+
+/* Presentation-monitor (≥3000): a hair more breathing room without
+   breaking comfortable reading line-lengths. */
+@media (min-width: 3000px) {
+  :root { --container: 2200px; }
+}
 .section { padding-block: var(--section-y); }
 .eyebrow {
   font-size: var(--text-caption);
