@@ -1238,9 +1238,9 @@ main.about .about-editorial__tier--bottom .section-title i{
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--white);
-  background: var(--teal);
+  background: var(--graphite-800);   /* DS Graphite 800 — dark gray for label-on-image legibility */
   padding: 6px 10px 5px;
-  border-radius: 999px;
+  border-radius: var(--r-s);          /* DS border-radius-sm (2px) — the badge radius token */
   line-height: 1;
 }
 
