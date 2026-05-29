@@ -9,6 +9,12 @@
 .about{ color: var(--schwarz); }
 .about p{ line-height: var(--lh-body); margin: 0 0 1em; }
 
+/* Guard against sub-pixel / 100vw horizontal overflow (e.g. the shared
+   fixed mobile-nav overlay measures 100vw incl. scrollbar). `clip` kills
+   the stray horizontal scrollbar without creating a scroll container, so
+   the locations carousel and the sticky stories chrome keep working. */
+html, body{ overflow-x: clip; }
+
 /* On-dark variant of the homepage eyebrow */
 .eyebrow--on-dark{ color: rgba(255,255,255,.85); }
 
@@ -313,18 +319,11 @@ main.about .section-title i{
 }
 
 /* ─── Responsive ─── */
+/* Tablet + mobile: the split-screen needs full desktop width to breathe.
+   Below 1024px we stack copy over photo. Crucially, the desktop layout
+   absolutely-centers the copy inside a fixed-aspect column — so here we
+   return the copy to normal flow and let the column grow with its content. */
 @media (max-width: 1023px){
-  /* Tablet: tighter split (50 / 50). Padding handled by the single fluid
-     clamp on .about-hero__copy-col — no separate breakpoint override. */
-  .about-hero__primary{
-    grid-template-columns: 50% 50%;
-    aspect-ratio: 2 / 1;
-  }
-}
-
-@media (max-width: 768px){
-  /* Mobile: columns stack — copy on top of the building image,
-     each section gets full width and a comfortable height. */
   .about-hero__primary{
     display: grid;
     grid-template-columns: 1fr;
@@ -332,19 +331,41 @@ main.about .section-title i{
     aspect-ratio: auto;
   }
   .about-hero__copy-col{
-    padding-inline: clamp(var(--sp-6), 5vw, var(--sp-10));
-    padding-block: var(--sp-12);
+    padding-inline: clamp(var(--sp-6), 5vw, 64px);
+    padding-block: 0;
+    border-right: 0;
   }
-  .about-hero__photo-col{
-    aspect-ratio: 3 / 2;
-    padding: clamp(1rem, 4vw, 2rem);
-  }
-  .about-hero__photo{
-    object-position: center 35%;
+  .about-hero__copy{
+    position: static;
+    transform: none;
+    inset: auto;
+    padding-inline: 0;
+    padding-block: clamp(var(--sp-12), 8vw, var(--sp-16));
   }
   .about-hero h1{
-    font-size: clamp(32px, 8vw, 44px);
+    font-size: clamp(28px, 4.4vw, 40px);
     max-width: none;
+  }
+  .about-hero__photo-col{
+    aspect-ratio: 16 / 9;
+    padding: 0;
+  }
+  .about-hero__photo{ object-position: center 40%; }
+}
+
+@media (max-width: 767px){
+  .about-hero__photo-col{ aspect-ratio: 3 / 2; }
+  .about-hero__photo{ object-position: center 35%; }
+  .about-hero h1{ font-size: clamp(32px, 8vw, 44px); }
+  /* CTAs stack full-width — two German labels are too long to sit
+     side-by-side on a phone without truncating. */
+  .about-hero__ctas{
+    flex-direction: column;
+    margin-top: var(--sp-8);
+  }
+  .about-hero__ctas .btn{
+    flex: 1 1 auto;
+    width: 100%;
   }
 }
 
@@ -400,6 +421,31 @@ main.about .section-title i{
   color: rgba(0, 0, 0, 0.55);
   letter-spacing: 0.10em;
   text-transform: uppercase;
+}
+/* Trust strip — the wide 86px flex gap pushes the 6 stats off the row on
+   smaller screens. Same approach as the home page: a single-row swipeable
+   rail with peek + scroll-snap (no scrollbar) instead of a cramped grid. */
+@media (max-width: 1023px){
+  .about-truststrip__inner{
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: var(--sp-8);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;            /* Firefox */
+  }
+  .about-truststrip__inner::-webkit-scrollbar{ display: none; } /* Chrome/Safari */
+  .about-truststrip__stat{
+    flex: 0 0 22%;                    /* ~4 stats visible + a peek on tablet */
+    min-width: 120px;
+    scroll-snap-align: center;
+  }
+}
+@media (max-width: 767px){
+  .about-truststrip__inner{ gap: var(--sp-6); }
+  .about-truststrip__stat{ flex: 0 0 40%; } /* ~2.5 stats visible on mobile */
 }
 
 /* ============== SECTION 2 — STORY ============== */
@@ -609,12 +655,19 @@ main.about .section-title i{
   .ntv-dot.is-active::before{ animation: none; transform: scaleX(1); }
 }
 
-@media (max-width: 560px){
+@media (max-width: 767px){
   .ntv-carousel__meta{ flex-direction: column; align-items: flex-start; }
   .ntv-carousel__meta .about-caption{ width: 100%; }
 }
-.about-story__copy{ align-self: center; }
-.about-story__copy p{ font-size: var(--text-h4); }
+.about-story__copy{
+  align-self: center;
+  /* The carousel column is taller than the image alone by the meta strip
+     (counter/caption/dots) below it, so plain centering sits the copy ~25px
+     low relative to the photo. Offsetting by the strip height re-centers the
+     copy against the image itself. Reset when the grid stacks (≤1023px). */
+  margin-bottom: calc(42px + var(--sp-2));
+}
+.about-story__copy p:not(.eyebrow){ font-size: var(--text-h4); }
 /* Spacing rhythm — matched to the hero banner's chips → H1 → sub → CTAs.
    eyebrow → H2 = 20 px, H2 → sub = 20 px (same as banner's chips → H1 → sub). */
 .about .eyebrow{
@@ -821,8 +874,10 @@ main.about .section-title i{
   width: clamp(280px, 82%, 88%);
   max-width: 560px;
   margin-left: 12%;
-  aspect-ratio: 5 / 6;
-  max-height: 540px;
+  /* Taller portrait so its top edge tucks under the top detail image —
+     closes the white gap between the two collage photos on desktop. */
+  aspect-ratio: 3 / 4;
+  max-height: 600px;
   z-index: 3;
   border: 8px solid var(--white);
   border-bottom: 0;
@@ -921,7 +976,7 @@ main.about .section-title i{
   max-width: 64ch;
 }
 .about-editorial__tier--bottom .eyebrow{
-  color: rgba(255,255,255,0.55);
+  /* color override removed — inherits .about .eyebrow graphite for consistency */
 }
 .about-editorial__tier--bottom .section-title{
   color: var(--white);
@@ -952,7 +1007,7 @@ main.about .about-editorial__tier--bottom .section-title i{
 }
 
 /* ----- Responsive: stack on tablets ----- */
-@media (max-width: 1024px){
+@media (max-width: 1023px){
   .about-editorial__layout{
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -966,8 +1021,13 @@ main.about .about-editorial__tier--bottom .section-title i{
     aspect-ratio: 4 / 3.2;
     min-height: 0;
   }
+  /* Reset the desktop editorial offsets — once the layout is a single
+     column, the negative/positive tier margins push copy off-screen. */
+  .about-editorial__tier--top{ margin-left: 0; }
+  .about-editorial__tier--middle{ margin-left: 0; max-width: none; }
   .about-editorial__tier--bottom{
     padding-left: clamp(var(--sp-8), 4vw, var(--sp-12));
+    padding-right: clamp(var(--sp-8), 4vw, var(--sp-12));
   }
   .about-editorial__img--center{
     position: relative;
@@ -976,9 +1036,17 @@ main.about .about-editorial__tier--bottom .section-title i{
     align-self: auto;
     justify-self: stretch;
     width: 100%;
+    max-width: none;
     margin-left: 0;
     aspect-ratio: 4 / 5;
   }
+}
+/* Mobile: drop the overlapping top-detail image — at phone widths the
+   68%-wide absolute collage overlaps the portrait and reads as clutter. */
+@media (max-width: 767px){
+  .about-editorial__visuals{ aspect-ratio: 3 / 4; }
+  .about-editorial__img--top{ display: none; }
+  .about-editorial__img--center{ aspect-ratio: 3 / 4; }
 }
 
 /* ============== SECTION 7 — RESPONSIBILITY ============== */
@@ -1244,21 +1312,36 @@ main.about .about-editorial__tier--bottom .section-title i{
   line-height: 1;
 }
 
-/* Tablet: keep HQ anchored, satellite columns compress */
+/* Tablet + mobile: the 3D coverflow needs full desktop width (its arc
+   transforms push cards far past the viewport). Flatten it into a clipped
+   horizontal scroll-snap row — reset every data-pos transform/filter so
+   the cards sit upright. ~2 cards visible on tablet, 1 per swipe on phone. */
 @media (max-width: 1023px){
   .about-locations__grid{
-    grid-template-columns: 1.2fr 1fr 1fr;
+    justify-content: flex-start;
+    perspective: none;
+    gap: var(--sp-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline: clamp(var(--sp-6), 4vw, 24px);
+  }
+  .about-locations__grid::-webkit-scrollbar{ display: none; }
+  .about-locations__grid .about-loc,
+  .about-locations__grid .about-loc[data-pos]{
+    transform: none !important;
+    filter: none !important;
+    flex: 0 0 46%;
+    max-width: 360px;
+    scroll-snap-align: center;
   }
 }
-/* Mobile: HQ full-width on top, others 2×2 below */
-@media (max-width: 720px){
-  .about-locations__grid{
-    grid-template-columns: 1fr 1fr;
-  }
-  .about-loc--hq{
-    grid-column: 1 / -1;
-    grid-row: auto;
-    aspect-ratio: 16 / 11;
+@media (max-width: 767px){
+  .about-locations__grid .about-loc,
+  .about-locations__grid .about-loc[data-pos]{
+    flex: 0 0 78%;
+    max-width: 320px;
   }
 }
 
@@ -1533,8 +1616,17 @@ main.about .about-editorial__tier--bottom .section-title i{
 .msty__tab:hover .msty__tab-name{ color: var(--msty-fg); }
 .msty__tab:hover .msty__tab-num{ color: var(--msty-fg); }
 
-/* Mobile (≤768px): compact chrome */
-@media (max-width: 768px){
+/* Tablet (≤1023px): shrink the brand mark + tighten tab gaps so the
+   chrome row (brand + 3 chapter tabs) doesn't overflow horizontally. */
+@media (max-width: 1023px){
+  .msty__brand-title{ font-size: 24px; }
+  .msty__brand{ gap: 10px; }
+  .msty__tabs{ gap: 24px; }
+  .msty__tab{ min-width: 0; }
+  .msty__tab-track{ max-width: 48px; }
+}
+/* Mobile (≤767px): compact chrome — numbers only */
+@media (max-width: 767px){
   .msty__brand-title{ font-size: 18px; }
   .msty__brand-eyebrow{ display: none; }
   .msty__tabs{ gap: 14px; }
@@ -1744,16 +1836,18 @@ main.about .about-editorial__tier--bottom .section-title i{
   }
 }
 
-/* ─── Mobile (≤768px) ─── */
-@media (max-width: 768px){
+/* ─── Tablet + mobile (≤1023px): stack media over copy ─── */
+@media (max-width: 1023px){
   .msty__chapter-inner,
   .msty__chapter--flip .msty__chapter-inner{
     grid-template-columns: 1fr;
     gap: clamp(32px, 6vw, 48px);
+    min-height: 0;
   }
   .msty__chapter--flip .msty__media{ order: 1; }
   .msty__chapter--flip .msty__copy{ order: 2; }
-  .msty__media-frame{ aspect-ratio: 4 / 3; clip-path: inset(4%); }
+  .msty__media-frame{ aspect-ratio: 4 / 3; min-height: 0; clip-path: inset(4%); }
+  .msty__copy{ max-width: none; }
   .msty__progress{ max-width: 180px; }
   .msty__bar{ max-width: 56px; }
 }
@@ -2306,7 +2400,31 @@ END OF LEGACY DEAD CSS */
   /* Keep subtitle on one line on laptop+; allow wrap on mobile */
   white-space: nowrap;
 }
-@media (max-width: 768px){
+/* Tablet + mobile: 6 award badges don't fit in a clean row. Same approach
+   as the home page — a single-row swipeable rail with peek + scroll-snap
+   (no scrollbar). The hairline connector makes no sense in a scroller, so
+   hide it. */
+@media (max-width: 1023px){
+  .trustbar__rail{
+    display: flex;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: var(--sp-6);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;            /* Firefox */
+    padding-bottom: var(--sp-2);      /* room for the flip-card shadow */
+  }
+  .trustbar__rail::-webkit-scrollbar{ display: none; } /* Chrome/Safari */
+  .trustbar__rail::before{ display: none; }
+  .trustbar__item{
+    flex: 0 0 30%;                    /* ~3 badges visible + a peek on tablet */
+    min-width: 150px;
+    scroll-snap-align: center;
+    margin-bottom: 0;
+  }
   .trustbar__sub{ white-space: normal; }
 }
 
@@ -2331,46 +2449,14 @@ END OF LEGACY DEAD CSS */
   transform: translateX(-50%) scale(1.3);
 }
 
-/* Mobile: stack with timeline turning vertical */
-@media (max-width: 768px){
-  .trustbar__rail{
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .trustbar__rail::before{
-    top: 0;
-    bottom: 0;
-    left: 36px;
-    right: auto;
-    width: 1px;
-    height: auto;
-  }
+/* Mobile: same swipe rail, just narrower cards so one badge fills the
+   viewport with the next peeking in. Cards keep the vertical badge layout. */
+@media (max-width: 767px){
   .trustbar__item{
-    flex-direction: row;
-    align-items: center;
-    text-align: left;
-    gap: 20px;
-    padding: 18px 0;
-    margin-bottom: 0;
-    border-bottom: 1px solid var(--graphite-100);
+    flex: 0 0 62%;                    /* one badge + a peek of the next */
+    min-width: 180px;
   }
-  .trustbar__item:last-child{ border-bottom: 0; }
-  .trustbar__icon{
-    width: 56px;
-    height: 56px;
-    flex-shrink: 0;
-  }
-  .trustbar__icon img{ width: 32px; height: 32px; }
-  .trustbar__node{ display: none; }
-  .trustbar__title{ margin: 0; flex: 1; }
-  .trustbar__sub{
-    position: absolute;
-    bottom: 18px;
-    left: 76px;
-    margin: 0;
-    font-size: 11px;
-  }
-  /* On mobile, tap to flip — :active triggers the same flip as :hover.
+  /* Tap to flip — :active triggers the same flip as :hover on desktop.
      User taps badge → flips to context; taps again → flips back. */
   .trustbar__item:active .trustbar__face--front{ transform: rotateY(-180deg); }
   .trustbar__item:active .trustbar__face--back{ transform: rotateY(0deg); }
@@ -2439,10 +2525,11 @@ END OF LEGACY DEAD CSS */
 .news__form{
   display: flex;
   gap: 12px;
-  max-width: 520px;
+  max-width: 720px;
   margin: 0 auto clamp(20px, 2vw, 28px);
   align-items: stretch;
 }
+.news__submit{ flex-shrink: 0; }
 .news__field{
   flex: 1;
   position: relative;
@@ -2495,9 +2582,10 @@ END OF LEGACY DEAD CSS */
 }
 
 /* Mobile — stack form */
-@media (max-width: 560px){
+@media (max-width: 767px){
   .news__form{ flex-direction: column; gap: 10px; }
   .news__submit{ width: 100%; justify-content: center; }
+  .news__input{ width: 100%; }
 }
 
 /* ============== SECTION 10 — CLOSING ============== */
@@ -2598,7 +2686,7 @@ END OF LEGACY DEAD CSS */
   background: var(--teal);
   opacity: 0.65;
 }
-@media (max-width: 720px){
+@media (max-width: 767px){
   .contact-strip__inner{
     flex-direction: column;
     align-items: flex-start;
@@ -2687,26 +2775,33 @@ END OF LEGACY DEAD CSS */
   max-width: none;
 }
 
-/* ============== RESPONSIVE ============== */
-@media (max-width: 960px){
-  .about-story__grid,
-  .about-bespoke__grid,
-  .about-engineering__grid{ grid-template-columns: 1fr; }
-  .about-pillars__grid{ grid-template-columns: 1fr; gap: var(--sp-10); }
-  .about-bento{ grid-template-columns: 1fr; }
-  .about-bento-secondary{ grid-template-columns: repeat(3, 1fr); }
-  .about-timeline{ grid-template-columns: 1fr; gap: var(--sp-5); }
-  .about-place__stats{ grid-template-columns: repeat(2, 1fr); }
-  .about-place__hero{ aspect-ratio: 16 / 10; }
-  .about-timeline::before{ display: none; }
-  .about-locations__grid{ grid-template-columns: repeat(2, 1fr); }
-  .about-numbers{ grid-template-columns: repeat(2, 1fr); }
-  .about-award-hero__years{ font-size: var(--text-h4); gap: var(--sp-5); }
-  .about-testimonials{ grid-template-columns: 1fr; }
-  .about-awards{ grid-template-columns: repeat(2, 1fr); gap: var(--sp-8); }
+/* ============== RESPONSIVE — grid collapses (contract: ≤1023 tablet, ≤767 mobile) ============== */
+@media (max-width: 1023px){
+  /* Story: carousel + copy stack into one column. minmax(0,1fr) lets the
+     track shrink below the carousel's intrinsic min-content width (a 1fr
+     track defaults to minmax(auto,1fr) and would otherwise blow out). */
+  .about-story__grid{
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(var(--sp-8), 4vw, var(--sp-12));
+  }
+  /* Stacked layout — drop the image-centering offset */
+  .about-story__copy{ margin-bottom: 0; }
+  /* Pillars: stay 3-up on tablet, just tighten the gutter */
+  .about-pillars__grid{ gap: clamp(var(--sp-6), 3vw, var(--sp-10)); }
 }
-@media (max-width: 520px){
-  .about-bento-secondary{ grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 767px){
+  /* Pillars: one column on phones */
+  .about-pillars__grid{ grid-template-columns: 1fr; gap: var(--sp-10); }
+}
+/* Shared footer: the 10-item legal-link row is flex:nowrap and overflows
+   the viewport below desktop width, forcing a page-wide horizontal
+   scrollbar. Let it wrap (scoped to this page's stylesheet). */
+@media (max-width: 1023px){
+  .footer__legal-links{
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-2) var(--sp-5);
+  }
 }
 
 /* ============== HERO V2 — full-bleed banner with overlay copy ==============
@@ -2717,9 +2812,9 @@ END OF LEGACY DEAD CSS */
 .about-hero-v2{
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 7;
-  min-height: 480px;
-  max-height: 760px;
+  aspect-ratio: 2 / 1;
+  min-height: 420px;
+  max-height: 560px;
   overflow: hidden;
   background: #1A171B;
 }
@@ -2729,7 +2824,7 @@ END OF LEGACY DEAD CSS */
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center 50%;
   display: block;
   z-index: 0;
 }
@@ -2739,8 +2834,8 @@ END OF LEGACY DEAD CSS */
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.38) 38%, rgba(0,0,0,0.10) 70%, rgba(0,0,0,0) 100%),
-    linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.30) 100%);
+    linear-gradient(90deg, rgba(10,10,12,0.66) 0%, rgba(10,10,12,0.40) 34%, rgba(10,10,12,0.08) 66%, rgba(10,10,12,0) 100%),
+    linear-gradient(180deg, rgba(10,10,12,0) 45%, rgba(10,10,12,0.18) 75%, rgba(10,10,12,0.52) 100%);
 }
 .about-hero-v2__copy{
   position: absolute;
@@ -2752,11 +2847,12 @@ END OF LEGACY DEAD CSS */
 }
 .about-hero-v2__title{
   margin: 0;
-  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  font-size: clamp(1.9rem, 3.8vw, 3.1rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   max-width: 16ch;
+  text-shadow: 0 1px 24px rgba(0,0,0,0.35);
 }
 .about-hero-v2__title i{
   font-style: italic;

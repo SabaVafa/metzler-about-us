@@ -13,7 +13,13 @@
       "Bash(gh auth *)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(gh repo *)",
+      "Bash(mkdir -p \"C:/Users/s.vafakhah/.claude/projects/C--Users-s-vafakhah-Desktop-About-us/memory/\" && ls -la \"C:/Users/s.vafakhah/.claude/projects/C--Users-s-vafakhah-Desktop-About-us/memory/\" 2>&1)",
+      "Bash(git push *)",
+      "Bash(awk '/<section class=\"trustbar/,/<\\\\/section>/{print NR\": \"$0; if\\(/<\\\\/section>/\\) exit}' \"C:/Users/s.vafakhah/Desktop/About us/index.html\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git commit -m 'fix: 3 audit errors + add v2 banner experiment *)"
     ]
   }
 }
