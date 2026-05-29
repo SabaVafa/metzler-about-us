@@ -2708,3 +2708,86 @@ END OF LEGACY DEAD CSS */
 @media (max-width: 520px){
   .about-bento-secondary{ grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ============== HERO V2 — full-bleed banner with overlay copy ==============
+   Used by index-v2.html only. Modeled on the Clearcover hero pattern:
+   single edge-to-edge photo, white text overlaid in the lower-left third,
+   thin teal rule between headline and sub-paragraph.
+   Does NOT touch the existing .about-hero rules. */
+.about-hero-v2{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  min-height: 480px;
+  max-height: 760px;
+  overflow: hidden;
+  background: #1A171B;
+}
+.about-hero-v2__photo{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+  z-index: 0;
+}
+/* Soft dark scrim — heavier on the left where the copy sits, fading right */
+.about-hero-v2__scrim{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.38) 38%, rgba(0,0,0,0.10) 70%, rgba(0,0,0,0) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.30) 100%);
+}
+.about-hero-v2__copy{
+  position: absolute;
+  left: 0; right: 0;
+  bottom: clamp(48px, 7vw, 96px);
+  z-index: 2;
+  color: var(--white);
+  max-width: var(--container);
+}
+.about-hero-v2__title{
+  margin: 0;
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  max-width: 16ch;
+}
+.about-hero-v2__title i{
+  font-style: italic;
+  font-weight: 700;
+  color: var(--white);
+}
+/* Thin horizontal teal rule between headline and sub — the Clearcover signature */
+.about-hero-v2__rule{
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--teal);
+  margin: clamp(20px, 2vw, 28px) 0 clamp(20px, 1.6vw, 24px);
+}
+.about-hero-v2__sub{
+  margin: 0;
+  max-width: 56ch;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.55;
+  color: rgba(255,255,255,0.92);
+}
+
+@media (max-width: 768px){
+  .about-hero-v2{
+    aspect-ratio: 4 / 5;
+    min-height: 520px;
+  }
+  .about-hero-v2__title{ max-width: 14ch; }
+  .about-hero-v2__sub{ max-width: 38ch; }
+  .about-hero-v2__scrim{
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.20) 35%, rgba(0,0,0,0.72) 100%);
+  }
+}
