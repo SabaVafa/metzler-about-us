@@ -281,12 +281,14 @@ main.about .section-title i{
 /* Secondary CTA polish — over the new anthracite, tweak the inset border
    to a subtle off-white (rgba) instead of pure white. Reads sharper and
    more premium than a flat white outline. Crisp 1.5 px stroke retained. */
-.about-hero .hero-banner__cta--secondary{
+.about-hero .hero-banner__cta--secondary,
+.about-hero-v2 .hero-banner__cta--secondary{
   color: #fff;
   box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.78);
   transition: box-shadow 0.18s ease, background 0.18s ease;
 }
-.about-hero .hero-banner__cta--secondary:hover{
+.about-hero .hero-banner__cta--secondary:hover,
+.about-hero-v2 .hero-banner__cta--secondary:hover{
   background: rgba(255, 255, 255, 0.10);
   box-shadow: inset 0 0 0 1.5px #fff;
 }
@@ -302,11 +304,13 @@ main.about .section-title i{
 /* Secondary CTA on the hero — transparent black tint instead of the
    homepage's fully-transparent default. Adds contrast against the photo
    while keeping the button visually "secondary". */
-.about-hero .hero-banner__cta--secondary{
+.about-hero .hero-banner__cta--secondary,
+.about-hero-v2 .hero-banner__cta--secondary{
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(2px);
 }
-.about-hero .hero-banner__cta--secondary:hover{
+.about-hero .hero-banner__cta--secondary:hover,
+.about-hero-v2 .hero-banner__cta--secondary:hover{
   background: rgba(0, 0, 0, 0.50);
 }
 
@@ -349,6 +353,7 @@ main.about .section-title i{
   .about-hero__photo-col{
     aspect-ratio: 16 / 9;
     padding: 0;
+    order: -1;            /* photo on top, copy below, when stacked */
   }
   .about-hero__photo{ object-position: center 40%; }
 }
@@ -357,6 +362,8 @@ main.about .section-title i{
   .about-hero__photo-col{ aspect-ratio: 3 / 2; }
   .about-hero__photo{ object-position: center 35%; }
   .about-hero h1{ font-size: clamp(32px, 8vw, 44px); }
+  /* Drop the desktop hard line break — let the sub wrap naturally on phones */
+  .about-hero__sub br{ display: none; }
   /* CTAs stack full-width — two German labels are too long to sit
      side-by-side on a phone without truncating. */
   .about-hero__ctas{
@@ -444,7 +451,7 @@ main.about .section-title i{
   }
 }
 @media (max-width: 767px){
-  .about-truststrip__inner{ gap: var(--sp-6); }
+  .about-truststrip__inner{ gap: var(--sp-3); }
   .about-truststrip__stat{ flex: 0 0 40%; } /* ~2.5 stats visible on mobile */
 }
 
@@ -656,8 +663,31 @@ main.about .section-title i{
 }
 
 @media (max-width: 767px){
-  .ntv-carousel__meta{ flex-direction: column; align-items: flex-start; }
-  .ntv-carousel__meta .about-caption{ width: 100%; }
+  /* Caption text sits on its own line on top; the counter (pagination) drops
+     onto the same row as the dots (progress bar). display:contents lets the
+     counter + text escape .about-caption into this grid. */
+  .ntv-carousel__meta{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "title   title"
+      "counter dots";
+    align-items: center;
+    row-gap: var(--sp-2);
+    column-gap: var(--sp-3);
+  }
+  .ntv-carousel__meta .about-caption{ display: contents; }
+  .ntv-caption-text{ grid-area: title; }
+  .ntv-counter{ grid-area: counter; }
+  .ntv-carousel__dots{ grid-area: dots; justify-self: end; }
+  /* Shrink the floating event badge so it doesn't crowd the photo */
+  .ntv-event-label{
+    top: var(--sp-3);
+    left: var(--sp-3);
+    padding: 4px 8px;
+    font-size: 9px;
+    letter-spacing: 0.10em;
+  }
 }
 .about-story__copy{
   align-self: center;
@@ -926,6 +956,7 @@ main.about .section-title i{
 .about-editorial__tier--middle .section-title{
   font-size: clamp(1.5rem, 2.2vw, 2.2rem);
   line-height: 1.15;
+  white-space: nowrap;   /* keep "CO₂-neutral - unser Ziel bis 2030" on one line */
 }
 .about-editorial__tier--top p{
   font-size: var(--text-body-sm);
@@ -1025,6 +1056,7 @@ main.about .about-editorial__tier--bottom .section-title i{
      column, the negative/positive tier margins push copy off-screen. */
   .about-editorial__tier--top{ margin-left: 0; }
   .about-editorial__tier--middle{ margin-left: 0; max-width: none; }
+  .about-editorial__tier--middle .section-title{ white-space: normal; }
   .about-editorial__tier--bottom{
     padding-left: clamp(var(--sp-8), 4vw, var(--sp-12));
     padding-right: clamp(var(--sp-8), 4vw, var(--sp-12));
@@ -1044,9 +1076,36 @@ main.about .about-editorial__tier--bottom .section-title i{
 /* Mobile: drop the overlapping top-detail image — at phone widths the
    68%-wide absolute collage overlaps the portrait and reads as clutter. */
 @media (max-width: 767px){
-  .about-editorial__visuals{ aspect-ratio: 3 / 4; }
-  .about-editorial__img--top{ display: none; }
-  .about-editorial__img--center{ aspect-ratio: 3 / 4; }
+  /* Phones: the desktop overlap-collage doesn't fit, so lay the whole section
+     out as a simple stacked column and pair each half with one photo — the
+     top-detail image leads, the center portrait sits with the technical
+     (KONSTRUKTION) tier so that block keeps its image too. */
+  .about-editorial__layout{
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-10);
+  }
+  .about-editorial__visuals{
+    display: block;
+    order: 1;
+    aspect-ratio: auto;       /* size to the image, not an empty reserved box */
+    min-height: 0;
+  }
+  .about-editorial__img--top{
+    display: block;
+    position: relative;       /* leave absolute-overlap mode → normal flow */
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+  .about-editorial__top-stack{ order: 2; }
+  .about-editorial__img--center{
+    order: 3;
+    aspect-ratio: 3 / 4;
+    /* Standalone now (not anchored to the dark block) — restore full frame */
+    border-bottom: 8px solid var(--white);
+    border-radius: var(--r-l);
+  }
+  .about-editorial__tier--bottom{ order: 4; }
 }
 
 /* ============== SECTION 7 — RESPONSIBILITY ============== */
@@ -2326,7 +2385,10 @@ END OF LEGACY DEAD CSS */
   transition: transform 600ms cubic-bezier(.2, .7, .2, 1),
               box-shadow 320ms ease,
               border-color 320ms ease;
-  transform-style: preserve-3d;
+  /* No preserve-3d here: the faces are flat leaves, and forcing a 3D context
+     made Chrome rasterize them at CSS-pixel size (blurring the detailed NTV
+     seal on hi-DPI screens). The parent's perspective + backface-visibility
+     still drive the flip. */
 }
 .trustbar__face--front{
   z-index: 2;
@@ -2452,9 +2514,13 @@ END OF LEGACY DEAD CSS */
 /* Mobile: same swipe rail, just narrower cards so one badge fills the
    viewport with the next peeking in. Cards keep the vertical badge layout. */
 @media (max-width: 767px){
+  .trustbar__rail{ gap: var(--sp-2); }
   .trustbar__item{
-    flex: 0 0 62%;                    /* one badge + a peek of the next */
-    min-width: 180px;
+    /* Narrower cards + minimal side padding pull the centered badges close
+       together (most of the old gap was empty card width, not the flex gap). */
+    flex: 0 0 44%;
+    min-width: 150px;
+    padding-inline: 2px;
   }
   /* Tap to flip — :active triggers the same flip as :hover on desktop.
      User taps badge → flips to context; taps again → flips back. */
@@ -2834,31 +2900,38 @@ END OF LEGACY DEAD CSS */
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(10,10,12,0.66) 0%, rgba(10,10,12,0.40) 34%, rgba(10,10,12,0.08) 66%, rgba(10,10,12,0) 100%),
-    linear-gradient(180deg, rgba(10,10,12,0) 45%, rgba(10,10,12,0.18) 75%, rgba(10,10,12,0.52) 100%);
+    linear-gradient(90deg, rgba(10,10,12,0.82) 0%, rgba(10,10,12,0.70) 30%, rgba(10,10,12,0.46) 52%, rgba(10,10,12,0.16) 74%, rgba(10,10,12,0) 100%),
+    linear-gradient(180deg, rgba(10,10,12,0) 40%, rgba(10,10,12,0.22) 72%, rgba(10,10,12,0.58) 100%);
 }
 .about-hero-v2__copy{
   position: absolute;
   left: 0; right: 0;
-  bottom: clamp(48px, 7vw, 96px);
+  /* Vertically centered in the banner */
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
   z-index: 2;
   color: var(--white);
   max-width: var(--container);
+  /* Inherit the standard .container inset so the copy lines up with the rest
+     of the page margin (nav, trust strip, sections) — no custom padding. */
 }
+/* Match the V1 hero h1 exactly (same scale/leading/tracking) */
 .about-hero-v2__title{
-  margin: 0;
-  font-size: clamp(1.9rem, 3.8vw, 3.1rem);
+  margin: 0 0 var(--sp-8);
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
   font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  max-width: 16ch;
-  text-shadow: 0 1px 24px rgba(0,0,0,0.35);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--white);
 }
 .about-hero-v2__title i{
   font-style: italic;
   font-weight: 700;
   color: var(--white);
 }
+/* Keep the CTA pair sized like V1's column rather than the full banner width */
+.about-hero-v2 .about-hero__ctas{ max-width: 480px; }
 /* Thin horizontal teal rule between headline and sub — the Clearcover signature */
 .about-hero-v2__rule{
   display: block;
@@ -2869,10 +2942,11 @@ END OF LEGACY DEAD CSS */
 }
 .about-hero-v2__sub{
   margin: 0;
-  max-width: 56ch;
+  max-width: 60ch;
   font-size: clamp(1rem, 1.2vw, 1.125rem);
   line-height: 1.55;
-  color: rgba(255,255,255,0.92);
+  color: #fff;
+  text-shadow: 0 1px 16px rgba(0,0,0,0.55);
 }
 
 @media (max-width: 768px){
