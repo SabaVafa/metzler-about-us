@@ -250,15 +250,15 @@ main.about .section-title i{
 .about-hero__ctas{
   margin-top: var(--sp-10);
   display: flex;
-  gap: var(--sp-6);
+  gap: var(--sp-4);   /* matches .hero-banner__chips gap above */
   flex-wrap: wrap;
 }
 .about-hero__ctas .btn{
-  width: auto;
-  min-width: 0;
   box-sizing: border-box;
-  /* Use the base .btn padding so the two CTAs fit side-by-side
-     across viewports without wrapping. */
+  /* Equal width: both CTAs grow to fill the same flex-basis,
+     so they read as a balanced pair regardless of label length. */
+  flex: 1 1 0;
+  min-width: 0;
 }
 /* Arrow icon inside the primary CTA — sized to match the homepage's
    .btn-arrow svg rule but explicit here so it works regardless of cascade. */
