@@ -2673,7 +2673,9 @@ END OF LEGACY DEAD CSS */
 
 /* ============== SECTION 10 — CLOSING ============== */
 .about-closing{
-  background: var(--about-bg-soft);
+  /* White so the section rhythm keeps alternating after the (gray) newsletter
+     — reviews(W) → newsletter(G) → closing(W) → footer. */
+  background: var(--white);
   color: var(--schwarz);
   text-align: center;
 }
