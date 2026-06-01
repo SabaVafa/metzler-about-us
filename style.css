@@ -36,9 +36,11 @@ html, body{ overflow-x: clip; }
    Every odd (white) section is a brand statement;
    every even (soft) section is its supporting voice/proof.
    ───────────────────────────────────────────────────────── */
-/* Soft (gray) sections — Story, Trustbar, Stories, Newsletter, Closing */
-main.about .about-story,
+/* Soft (gray) sections — keep the white/gray rhythm alternating now that the
+   trustbar sits up top (hero W → trust strip W → trustbar G → story W →
+   pillars G → editorial W → …). */
 main.about .trustbar,
+main.about .about-pillars,
 main.about .news{ background: var(--about-bg-soft); }
 /* Reviews — flip BACK to white (statement of trust) */
 main.about .reviews{ background: var(--about-bg-white); }
