@@ -470,7 +470,7 @@
           <div class="msty__media-frame">
             <img src="images/metzler-tuersprechanlage-mit-kamera-gesichtserkennung-touch-display-live-hd-video-ein-und-mehrfamilien-sdm10x~7.webp" alt="Metzler SDM10X Türsprechanlage mit Kamera, Gesichtserkennung und Touch-Display, Familie Keller, Hamburg" />
           </div>
-          <span class="msty__media-tag">01 — Hamburg</span>
+          <span class="msty__media-tag">Hamburg</span>
         </div>
         <div class="msty__copy">
           <p class="msty__location-line">Hamburg · Bestellung 2018</p>
@@ -495,7 +495,7 @@
           <div class="msty__media-frame">
             <img src="images/metzler-briefkasten-mit-lasergravur-hermann~10.webp" alt="Metzler Briefkasten mit Lasergravur, Hermann" />
           </div>
-          <span class="msty__media-tag">02 — München</span>
+          <span class="msty__media-tag">München</span>
         </div>
         <div class="msty__copy">
           <p class="msty__location-line">München · Bestellung 2025</p>
@@ -520,7 +520,7 @@
           <div class="msty__media-frame">
             <img src="images/metzler-paketbox-mit-briefkasten-personalisiert-mit-gravur-edelstahl-namensschild-mit-briefeinwurf-bispo-2~30.webp" alt="Paketbox mit Briefkasten und Edelstahl-Gravur, Familie Brunner, Stuttgart" />
           </div>
-          <span class="msty__media-tag">03 — Stuttgart</span>
+          <span class="msty__media-tag">Stuttgart</span>
         </div>
         <div class="msty__copy">
           <p class="msty__location-line">Stuttgart · Bestellung 2024</p>
@@ -1044,15 +1044,15 @@
     const chapters = section.querySelectorAll('.msty__chapter');
     const tabs     = section.querySelectorAll('.msty__tab');
 
-    // Reduced-motion fallback: reveal everything, skip GSAP entirely
+    // Reduced motion only suppresses the entrance/parallax animations — the
+    // chrome pinning + tab tracking below must still run (it's layout, not motion).
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced){
-      chapters.forEach(c => c.classList.add('is-visible'));
-      return;
-    }
 
-    // Entrance: reveal each chapter when it enters viewport (CSS transitions own the animation)
-    if ('IntersectionObserver' in window){
+    // Entrance: reveal each chapter when it enters viewport (CSS transitions own
+    // the animation). Under reduced motion / no IO support, reveal immediately.
+    if (reduced || !('IntersectionObserver' in window)){
+      chapters.forEach(c => c.classList.add('is-visible'));
+    } else {
       const enterObs = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting){
@@ -1062,8 +1062,6 @@
         });
       }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
       chapters.forEach(c => enterObs.observe(c));
-    } else {
-      chapters.forEach(c => c.classList.add('is-visible'));
     }
 
     // Active chapter for chrome — update tab states (past / active / future)
@@ -1142,8 +1140,8 @@
       chapters.forEach(c => activeObs.observe(c));
     }
 
-    // Image parallax — image translates slightly slower than scroll
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
+    // Image parallax — image translates slightly slower than scroll (skip under reduced motion)
+    if (!reduced && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
       gsap.registerPlugin(ScrollTrigger);
       chapters.forEach(chapter => {
         const img = chapter.querySelector('.msty__media-frame img');

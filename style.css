@@ -1615,20 +1615,10 @@ main.about .about-editorial__tier--bottom .section-title i{
   position: relative;
   transition: transform 320ms cubic-bezier(.2, .7, .2, 1);
 }
-.msty__tab-num{
-  grid-row: 1;
-  grid-column: 1;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--msty-muted);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-  transition: color 320ms ease;
-}
+.msty__tab-num{ display: none; }   /* numbers removed from the chapter tabs */
 .msty__tab-name{
   grid-row: 1;
-  grid-column: 2;
+  grid-column: 1 / -1;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -1684,15 +1674,21 @@ main.about .about-editorial__tier--bottom .section-title i{
   .msty__tab{ min-width: 0; }
   .msty__tab-track{ max-width: 48px; }
 }
-/* Mobile (≤767px): compact chrome — numbers only */
+/* Mobile (≤767px): compact chrome — show the city names (numbers removed) */
 @media (max-width: 767px){
   .msty__brand-title{ font-size: 18px; }
   .msty__brand-eyebrow{ display: none; }
-  .msty__tabs{ gap: 14px; }
-  .msty__tab{ min-width: 0; }
-  .msty__tab-name{ display: none; } /* Only show numbers on small screens */
-  .msty__tab-num{ font-size: 12px; }
-  .msty__tab-track{ max-width: 32px; }
+  .msty__tabs{ gap: 22px; align-items: center; }
+  .msty__tab{ min-width: 0; padding-bottom: 0; }
+  .msty__tab-name{ display: block; font-size: 10px; letter-spacing: 0.04em; }
+  /* Take the underline out of flow so the name itself centers on the title */
+  .msty__tab-track{
+    max-width: 32px;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    margin-top: 0;
+  }
 }
 
 /* ─── Chapter (one story = one composed scene) ─── */
