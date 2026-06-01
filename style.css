@@ -187,6 +187,10 @@ main.about .section-title i{
   flex-direction: column;
   gap: var(--sp-1);
   margin-block: 0;
+  /* Cap the copy width so on wide screens the text fills its measure and the
+     equal-width CTAs stay proportional to it (instead of stretching the full
+     column and reading as loose, stacked rows). */
+  max-width: 540px;
 }
 .about-hero__copy > *{ margin: 0; }
 .about-hero__copy h1{
@@ -322,6 +326,18 @@ main.about .section-title i{
   box-shadow: 0 0 0 5px rgba(0, 109, 117, 0.55);
 }
 
+/* Large screens: drive the copy's vertical rhythm with explicit, even spacing
+   (instead of the mix of inherited margins that reads as a misaligned stack).
+   Equal gaps between headline / chips / sub, with a slightly larger gap before
+   the action buttons so they group as the call-to-action. */
+@media (min-width: 1536px){
+  .about-hero__copy{ gap: 0; }
+  .about-hero__copy h1{ margin: 0 0 30px; }
+  .about-hero__copy .about-hero__chips{ margin: 0 0 30px; }
+  .about-hero__copy .about-hero__sub{ margin: 0 0 44px; }
+  .about-hero__ctas{ margin-top: 0; }
+}
+
 /* ─── Responsive ─── */
 /* Tablet + mobile: the split-screen needs full desktop width to breathe.
    Below 1024px we stack copy over photo. Crucially, the desktop layout
@@ -345,6 +361,7 @@ main.about .section-title i{
     inset: auto;
     padding-inline: 0;
     padding-block: clamp(var(--sp-12), 8vw, var(--sp-16));
+    max-width: none;
   }
   .about-hero h1{
     font-size: clamp(28px, 4.4vw, 40px);
@@ -883,6 +900,10 @@ main.about .section-title i{
   top: 0;
   left: 0;
   width: 68%;
+  /* Cap the size so it stops growing past the container's mid widths — the
+     center portrait is height-capped (600px), so an unbounded top image would
+     keep dropping lower and over-overlap the portrait on large screens. */
+  max-width: 380px;
   aspect-ratio: 4 / 3;
   z-index: 1;
   /* Match the center image's white frame so both photos read as a pair */

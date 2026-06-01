@@ -122,27 +122,23 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   padding-inline: clamp(var(--sp-6), 4vw, 56px);
 }
 
-/* Laptop+ (≥1440): widen container + larger gutters */
+/* Laptop+ (≥1440): slightly larger gutters, but cap the content width so the
+   grid doesn't stretch out and leave sparse gaps in rows (nav, stats, etc.). */
 @media (min-width: 1440px) {
-  :root { --container: 1560px; }
+  :root { --container: 1440px; }
   .container { padding-inline: clamp(92px, 5vw, 116px); }
 }
 
-/* Large desktop (≥1920): widen further, generous gutters */
+/* Large desktop (≥1920): hold the cap — content stays dense and centered,
+   with the extra width becoming comfortable side margins rather than stretch. */
 @media (min-width: 1920px) {
-  :root { --container: 1760px; }
+  :root { --container: 1440px; }
   .container { padding-inline: clamp(92px, 5vw, 140px); }
 }
 
-/* Ultra-wide (≥2560): cap so content doesn't sprawl */
+/* Ultra-wide (≥2560): a touch wider, still capped well short of sprawling. */
 @media (min-width: 2560px) {
-  :root { --container: 2040px; }
-}
-
-/* Presentation-monitor (≥3000): a hair more breathing room without
-   breaking comfortable reading line-lengths. */
-@media (min-width: 3000px) {
-  :root { --container: 2200px; }
+  :root { --container: 1600px; }
 }
 .section { padding-block: var(--section-y); }
 .eyebrow {
