@@ -247,7 +247,7 @@
           <p class="trustbar__sub">Vergleich.org</p>
         </li>
 
-        <li class="trustbar__item" tabindex="0">
+        <li class="trustbar__item trustbar__item--link" tabindex="0" role="link" data-scroll="#sicherheit" aria-label="Red Dot Winner 2026 — zur ausgezeichneten XDM10">
           <div class="trustbar__icon">
             <div class="trustbar__face trustbar__face--front">
               <img src="Trust%20badges/Reddot2.svg" alt="Red Dot Winner 2026" />
@@ -256,6 +256,9 @@
               <strong>Internationale Jury</strong>
               <span>Kategorie Product Design</span>
             </div>
+            <span class="trustbar__goto" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
           </div>
           <span class="trustbar__node" aria-hidden="true"></span>
           <h3 class="trustbar__title">Red Dot Winner 2026</h3>
@@ -349,8 +352,7 @@
         <h2 class="section-title">Deutschlands beliebtester Anbieter für Briefkästen - <i>bereits das vierte Jahr in Folge</i></h2>
         <p class="section-sub">Metzler wurde in einer repräsentativen Umfrage von rund 50.000 Befragten im Auftrag von ntv, durchgeführt vom Deutschen Institut für Servicequalität, erneut zu Deutschlands beliebtestem Anbieter im Bereich Briefkästen gewählt — bereits das vierte Jahr in Folge.</p>
         <div class="about-story__ctas">
-          <a href="#" class="btn btn-primary">Briefkästen entdecken</a>
-          <a href="#" class="btn btn-secondary">Mehr erfahren</a>
+          <a href="#" class="about-story__link">Briefkästen entdecken</a>
         </div>
       </div>
     </div>
@@ -382,157 +384,120 @@
   </section>
 
 
-  <!-- SECTIONS 5 + 6 — EDITORIAL ASYMMETRIC LAYOUT
-       Left: 2 overlapping images. Right: 2 stacked text tiers, the bottom one a dark block. -->
-  <section class="about-editorial section">
-    <div class="container about-editorial__layout">
+  <!-- SECTIONS 5 + 6 — CRAFT NARRATIVE
+       Same editorial chapter design as Metzler Stories: tall two-column scenes
+       (framed image + tag · big two-line headline · body), alternating sides,
+       on one unified white canvas. -->
+  <section class="about-craft section" aria-label="Maßanfertigung, Nachhaltigkeit und Konstruktion">
 
-      <!-- Top-left small detail image -->
-      <div class="about-editorial__visuals" aria-hidden="false">
-        <figure class="about-editorial__img about-editorial__img--top">
-          <img src="images/T%C3%BCrklingel.jpg" alt="Edelstahl-Türklingel, gefertigt in Reutlingen" />
-        </figure>
-      </div>
-
-      <!-- Center large image — spans visuals + dark block rows, anchored to bottom -->
-      <figure class="about-editorial__img about-editorial__img--center">
-        <img src="images/metzler-paketbox-xl-mit-briefkasten-paketkasten-rostfrei-personalisiert-mit-gravur-bispo-max-2~6.webp" alt="Metzler Paketbox XL mit personalisierter Gravur" />
-      </figure>
-
-      <!-- Right column: stacked text tiers (top + middle) -->
-      <div class="about-editorial__top-stack">
-        <div class="about-editorial__tier about-editorial__tier--top">
-          <p class="eyebrow">MASSANFERTIGUNG</p>
-          <h2 class="section-title">Ein Eingang ist nicht irgendeiner - er ist <i>Ihrer</i></h2>
-          <p>Jedes Produkt wird nach Ihren Vorgaben konfiguriert — Abmessungen, Beschriftung, Schriftart, Ziffern, Tasteranzahl und Beleuchtung. Die Konstruktionszeichnung erstellen unsere Ingenieure in Reutlingen.</p>
-        </div>
-
-        <div class="about-editorial__tier about-editorial__tier--middle">
-          <p class="eyebrow">NACHHALTIGKEIT</p>
-          <h2 class="section-title">CO₂-neutral - <i>unser Ziel bis 2030</i></h2>
-          <p>Bis 2030 fertigen wir vollständig CO₂-neutral. Eine 68-kW-Solaranlage deckt schon heute über 50&nbsp;% unseres Fertigungsstroms — und Ihre Pakete versenden wir klimaneutral mit DHL&nbsp;GoGreen und DPD.</p>
-        </div>
-      </div>
-
-      <!-- Bottom dark tier — spans both columns, anchors the composition -->
-      <div class="about-editorial__tier about-editorial__tier--bottom">
-        <p class="eyebrow">KONSTRUKTION</p>
-        <h2 class="section-title">500 Patente - <i>nichts, das wieder kaputt geht</i></h2>
-        <p>Über 500 eingetragene Patente und Designs entstammen unserer Konstruktionsabteilung in Reutlingen. Daraus resultieren 10&nbsp;Jahre Herstellergarantie auf Edelstahl-Produkte sowie 10&nbsp;Jahre Ersatzteilverfügbarkeit auf Elektronik.</p>
-        <a href="#" class="btn btn-secondary-light">Mehr über unsere Technik</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 9 - METZLER STORIES (anchored chapters with image parallax) -->
-  <section class="msty" aria-label="Metzler Stories">
-
-    <!-- Sentinel — used to detect when the section enters/leaves the viewport -->
+    <!-- Sentinel — detects when the section enters/leaves the viewport -->
     <div class="msty__sentinel" aria-hidden="true"></div>
 
-    <!-- Sticky chrome — editorial chapter index -->
-    <header class="msty__chrome">
+    <!-- Sticky chrome — same chapter index as Metzler Stories -->
+    <header class="msty__chrome craft-chrome">
       <div class="container msty__chrome-inner">
-
-        <!-- Brand mark — left -->
         <div class="msty__brand">
           <span class="msty__brand-eyebrow">Metzler</span>
-          <span class="msty__brand-title">Stories</span>
+          <span class="msty__brand-title">Manufaktur</span>
         </div>
-
-        <!-- Chapter tabs — right -->
-        <nav class="msty__tabs" aria-label="Geschichten">
+        <nav class="msty__tabs" aria-label="Kapitel">
           <a class="msty__tab is-active" href="#" data-tab="0">
-            <span class="msty__tab-num">01</span>
-            <span class="msty__tab-name">Hamburg</span>
+            <span class="msty__tab-name">Maßanfertigung</span>
             <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
           </a>
           <a class="msty__tab" href="#" data-tab="1">
-            <span class="msty__tab-num">02</span>
-            <span class="msty__tab-name">München</span>
+            <span class="msty__tab-name">Nachhaltigkeit</span>
             <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
           </a>
           <a class="msty__tab" href="#" data-tab="2">
-            <span class="msty__tab-num">03</span>
-            <span class="msty__tab-name">Stuttgart</span>
+            <span class="msty__tab-name">Konstruktion</span>
+            <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
+          </a>
+          <a class="msty__tab" href="#" data-tab="3">
+            <span class="msty__tab-name">Sicherheit</span>
             <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
           </a>
         </nav>
-
       </div>
     </header>
 
-    <!-- Chapter 1 — Hamburg -->
-    <article class="msty__chapter" data-chapter="0">
-      <div class="msty__chapter-inner container">
-        <div class="msty__media">
-          <div class="msty__media-frame">
-            <img src="images/metzler-tuersprechanlage-mit-kamera-gesichtserkennung-touch-display-live-hd-video-ein-und-mehrfamilien-sdm10x~7.webp" alt="Metzler SDM10X Türsprechanlage mit Kamera, Gesichtserkennung und Touch-Display, Familie Keller, Hamburg" />
+    <article class="craft-chapter" data-chapter="0">
+      <div class="craft-chapter__inner container">
+        <div class="craft-media">
+          <div class="craft-media__frame">
+            <img src="images/metzler-paketbox-mit-briefkasten-personalisiert-mit-gravur-edelstahl-namensschild-mit-briefeinwurf-bispo-2~30.webp" alt="Metzler Paketbox mit Briefkasten und personalisierter Edelstahl-Gravur" />
           </div>
-          <span class="msty__media-tag">Hamburg</span>
+          <span class="craft-media__tag">Maßanfertigung</span>
         </div>
-        <div class="msty__copy">
-          <p class="msty__location-line">Hamburg · Bestellung 2018</p>
-          <span class="msty__quote-mark" aria-hidden="true">&ldquo;</span>
-          <h3 class="msty__headline" data-split>
-            <span>Niemand klingelt unerkannt.</span>
-            <span class="msty__accent">Sicher zu Hause.</span>
-          </h3>
-          <p class="msty__body">Erdgeschoss in der Stadt — die Klingel geht oft, auch spät abends. Mit dem Bild auf dem Display erkennen wir sofort, wer vor der Tür steht. Das gibt Sicherheit — gerade mit Kindern im Haus.</p>
-          <footer class="msty__attribution">
-            <span class="msty__attr-name">Familie Keller</span>
-            <a class="msty__product" href="#">Video-Türsprechanlage SDM10X</a>
+        <div class="craft-copy">
+          <p class="craft-eyebrow">Maßanfertigung · Reutlingen</p>
+          <h2 class="craft-headline">
+            <span>Ein Eingang ist nicht irgendeiner.</span>
+            <span class="craft-accent">Er ist Ihrer.</span>
+          </h2>
+          <p class="craft-body">Jedes Produkt wird nach Ihren Vorgaben konfiguriert — Abmessungen, Beschriftung, Schriftart, Ziffern, Tasteranzahl und Beleuchtung. Die Konstruktionszeichnung erstellen unsere Ingenieure in Reutlingen.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="craft-chapter craft-chapter--flip" data-chapter="1">
+      <div class="craft-chapter__inner container">
+        <div class="craft-media">
+          <div class="craft-media__frame">
+            <img src="images/co2-footprint.webp" alt="Metzler Manufaktur in Reutlingen — CO₂-neutrale Fertigung" />
+          </div>
+          <span class="craft-media__tag">Nachhaltigkeit</span>
+        </div>
+        <div class="craft-copy">
+          <p class="craft-eyebrow">Nachhaltigkeit · Reutlingen</p>
+          <h2 class="craft-headline">
+            <span>CO₂-neutral.</span>
+            <span class="craft-accent">Unser Ziel bis 2030.</span>
+          </h2>
+          <p class="craft-body">Bis 2030 fertigen wir vollständig CO₂-neutral. Eine 68-kW-Solaranlage deckt schon heute über 50&nbsp;% unseres Fertigungsstroms — und Ihre Pakete versenden wir klimaneutral mit DHL&nbsp;GoGreen und DPD.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="craft-chapter" data-chapter="2">
+      <div class="craft-chapter__inner container">
+        <div class="craft-media">
+          <div class="craft-media__frame">
+            <img src="images/metzler-paketbox-xl-mit-briefkasten-paketkasten-rostfrei-personalisiert-mit-gravur-bispo-max-2~6.webp" alt="Metzler Paketbox XL mit personalisierter Gravur" />
+          </div>
+          <span class="craft-media__tag">Konstruktion</span>
+        </div>
+        <div class="craft-copy">
+          <p class="craft-eyebrow">Konstruktion · Reutlingen</p>
+          <h2 class="craft-headline">
+            <span>500 Patente.</span>
+            <span class="craft-accent">Nichts, das wieder kaputt geht.</span>
+          </h2>
+          <p class="craft-body">Über 500 eingetragene Patente und Designs entstammen unserer Konstruktionsabteilung in Reutlingen. Daraus resultieren 10&nbsp;Jahre Herstellergarantie auf Edelstahl-Produkte sowie 10&nbsp;Jahre Ersatzteilverfügbarkeit auf Elektronik.</p>
+          <footer class="craft-footer">
+            <a href="#" class="craft-link">Mehr über unsere Technik</a>
           </footer>
         </div>
       </div>
     </article>
 
-    <!-- Chapter 2 — München (flipped layout) -->
-    <article class="msty__chapter msty__chapter--flip" data-chapter="1">
-      <div class="msty__chapter-inner container">
-        <div class="msty__media">
-          <div class="msty__media-frame">
-            <img src="images/metzler-briefkasten-mit-lasergravur-hermann~10.webp" alt="Metzler Briefkasten mit Lasergravur, Hermann" />
+    <article class="craft-chapter craft-chapter--flip" data-chapter="3" id="sicherheit">
+      <div class="craft-chapter__inner container">
+        <div class="craft-media">
+          <div class="craft-media__frame">
+            <img src="images/metzler-xdm10-video-tuersprechanlage-mit-austauschbarem-namensschild-2-draht-bus-1-klingeltaster-ral-7016-anthrazit-maxior~2.webp" alt="Metzler XDM10 Video-Türsprechanlage in Anthrazit (RAL 7016) mit austauschbarem Namensschild" />
           </div>
-          <span class="msty__media-tag">München</span>
+          <span class="craft-media__tag">Sicherheit</span>
         </div>
-        <div class="msty__copy">
-          <p class="msty__location-line">München · Bestellung 2025</p>
-          <span class="msty__quote-mark" aria-hidden="true">&ldquo;</span>
-          <h3 class="msty__headline" data-split>
-            <span>Schrift, Maß, Material.</span>
-            <span class="msty__accent">Meine Wahl.</span>
-          </h3>
-          <p class="msty__body">Im Konfigurator alles selbst eingestellt: Schrift, Breite, Beschriftung. Zwei Wochen später hing der Briefkasten an der Wand — lasergraviert in Edelstahl, jede Linie sauber gesetzt.</p>
-          <footer class="msty__attribution">
-            <span class="msty__attr-name">Hermann</span>
-            <a class="msty__product" href="#">Metzler Briefkasten mit Lasergravur</a>
-          </footer>
-        </div>
-      </div>
-    </article>
-
-    <!-- Chapter 3 — Stuttgart -->
-    <article class="msty__chapter" data-chapter="2">
-      <div class="msty__chapter-inner container">
-        <div class="msty__media">
-          <div class="msty__media-frame">
-            <img src="images/metzler-paketbox-mit-briefkasten-personalisiert-mit-gravur-edelstahl-namensschild-mit-briefeinwurf-bispo-2~30.webp" alt="Paketbox mit Briefkasten und Edelstahl-Gravur, Familie Brunner, Stuttgart" />
-          </div>
-          <span class="msty__media-tag">Stuttgart</span>
-        </div>
-        <div class="msty__copy">
-          <p class="msty__location-line">Stuttgart · Bestellung 2024</p>
-          <span class="msty__quote-mark" aria-hidden="true">&ldquo;</span>
-          <h3 class="msty__headline" data-split>
-            <span>Drei Dienste. Drei Schlüssel.</span>
-            <span class="msty__accent">Heute: ein Fach.</span>
-          </h3>
-          <p class="msty__body">Schlüssel an drei verschiedene Lieferdienste, Pakete im Regen — das hat sich geändert. Heute liefert jeder in dasselbe Fach: Briefkasten und Paketbox, mit der Gravur „Brunner“ in Edelstahl.</p>
-          <footer class="msty__attribution">
-            <span class="msty__attr-name">Thomas Brunner</span>
-            <a class="msty__product" href="#">Metzler Paketbox mit Briefkasten, Bispo 2</a>
+        <div class="craft-copy">
+          <p class="craft-eyebrow">Sicherheit · Reutlingen</p>
+          <h2 class="craft-headline">
+            <span>Ihr Zuhause im Blick.</span>
+            <span class="craft-accent">Auch wenn Sie nicht da sind.</span>
+          </h2>
+          <p class="craft-body">Die XDM10 zeigt Ihre Besucher in HD — 3-MP-Kamera mit Infrarot-Nachtsicht, bei Tag und Nacht. Plug &amp; Play über vorhandene 2-Draht-Leitungen, ganz ohne Neuverkabelung, gesteuert per kostenloser App ohne Abo. Beleuchtetes, austauschbares Namensschild, Edelstahl in Anthrazit (RAL&nbsp;7016).</p>
+          <footer class="craft-footer">
+            <a href="https://edelstahl-tuerklingel.de/metzler-xdm10-video-tuersprechanlage-mit-austauschbarem-namensschild-2-draht-bus-1-klingeltaster-ral-7016-anthrazit-maxior" class="craft-link">XDM10 entdecken</a>
           </footer>
         </div>
       </div>
@@ -981,137 +946,6 @@
     if (currentEl) currentEl.textContent = '01';
   })();
 </script>
-
-<!-- GSAP + ScrollTrigger for the cinematic section -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-
-<!-- METZLER STORIES — chapter entrance + image parallax + chrome sync -->
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const section = document.querySelector('.msty');
-    if (!section) return;
-
-    const chapters = section.querySelectorAll('.msty__chapter');
-    const tabs     = section.querySelectorAll('.msty__tab');
-
-    // Reduced motion only suppresses the entrance/parallax animations — the
-    // chrome pinning + tab tracking below must still run (it's layout, not motion).
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Entrance: reveal each chapter when it enters viewport (CSS transitions own
-    // the animation). Under reduced motion / no IO support, reveal immediately.
-    if (reduced || !('IntersectionObserver' in window)){
-      chapters.forEach(c => c.classList.add('is-visible'));
-    } else {
-      const enterObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting){
-            e.target.classList.add('is-visible');
-            enterObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
-      chapters.forEach(c => enterObs.observe(c));
-    }
-
-    // Active chapter for chrome — update tab states (past / active / future)
-    const setActive = (idx) => {
-      tabs.forEach((tab, i) => {
-        tab.classList.toggle('is-past', i < idx);
-        tab.classList.toggle('is-active', i === idx);
-      });
-    };
-    setActive(0);
-
-    // Click on a tab to smooth-scroll to that chapter
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        const target = chapters[i];
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // ─── Pin the chrome via position: fixed when scrolling through the section ───
-    const chrome = section.querySelector('.msty__chrome');
-    const sentinel = section.querySelector('.msty__sentinel');
-    if (chrome && sentinel){
-      // Match the CSS reserved padding-top to chrome's actual height
-      const setReservedHeight = () => {
-        const h = chrome.offsetHeight;
-        section.style.setProperty('--msty-chrome-h', h + 'px');
-      };
-      setReservedHeight();
-      window.addEventListener('resize', setReservedHeight);
-
-      const updatePin = () => {
-        const sRect = section.getBoundingClientRect();
-        const chromeH = chrome.offsetHeight;
-        // Past the section bottom — rest chrome at section bottom
-        if (sRect.bottom <= chromeH){
-          chrome.classList.remove('is-pinned');
-          chrome.classList.add('is-bottom');
-        }
-        // Section is in view and we've scrolled past its top — pin to viewport top
-        else if (sRect.top <= 0){
-          chrome.classList.add('is-pinned');
-          chrome.classList.remove('is-bottom');
-        }
-        // Before reaching the section — leave chrome at section top in normal flow
-        else {
-          chrome.classList.remove('is-pinned', 'is-bottom');
-        }
-      };
-
-      let raf = null;
-      window.addEventListener('scroll', () => {
-        if (raf) return;
-        raf = requestAnimationFrame(() => { updatePin(); raf = null; });
-      }, { passive: true });
-      updatePin();
-    }
-
-    if ('IntersectionObserver' in window){
-      const activeObs = new IntersectionObserver((entries) => {
-        // Pick the entry with the largest intersection ratio (most centered)
-        let best = null;
-        entries.forEach(e => {
-          if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
-        });
-        if (best && best.isIntersecting){
-          const idx = parseInt(best.target.dataset.chapter, 10);
-          if (!Number.isNaN(idx)) setActive(idx);
-        }
-      }, {
-        // Centered band — chapter triggers when ~middle of viewport
-        rootMargin: '-40% 0px -40% 0px',
-        threshold: [0, 0.1, 0.5, 1]
-      });
-      chapters.forEach(c => activeObs.observe(c));
-    }
-
-    // Image parallax — image translates slightly slower than scroll (skip under reduced motion)
-    if (!reduced && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
-      gsap.registerPlugin(ScrollTrigger);
-      chapters.forEach(chapter => {
-        const img = chapter.querySelector('.msty__media-frame img');
-        if (!img) return;
-        gsap.to(img, {
-          yPercent: -8,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: chapter,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.5
-          }
-        });
-      });
-    }
-  });
-</script>
-
 <!-- Trust strip — split each bold into per-character spans with staggered animation -->
 <script>
   (function(){
@@ -1129,6 +963,97 @@
         // Stagger: each stat starts 120ms after the previous, each char 28ms after the previous
         span.style.animationDelay = (200 + statIdx * 120 + charIdx * 28) + 'ms';
         bold.appendChild(span);
+      });
+    });
+  })();
+</script>
+
+<!-- Craft narrative — chapter reveal + sticky chrome (same behavior as Metzler Stories) -->
+<script>
+  (function(){
+    const section = document.querySelector('.about-craft');
+    if (!section) return;
+    const chapters = Array.prototype.slice.call(section.querySelectorAll('.craft-chapter'));
+    const tabs     = Array.prototype.slice.call(section.querySelectorAll('.msty__tab'));
+    if (!chapters.length) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasIO = 'IntersectionObserver' in window;
+
+    // ── Entrance reveal ──
+    if (reduced || !hasIO){
+      chapters.forEach(c => c.classList.add('is-visible'));
+    } else {
+      const enterObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting){ e.target.classList.add('is-visible'); enterObs.unobserve(e.target); }
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+      chapters.forEach(c => enterObs.observe(c));
+    }
+
+    // ── Chapter tabs (active / past) ──
+    const setActive = (idx) => {
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle('is-past', i < idx);
+        tab.classList.toggle('is-active', i === idx);
+      });
+    };
+    setActive(0);
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        if (chapters[i]) chapters[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ── Pin the chrome to the viewport top while scrolling through the section ──
+    const chrome = section.querySelector('.msty__chrome');
+    if (chrome){
+      const setReservedHeight = () => section.style.setProperty('--craft-chrome-h', chrome.offsetHeight + 'px');
+      setReservedHeight();
+      window.addEventListener('resize', setReservedHeight);
+      const updatePin = () => {
+        const sRect = section.getBoundingClientRect();
+        const chromeH = chrome.offsetHeight;
+        if (sRect.bottom <= chromeH){ chrome.classList.remove('is-pinned'); chrome.classList.add('is-bottom'); }
+        else if (sRect.top <= 0){ chrome.classList.add('is-pinned'); chrome.classList.remove('is-bottom'); }
+        else { chrome.classList.remove('is-pinned', 'is-bottom'); }
+      };
+      let raf = null;
+      window.addEventListener('scroll', () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => { updatePin(); raf = null; });
+      }, { passive: true });
+      updatePin();
+    }
+
+    // ── Track the most-centered chapter to drive the active tab ──
+    if (hasIO){
+      const activeObs = new IntersectionObserver((entries) => {
+        let best = null;
+        entries.forEach(e => { if (!best || e.intersectionRatio > best.intersectionRatio) best = e; });
+        if (best && best.isIntersecting){
+          const idx = parseInt(best.target.dataset.chapter, 10);
+          if (!Number.isNaN(idx)) setActive(idx);
+        }
+      }, { rootMargin: '-40% 0px -40% 0px', threshold: [0, 0.1, 0.5, 1] });
+      chapters.forEach(c => activeObs.observe(c));
+    }
+  })();
+</script>
+
+<!-- Clickable badges — scroll to their linked section -->
+<script>
+  (function(){
+    document.querySelectorAll('[data-scroll]').forEach(function(el){
+      var go = function(){
+        var t = document.querySelector(el.getAttribute('data-scroll'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+      el.addEventListener('click', go);
+      el.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); }
       });
     });
   })();

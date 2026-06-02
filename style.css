@@ -36,14 +36,13 @@ html, body{ overflow-x: clip; }
    Every odd (white) section is a brand statement;
    every even (soft) section is its supporting voice/proof.
    ───────────────────────────────────────────────────────── */
-/* Soft (gray) sections — keep the white/gray rhythm alternating now that the
-   trustbar sits up top (hero W → trust strip W → trustbar G → story W →
-   pillars G → editorial W → …). */
+/* Soft (gray) sections — strict alternating rhythm down the page:
+   hero W · stats W · trustbar G · story W · pillars G · craft W ·
+   reviews G · newsletter W · closing G · footer. */
 main.about .trustbar,
 main.about .about-pillars,
-main.about .news{ background: var(--about-bg-soft); }
-/* Reviews — flip BACK to white (statement of trust) */
-main.about .reviews{ background: var(--about-bg-white); }
+main.about .reviews,
+main.about .about-closing{ background: var(--about-bg-soft); }
 /* Apply unified section padding to every .section on the About page
    (overrides styles-v2.css default of 80px/64px). Sections with custom
    padding declared later in this file still win where intentional. */
@@ -596,13 +595,10 @@ main.about .section-title i{
    dots align with the caption text instead of floating at the top. */
 .ntv-carousel__meta{
   display: flex;
-  align-items: center;
+  align-items: flex-start;   /* counter, caption + dots align to the first line */
   justify-content: space-between;
   gap: var(--sp-5);
-  flex-wrap: wrap;
-  /* Exactly 2 lines of caption text — no jump if a caption wraps,
-     no wasted whitespace when it fits on one line. */
-  min-height: 42px;
+  flex-wrap: nowrap;
 }
 .ntv-carousel__meta .about-caption{
   margin: 0;
@@ -626,6 +622,20 @@ main.about .section-title i{
   transition: opacity 300ms ease;
 }
 .ntv-caption-text.is-fading{ opacity: 0; }
+/* Desktop: always reserve exactly two lines (and never exceed two) so a caption
+   wrapping to a 2nd line never shifts the image frame above, and keep the dots
+   aligned to the first line. */
+@media (min-width: 768px){
+  .ntv-caption-text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.5;
+    min-height: 3em;          /* 2 lines × 1.5 */
+  }
+  .ntv-carousel__dots{ margin-top: 9px; } /* center on the first caption line */
+}
 
 /* Pagination dots — fill bar animates on the active dot over 6 s */
 .ntv-carousel__dots{
@@ -725,18 +735,23 @@ main.about .section-title i{
 }
 .about .section-sub{ margin-top: var(--sp-5); }
 
-/* Story-section CTA pair — equal-width grid, same pattern as the hero. */
+/* Story-section CTA — text link, consistent with the craft/stories links
+   (teal · bold · underlined · hover-fade). */
 .about-story__ctas{
-  margin-top: var(--sp-5);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-4);
-  max-width: 460px;
+  margin-top: var(--sp-7);
+  display: flex;
 }
-.about-story__ctas .btn{
-  width: 100%;
-  justify-content: center;
+.about-story__link{
+  align-self: flex-start;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--teal);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: opacity 220ms ease;
 }
+.about-story__link:hover{ opacity: 0.75; }
 
 .about-sig{
   margin-top: var(--sp-10);
@@ -1129,6 +1144,224 @@ main.about .about-editorial__tier--bottom .section-title i{
     border-radius: var(--r-l);
   }
   .about-editorial__tier--bottom{ order: 4; }
+}
+
+/* ==================================================================
+   CRAFT NARRATIVE — same editorial chapter design as Metzler Stories,
+   applied to the brand pillars. Tall two-column scenes (framed image +
+   corner tag · big two-line headline with teal accent · body), alternating
+   sides, on one unified white canvas. Static (no JS entrance gating).
+   ================================================================== */
+.about-craft.section{
+  background: var(--white);
+  position: relative;                          /* anchor for the sticky chrome */
+  padding-top: var(--craft-chrome-h, 72px);    /* reserve space for the chrome */
+  padding-bottom: 0;                            /* chapters own the rest */
+  --craft-fg: #1A1A1A;
+  --craft-muted: rgba(0, 0, 0, 0.55);
+  --craft-rule: rgba(0, 0, 0, 0.12);
+  /* Tokens consumed by the reused .msty__chrome / .msty__tab styling */
+  --msty-bg: var(--white);
+  --msty-fg: #1A1A1A;
+  --msty-muted: rgba(0, 0, 0, 0.55);
+  --msty-rule: rgba(0, 0, 0, 0.12);
+}
+.craft-chapter{
+  padding-block: clamp(56px, 6vw, 88px);
+  position: relative;
+}
+.craft-chapter + .craft-chapter{ border-top: 1px solid var(--craft-rule); }
+.craft-chapter__inner{
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(48px, 5vw, 96px);
+  align-items: stretch;
+  min-height: 60vh;
+}
+.craft-chapter--flip .craft-chapter__inner{ grid-template-columns: 0.9fr 1.1fr; }
+.craft-chapter--flip .craft-media{ order: 2; }
+.craft-chapter--flip .craft-copy{ order: 1; }
+
+/* Framed image with corner tag */
+.craft-media{ position: relative; align-self: stretch; display: flex; }
+.craft-media__frame{
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 480px;
+  overflow: hidden;
+  border-radius: var(--r-l);
+  background: color-mix(in srgb, var(--craft-fg) 6%, #fff);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.06),
+    0 16px 32px rgba(0,0,0,0.08),
+    0 40px 80px rgba(0,0,0,0.10);
+}
+.craft-media__frame::after{
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,0.18);
+  pointer-events: none;
+}
+.craft-media__frame img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.craft-media__tag{
+  position: absolute;
+  top: clamp(20px, 2vw, 28px);
+  left: clamp(20px, 2vw, 28px);
+  z-index: 2;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--craft-fg);
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* Copy column — vertically centered to the image */
+.craft-copy{
+  max-width: 480px;
+  align-self: center;
+  padding-block: clamp(20px, 3vw, 48px);
+}
+.craft-eyebrow{
+  margin: 0 0 clamp(20px, 2vw, 28px);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--craft-muted);
+}
+.craft-headline{
+  margin: 0 0 clamp(20px, 2vw, 28px);
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--craft-fg);
+}
+.craft-headline span{ display: block; }
+.craft-accent{ font-style: italic; color: var(--teal); }
+.craft-body{
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(17px, 1.3vw, 20px);
+  line-height: 1.6;
+  color: var(--craft-fg);
+  opacity: 0.92;
+}
+.craft-footer{
+  margin-top: clamp(28px, 3vw, 40px);
+  padding-top: clamp(20px, 2vw, 28px);
+  border-top: 1px solid var(--craft-rule);
+}
+.craft-link{
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--teal);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: opacity 220ms ease;
+}
+.craft-link:hover{ opacity: 0.75; }
+
+/* Tablet + mobile — stack media over copy */
+@media (max-width: 1023px){
+  .craft-chapter__inner,
+  .craft-chapter--flip .craft-chapter__inner{
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 6vw, 44px);
+    min-height: 0;
+  }
+  .craft-chapter--flip .craft-media{ order: 1; }
+  .craft-chapter--flip .craft-copy{ order: 2; }
+  .craft-media__frame{ aspect-ratio: 4 / 3; min-height: 0; }
+  .craft-copy{ max-width: none; }
+}
+@media (max-width: 767px){
+  .craft-media__frame{ aspect-ratio: 3 / 2; }
+  /* Four longer labels don't fit a fixed row on phones — make the tab strip a
+     single-line horizontal scroller (labels stay on one line, swipe to reveal). */
+  .craft-chrome .msty__tabs{
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+  }
+  .craft-chrome .msty__tabs::-webkit-scrollbar{ display: none; }
+  .craft-chrome .msty__tab{ flex: 0 0 auto; }
+  .craft-chrome .msty__tab-name{ white-space: nowrap; }
+}
+
+/* ─── Entrance animations (same choreography as Metzler Stories) ───
+   Resting (pre-reveal) states; .is-visible (added by IntersectionObserver
+   when the chapter scrolls in) plays them. */
+.craft-media__frame{
+  clip-path: inset(6% round 8px);
+  transition: clip-path 1100ms cubic-bezier(.2, .7, .2, 1), box-shadow 600ms ease;
+  will-change: clip-path;
+}
+.craft-media__frame img{
+  transform: scale(1.06);
+  transition: transform 1200ms cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
+}
+.craft-media__tag{
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 600ms ease 400ms, transform 600ms cubic-bezier(.2,.7,.2,1) 400ms;
+}
+.craft-eyebrow{
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.7,.2,1);
+}
+.craft-headline span{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms cubic-bezier(.4,0,.2,1), transform 800ms cubic-bezier(.2,.7,.2,1);
+}
+.craft-body{
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms ease, transform 800ms cubic-bezier(.2,.7,.2,1);
+}
+.craft-footer{
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+}
+
+.craft-chapter.is-visible .craft-media__frame{ clip-path: inset(0 round 8px); }
+.craft-chapter.is-visible .craft-media__frame img{ transform: scale(1); }
+.craft-chapter.is-visible .craft-media__tag{ opacity: 1; transform: translateY(0); }
+.craft-chapter.is-visible .craft-eyebrow{ opacity: 1; transform: translateY(0); }
+.craft-chapter.is-visible .craft-headline span{ opacity: 1; transform: translateY(0); }
+.craft-chapter.is-visible .craft-headline span:nth-child(1){ transition-delay: 200ms; }
+.craft-chapter.is-visible .craft-headline span:nth-child(2){ transition-delay: 300ms; }
+.craft-chapter.is-visible .craft-body{ opacity: 0.92; transform: translateY(0); transition-delay: 420ms; }
+.craft-chapter.is-visible .craft-footer{ opacity: 1; transform: translateY(0); transition-delay: 540ms; }
+
+@media (prefers-reduced-motion: reduce){
+  .craft-chapter *{
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+  }
 }
 
 /* ============== SECTION 7 — RESPONSIBILITY ============== */
@@ -2530,6 +2763,45 @@ END OF LEGACY DEAD CSS */
   transform: translateX(-50%) scale(1.3);
 }
 
+/* ─── Linked badge (Red Dot → Sicherheit / XDM10 chapter) ───
+   Signals it's clickable: labels underline + a teal down-arrow reveals at the
+   bottom of the card on hover/focus; clicking scrolls to the section. */
+.trustbar__item--link{ cursor: pointer; }
+.trustbar__item--link:hover .trustbar__title,
+.trustbar__item--link:focus-visible .trustbar__title,
+.trustbar__item--link:hover .trustbar__sub,
+.trustbar__item--link:focus-visible .trustbar__sub{
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.trustbar__goto{
+  position: absolute;
+  left: 50%;
+  bottom: -13px;
+  transform: translate(-50%, 6px);
+  z-index: 4;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;                 /* square frame */
+  background: var(--white);           /* outline style — not filled */
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease, transform 260ms cubic-bezier(.2, .7, .2, 1);
+}
+.trustbar__goto svg{ width: 14px; height: 14px; display: block; }
+.trustbar__item--link:hover .trustbar__goto,
+.trustbar__item--link:focus-visible .trustbar__goto{
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+/* Land below the section's sticky chrome when scrolled to */
+#sicherheit{ scroll-margin-top: 96px; }
+
 /* Mobile: same swipe rail, just narrower cards so one badge fills the
    viewport with the next peeking in. Cards keep the vertical badge layout. */
 @media (max-width: 767px){
@@ -2559,7 +2831,7 @@ END OF LEGACY DEAD CSS */
 
 /* ============== NEWSLETTER — soft promo before the closing CTA ============== */
 .news{
-  background: var(--about-bg-soft);
+  background: var(--white);   /* white — keeps the alternating rhythm (reviews G → news W → closing G) */
   padding-block: clamp(56px, 6vw, 88px);
 }
 .news__inner{
@@ -2675,9 +2947,7 @@ END OF LEGACY DEAD CSS */
 
 /* ============== SECTION 10 — CLOSING ============== */
 .about-closing{
-  /* White so the section rhythm keeps alternating after the (gray) newsletter
-     — reviews(W) → newsletter(G) → closing(W) → footer. */
-  background: var(--white);
+  /* Background handled by the alternating rhythm rule near the top (gray). */
   color: var(--schwarz);
   text-align: center;
 }
