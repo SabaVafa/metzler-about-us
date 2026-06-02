@@ -43,6 +43,11 @@ main.about .trustbar,
 main.about .about-pillars,
 main.about .reviews,
 main.about .about-closing{ background: var(--about-bg-soft); }
+/* Reviews head: stop the rating block from being pushed past the grid's right
+   edge — let the title column shrink/wrap, keep the rating at its natural size. */
+main.about .reviews__head{ align-items: center; }
+main.about .reviews__head-text{ min-width: 0; }
+main.about .reviews__rating{ flex-shrink: 0; }
 /* Apply unified section padding to every .section on the About page
    (overrides styles-v2.css default of 80px/64px). Sections with custom
    padding declared later in this file still win where intentional. */
