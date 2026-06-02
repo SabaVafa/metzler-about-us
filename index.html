@@ -217,7 +217,7 @@
 
       <ul class="trustbar__rail" role="list">
 
-        <li class="trustbar__item" tabindex="0">
+        <li class="trustbar__item trustbar__item--link" tabindex="0" role="link" data-scroll="#ausgezeichnet" aria-label="Beliebtester Anbieter — zur ntv-Auszeichnung">
           <div class="trustbar__icon">
             <div class="trustbar__face trustbar__face--front">
               <img src="Trust%20badges/NTV.svg" alt="NTV Auszeichnung" />
@@ -226,6 +226,9 @@
               <strong>DISQ-Studie</strong>
               <span>50.000 Stimmen</span>
             </div>
+            <span class="trustbar__goto" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
           </div>
           <span class="trustbar__node" aria-hidden="true"></span>
           <h3 class="trustbar__title">Beliebtester Anbieter</h3>
@@ -315,7 +318,7 @@
   </section>
 
   <!-- SECTION 2 - WIE WIR ARBEITEN -->
-  <section class="about-story section">
+  <section class="about-story section" id="ausgezeichnet">
     <div class="container about-story__grid">
       <div class="about-story__media ntv-carousel" data-ntv-carousel>
         <div class="ntv-carousel__stage" aria-live="polite">
@@ -388,7 +391,7 @@
        Same editorial chapter design as Metzler Stories: tall two-column scenes
        (framed image + tag · big two-line headline · body), alternating sides,
        on one unified white canvas. -->
-  <section class="about-craft section" aria-label="Maßanfertigung, Nachhaltigkeit und Konstruktion">
+  <section class="about-craft section" aria-label="Maßanfertigung, Nachhaltigkeit, Konstruktion und Sicherheit">
 
     <!-- Sentinel — detects when the section enters/leaves the viewport -->
     <div class="msty__sentinel" aria-hidden="true"></div>
@@ -398,7 +401,7 @@
       <div class="container msty__chrome-inner">
         <div class="msty__brand">
           <span class="msty__brand-eyebrow">Metzler</span>
-          <span class="msty__brand-title">Manufaktur</span>
+          <span class="msty__brand-title">Qualität</span>
         </div>
         <nav class="msty__tabs" aria-label="Kapitel">
           <a class="msty__tab is-active" href="#" data-tab="0">
@@ -485,7 +488,7 @@
       <div class="craft-chapter__inner container">
         <div class="craft-media">
           <div class="craft-media__frame">
-            <img src="images/metzler-xdm10-video-tuersprechanlage-mit-austauschbarem-namensschild-2-draht-bus-1-klingeltaster-ral-7016-anthrazit-maxior~2.webp" alt="Metzler XDM10 Video-Türsprechanlage in Anthrazit (RAL 7016) mit austauschbarem Namensschild" />
+            <img src="images/image%2028.png" alt="Metzler XDM10 Video-Türsprechanlage in Anthrazit (RAL 7016) mit austauschbarem Namensschild" />
           </div>
           <span class="craft-media__tag">Sicherheit</span>
         </div>
@@ -984,11 +987,13 @@
     if (reduced || !hasIO){
       chapters.forEach(c => c.classList.add('is-visible'));
     } else {
+      // Toggle (not one-shot) so the entrance replays every time a chapter
+      // scrolls back into view — not just on the first pass.
       const enterObs = new IntersectionObserver((entries) => {
         entries.forEach(e => {
-          if (e.isIntersecting){ e.target.classList.add('is-visible'); enterObs.unobserve(e.target); }
+          e.target.classList.toggle('is-visible', e.isIntersecting);
         });
-      }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
       chapters.forEach(c => enterObs.observe(c));
     }
 

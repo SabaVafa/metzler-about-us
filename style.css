@@ -1175,20 +1175,20 @@ main.about .about-editorial__tier--bottom .section-title i{
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(48px, 5vw, 96px);
-  align-items: stretch;
-  min-height: 60vh;
+  align-items: center;   /* copy centers beside the fixed-ratio image */
 }
 .craft-chapter--flip .craft-chapter__inner{ grid-template-columns: 0.9fr 1.1fr; }
 .craft-chapter--flip .craft-media{ order: 2; }
 .craft-chapter--flip .craft-copy{ order: 1; }
 
-/* Framed image with corner tag */
-.craft-media{ position: relative; align-self: stretch; display: flex; }
+/* Framed image with corner tag — fixed 1:1 ratio so every chapter's frame is
+   identical in size (the source photos are mostly square, so a square frame
+   crops them the least and reads as the cleanest, most consistent grid). */
+.craft-media{ position: relative; }
 .craft-media__frame{
   position: relative;
   width: 100%;
-  flex: 1;
-  min-height: 480px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: var(--r-l);
   background: color-mix(in srgb, var(--craft-fg) 6%, #fff);
@@ -1284,11 +1284,9 @@ main.about .about-editorial__tier--bottom .section-title i{
   }
   .craft-chapter--flip .craft-media{ order: 1; }
   .craft-chapter--flip .craft-copy{ order: 2; }
-  .craft-media__frame{ aspect-ratio: 4 / 3; min-height: 0; }
   .craft-copy{ max-width: none; }
 }
 @media (max-width: 767px){
-  .craft-media__frame{ aspect-ratio: 3 / 2; }
   /* Four longer labels don't fit a fixed row on phones — make the tab strip a
      single-line horizontal scroller (labels stay on one line, swipe to reveal). */
   .craft-chrome .msty__tabs{
@@ -2799,8 +2797,9 @@ END OF LEGACY DEAD CSS */
   opacity: 1;
   transform: translate(-50%, 0);
 }
-/* Land below the section's sticky chrome when scrolled to */
+/* Land below the section's sticky chrome / with breathing room when scrolled to */
 #sicherheit{ scroll-margin-top: 96px; }
+#ausgezeichnet{ scroll-margin-top: 24px; }
 
 /* Mobile: same swipe rail, just narrower cards so one badge fills the
    viewport with the next peeking in. Cards keep the vertical badge layout. */
