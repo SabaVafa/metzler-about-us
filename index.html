@@ -1072,20 +1072,24 @@
     if (!rail) return;
     var first = rail.querySelector('.trustbar__item');
     if (!first) return;
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Mobile only. Note: we intentionally do NOT skip on prefers-reduced-motion —
+    // under reduced motion the card's transitions are already off, so the hint
+    // degrades to an instant reveal-and-return (a state change, not animation).
     var isMobile = window.matchMedia('(max-width: 767px)').matches;
-    if (reduced || !isMobile || !('IntersectionObserver' in window)) return;
+    if (!isMobile || !('IntersectionObserver' in window)) return;
+    var hinted = false;
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if (!e.isIntersecting) return;
-        obs.unobserve(e.target);
+        if (!e.isIntersecting || hinted) return;
+        hinted = true;
+        obs.disconnect();
         // Flip out, hold to reveal the back, then flip back — one-shot.
         setTimeout(function(){
           first.classList.add('is-hinting');
           setTimeout(function(){ first.classList.remove('is-hinting'); }, 1500);
         }, 450);
       });
-    }, { threshold: 0.6 });
+    }, { threshold: 0.35 });
     obs.observe(rail);
   })();
 </script>
