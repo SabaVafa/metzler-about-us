@@ -1064,5 +1064,31 @@
   })();
 </script>
 
+<!-- Trust bar — mobile discoverability hint: flip the first badge once when the
+     bar scrolls into view, so users learn the cards reveal more on tap. -->
+<script>
+  (function(){
+    var rail = document.querySelector('.trustbar__rail');
+    if (!rail) return;
+    var first = rail.querySelector('.trustbar__item');
+    if (!first) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (reduced || !isMobile || !('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        obs.unobserve(e.target);
+        // Flip out, hold to reveal the back, then flip back — one-shot.
+        setTimeout(function(){
+          first.classList.add('is-hinting');
+          setTimeout(function(){ first.classList.remove('is-hinting'); }, 1500);
+        }, 450);
+      });
+    }, { threshold: 0.6 });
+    obs.observe(rail);
+  })();
+</script>
+
 </body>
 </html>
