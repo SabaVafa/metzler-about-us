@@ -1048,17 +1048,42 @@
   })();
 </script>
 
-<!-- Clickable badges — scroll to their linked section -->
+<!-- Clickable badges — scroll to their linked section.
+     Mobile two-step: first tap flips the badge to reveal context, second tap
+     scrolls. Avoids surprising users who tapped just to read the back. -->
 <script>
   (function(){
+    var isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    var flippedEl = null;
+
+    function unflip(){
+      if (flippedEl){ flippedEl.classList.remove('is-flipped'); flippedEl = null; }
+    }
+
+    if (isCoarse){
+      document.addEventListener('click', function(e){
+        if (flippedEl && !flippedEl.contains(e.target)) unflip();
+      }, true);
+    }
+
     document.querySelectorAll('[data-scroll]').forEach(function(el){
       var go = function(){
         var t = document.querySelector(el.getAttribute('data-scroll'));
         if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
       };
-      el.addEventListener('click', go);
+      el.addEventListener('click', function(e){
+        if (isCoarse && flippedEl !== el){
+          e.preventDefault();
+          unflip();
+          el.classList.add('is-flipped');
+          flippedEl = el;
+          return;
+        }
+        unflip();
+        go();
+      });
       el.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); }
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); unflip(); go(); }
       });
     });
   })();
