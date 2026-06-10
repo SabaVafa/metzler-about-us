@@ -3414,3 +3414,61 @@ END OF LEGACY DEAD CSS */
       linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.20) 35%, rgba(0,0,0,0.72) 100%);
   }
 }
+
+/* ============== FOOTER GROUPS — Informationen / Service collapse on mobile ==============
+   <details>/<summary> for native disclosure semantics. Desktop forces them
+   open and styles the summary to read like an h4. Mobile/tablet collapse
+   them with a chevron that rotates on open. */
+.footer__group{
+  display: block;
+}
+.footer__group > summary{
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--sp-5);
+  letter-spacing: 0;
+  text-transform: none;
+  list-style: none;          /* remove the default disclosure triangle */
+  cursor: default;
+  display: block;
+}
+.footer__group > summary::-webkit-details-marker{ display: none; }
+.footer__group-chevron{
+  display: none;             /* hidden on desktop */
+}
+
+/* Mobile + tablet: real accordion. Top hairline between groups, chevron on
+   the right that rotates 90° when open. */
+@media (max-width: 1023px){
+  .footer__group{
+    border-top: 1px solid rgba(255,255,255,0.10);
+    padding-block: var(--sp-4);
+  }
+  .footer__group > summary{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-bottom: 0;
+    padding-block: var(--sp-2);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .footer__group-chevron{
+    display: block;
+    width: 18px;
+    height: 18px;
+    color: var(--white);
+    transform: rotate(90deg);
+    transition: transform 220ms cubic-bezier(.2,.7,.2,1);
+    flex: 0 0 auto;
+  }
+  .footer__group[open] .footer__group-chevron{
+    transform: rotate(-90deg);
+  }
+  .footer__group .footer__links{ margin-top: var(--sp-3); }
+  /* Explicit hide — display: flex on .footer__links overrides the UA hide
+     rule, so .footer__links stays visible when [open] is absent. */
+  .footer__group:not([open]) > .footer__links{ display: none; }
+}
