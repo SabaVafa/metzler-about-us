@@ -3423,8 +3423,11 @@ END OF LEGACY DEAD CSS */
    non-mobile HTML stays byte-for-byte identical. */
 @media (max-width: 767px){
   .footer__group.is-collapsible{
+    /* No extra padding-block — the footer__top grid already supplies
+       row-gap between every column, and matching the same gap here keeps
+       the spacing consistent with the hotline / follow-us blocks. */
     border-top: 1px solid rgba(255,255,255,0.10);
-    padding-block: var(--sp-4);
+    padding-top: var(--sp-3);
   }
   .footer__group.is-collapsible > h4{
     display: flex;
@@ -3432,7 +3435,6 @@ END OF LEGACY DEAD CSS */
     justify-content: space-between;
     cursor: pointer;
     margin-bottom: 0;
-    padding-block: var(--sp-2);
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
