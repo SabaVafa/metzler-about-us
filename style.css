@@ -551,6 +551,18 @@ main.about .section-title i{
   .strip-arrow{ display: none; }
 }
 
+/* Trustbar viewport sits INSIDE the container's padding by default, which
+   pushes its arrows on top of the first/last badge image. Break the viewport
+   out of the padding on the strip's responsive range so the arrows can sit
+   in the section's outer margin instead of over the cards. The rail's
+   own padding-inline (set below, alongside its other responsive rules) puts
+   the badges back inside the page margin. */
+@media (max-width: 1023px){
+  .trustbar__viewport{
+    margin-inline: calc(-1 * clamp(var(--sp-6), 4vw, 56px));
+  }
+}
+
 /* ============== SECTION 2 — STORY ============== */
 .about-story__grid{
   display: grid;
@@ -2834,6 +2846,10 @@ END OF LEGACY DEAD CSS */
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;            /* Firefox */
     padding-bottom: var(--sp-2);      /* room for the flip-card shadow */
+    /* Match the section margin: viewport extends to the screen edge for
+       the arrows, so the rail content needs its own inset to keep badges
+       inside the page's 24px margin. */
+    padding-inline: clamp(var(--sp-6), 4vw, 56px);
   }
   .trustbar__rail::-webkit-scrollbar{ display: none; } /* Chrome/Safari */
   .trustbar__rail::before{ display: none; }
