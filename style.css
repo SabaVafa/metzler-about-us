@@ -44,8 +44,10 @@ main.about .about-pillars,
 main.about .reviews,
 main.about .about-closing{ background: var(--about-bg-soft); }
 /* Reviews head: stop the rating block from being pushed past the grid's right
-   edge — let the title column shrink/wrap, keep the rating at its natural size. */
-main.about .reviews__head{ align-items: center; }
+   edge — let the title column shrink/wrap, keep the rating at its natural size.
+   align-items: flex-end aligns the rating with the title (not the eyebrow+title
+   stack's visual middle) since the title sits at the bottom of the text column. */
+main.about .reviews__head{ align-items: flex-end; }
 main.about .reviews__head-text{ min-width: 0; }
 main.about .reviews__rating{ flex-shrink: 0; }
 /* Inline span inside the reviews .section-title — small muted count
