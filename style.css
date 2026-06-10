@@ -2069,7 +2069,8 @@ main.about .about-editorial__tier--bottom .section-title i{
 /* Mobile (≤767px): compact chrome — stack brand and chapter tabs so the
    title, 'Qualität', and the chapter bar all start at the same left margin
    (the page's 24px section gutter) instead of competing for one horizontal
-   row. Tabs remain a horizontal scroller for the four labels. */
+   row. Tabs remain a horizontal scroller for the four labels and keep the
+   desktop track + teal-fill animation (name above, underline below). */
 @media (max-width: 767px){
   .msty__chrome-inner{
     flex-direction: column;
@@ -2078,17 +2079,10 @@ main.about .about-editorial__tier--bottom .section-title i{
   }
   .msty__brand-title{ font-size: 18px; }
   .msty__brand-eyebrow{ display: none; }
-  .msty__tabs{ gap: 22px; align-items: center; width: 100%; }
-  .msty__tab{ min-width: 0; padding-bottom: 0; }
+  .msty__tabs{ gap: 22px; align-items: flex-end; width: 100%; }
+  .msty__tab{ min-width: 0; padding-bottom: 4px; }
   .msty__tab-name{ display: block; font-size: 10px; letter-spacing: 0.04em; }
-  /* Take the underline out of flow so the name itself centers on the title */
-  .msty__tab-track{
-    max-width: 32px;
-    position: absolute;
-    left: 0;
-    top: calc(100% + 5px);
-    margin-top: 0;
-  }
+  .msty__tab-track{ max-width: 48px; margin-top: 6px; }
 }
 
 /* ─── Chapter (one story = one composed scene) ─── */
