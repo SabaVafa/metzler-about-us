@@ -1855,7 +1855,7 @@ main.about .about-editorial__tier--bottom .section-title i{
   font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--msty-fg);
-  font-style: italic;
+  font-style: normal;
 }
 
 /* ─── Chapter tabs (right side of chrome) ─── */
