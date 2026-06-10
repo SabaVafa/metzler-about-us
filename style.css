@@ -48,6 +48,20 @@ main.about .about-closing{ background: var(--about-bg-soft); }
 main.about .reviews__head{ align-items: center; }
 main.about .reviews__head-text{ min-width: 0; }
 main.about .reviews__rating{ flex-shrink: 0; }
+/* Inline span inside the reviews .section-title — small muted count
+   sits next to the bold title. vertical-align + top nudge centers it
+   within the title's x-height band so "n" of "Bewertungen" lines up
+   with "n" of "Kunden". */
+.reviews__rating-count{
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.55);
+  letter-spacing: 0;
+  margin-left: 4px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
 /* Apply unified section padding to every .section on the About page
    (overrides styles-v2.css default of 80px/64px). Sections with custom
    padding declared later in this file still win where intentional. */
