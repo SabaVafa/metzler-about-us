@@ -1917,11 +1917,28 @@ main.about .about-editorial__tier--bottom .section-title i{
   border-bottom: 1px solid var(--msty-rule);
   transition: box-shadow 320ms ease;
 }
-/* Pinned state — chrome is fixed at viewport top while scrolling through the section */
+/* Pinned state — chrome is fixed at viewport top while scrolling through the section.
+   transform: translateZ(0) forces a compositing layer; iOS Safari otherwise
+   sometimes fails to repaint position:fixed + backdrop-filter combos and the
+   pinned chrome scrolls away with the page. */
 .msty__chrome.is-pinned{
   position: fixed;
   top: 0;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+/* Touch devices — replace the blur with a solid background. backdrop-filter
+   inside a position:fixed element is unreliable on iOS Safari (especially
+   when the URL bar collapses) and can leave the chrome behind the scrolled
+   content. Solid bg is more robust. */
+@media (hover: none){
+  .msty__chrome{
+    background: var(--msty-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 /* Bottom state — chrome rests at the bottom of the section when scrolled past */
 .msty__chrome.is-bottom{
