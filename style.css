@@ -3422,14 +3422,12 @@ END OF LEGACY DEAD CSS */
    rotates the chevron. The chevron is also injected by JS so the
    non-mobile HTML stays byte-for-byte identical. */
 @media (max-width: 767px){
-  .footer__group.is-collapsible{
-    /* No extra padding-block — the footer__top grid already supplies
-       row-gap between every column, and matching the same gap here keeps
-       the spacing consistent with the hotline / follow-us blocks. */
-    border-top: 1px solid rgba(255,255,255,0.10);
-    padding-top: var(--sp-3);
-  }
   .footer__group.is-collapsible > h4{
+    /* No border-top or padding here — the footer__top grid's 40px row-gap
+       already separates the collapsible from neighbouring sections, and
+       any extra padding here makes the Informationen↔Service gap read
+       larger than the gaps above/below. The chevron alone signals 'tap to
+       open' — the accordion strip doesn't need its own outline. */
     display: flex;
     align-items: center;
     justify-content: space-between;
