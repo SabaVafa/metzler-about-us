@@ -510,7 +510,11 @@ main.about .section-title i{
 }
 @media (max-width: 767px){
   .about-truststrip__inner{ gap: var(--sp-3); }
-  .about-truststrip__stat{ flex: 0 0 40%; } /* ~2.5 stats visible on mobile */
+  .about-truststrip__stat{
+    flex: 0 0 40%;          /* ~2.5 stats visible on mobile */
+    align-items: flex-start; /* first stat's content lines up with the page's 24px section margin */
+    text-align: left;
+  }
 }
 
 /* ============== SECTION 2 — STORY ============== */
@@ -2879,10 +2883,14 @@ END OF LEGACY DEAD CSS */
   .trustbar__rail{ gap: var(--sp-2); }
   .trustbar__item{
     /* Narrower cards + minimal side padding pull the centered badges close
-       together (most of the old gap was empty card width, not the flex gap). */
+       together (most of the old gap was empty card width, not the flex gap).
+       Left-align so the first badge's content lines up with the section
+       margin instead of sitting ~44px inside it. */
     flex: 0 0 44%;
     min-width: 150px;
     padding-inline: 2px;
+    align-items: flex-start;
+    text-align: left;
   }
   /* Tap to flip — :active triggers the same flip as :hover on desktop.
      User taps badge → flips to context; taps again → flips back. */
