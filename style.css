@@ -517,6 +517,51 @@ main.about .section-title i{
   }
 }
 
+/* ───────────────────────────────────────────────────────────────
+   Side-arrow controls for horizontally-scrolling strips
+   (truststrip + trustbar). Pattern follows the PLP subnav: round
+   button positioned over each rail edge, only on widths where
+   the rail actually scrolls (≤1023px). Hidden at the matching
+   scroll edge via JS-toggled .is-hidden.
+   ─────────────────────────────────────────────────────────────── */
+.strip-viewport{ position: relative; }
+.strip-arrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--graphite-300);
+  background: var(--white);
+  color: var(--schwarz);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.22s ease;
+}
+.strip-arrow svg{ width: 22px; height: 22px; }
+.strip-arrow--prev{ left: 8px; }
+.strip-arrow--prev svg{ transform: rotate(180deg); }
+.strip-arrow--next{ right: 8px; }
+@media (hover: hover){
+  .strip-arrow:hover{ background: var(--teal); color: #fff; border-color: var(--teal); }
+}
+.strip-arrow:focus-visible{ outline: none; box-shadow: 0 0 0 3px rgba(1,82,83,0.2); }
+.strip-arrow.is-hidden{ opacity: 0; pointer-events: none; }
+/* Desktop: rails fit, arrows aren't needed */
+@media (min-width: 1024px){
+  .strip-arrow{ display: none; }
+}
+/* Trust strip — the strip background is the dark hero; use a
+   lighter button so it stays visible on the contrast. */
+.about-truststrip .strip-arrow{
+  background: rgba(255,255,255,0.95);
+  border-color: rgba(255,255,255,0.3);
+}
+
 /* ============== SECTION 2 — STORY ============== */
 .about-story__grid{
   display: grid;

@@ -197,13 +197,17 @@
 
   <!-- TRUST STRIP BELOW HERO -->
   <div class="about-truststrip">
-    <div class="container about-truststrip__inner">
-      <div class="about-truststrip__stat"><b>Seit&nbsp;2013</b><span>Manufaktur</span></div>
-      <div class="about-truststrip__stat"><b>165</b><span>Mitarbeitende</span></div>
-      <div class="about-truststrip__stat"><b>2.500</b><span>Produkte</span></div>
-      <div class="about-truststrip__stat"><b>500</b><span>Patente &amp; Designs</span></div>
-      <div class="about-truststrip__stat"><b>1,8&nbsp;Mio.</b><span>Kunden</span></div>
-      <div class="about-truststrip__stat"><b>Reutlingen</b><span>Hauptsitz, BW</span></div>
+    <div class="strip-viewport">
+      <button class="strip-arrow strip-arrow--prev" type="button" data-strip-scroll="prev" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="container about-truststrip__inner">
+        <div class="about-truststrip__stat"><b>Seit&nbsp;2013</b><span>Manufaktur</span></div>
+        <div class="about-truststrip__stat"><b>165</b><span>Mitarbeitende</span></div>
+        <div class="about-truststrip__stat"><b>2.500</b><span>Produkte</span></div>
+        <div class="about-truststrip__stat"><b>500</b><span>Patente &amp; Designs</span></div>
+        <div class="about-truststrip__stat"><b>1,8&nbsp;Mio.</b><span>Kunden</span></div>
+        <div class="about-truststrip__stat"><b>Reutlingen</b><span>Hauptsitz, BW</span></div>
+      </div>
+      <button class="strip-arrow strip-arrow--next" type="button" data-strip-scroll="next" aria-label="Weiter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
   </div>
 
@@ -215,6 +219,8 @@
         <h2 class="section-title">Mehrfach ausgezeichnet — <i>von Ihnen bestätigt</i></h2>
       </header>
 
+      <div class="strip-viewport trustbar__viewport">
+      <button class="strip-arrow strip-arrow--prev" type="button" data-strip-scroll="prev" aria-label="Zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
       <ul class="trustbar__rail" role="list">
 
         <li class="trustbar__item trustbar__item--link" tabindex="0" role="link" data-scroll="#ausgezeichnet" aria-label="Beliebtester Anbieter — zur ntv-Auszeichnung">
@@ -314,6 +320,8 @@
         </li>
 
       </ul>
+      <button class="strip-arrow strip-arrow--next" type="button" data-strip-scroll="next" aria-label="Weiter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
   </section>
 
@@ -1047,6 +1055,40 @@
       }, { rootMargin: '-40% 0px -40% 0px', threshold: [0, 0.1, 0.5, 1] });
       chapters.forEach(c => activeObs.observe(c));
     }
+  })();
+</script>
+
+<!-- Strip arrows — scroll the horizontal rails (truststrip + trustbar)
+     by ~70% of viewport, and hide the prev/next arrow at the matching
+     scroll edge. -->
+<script>
+  (function(){
+    document.querySelectorAll('.strip-viewport').forEach(function(vp){
+      var scroller = vp.querySelector('.about-truststrip__inner, .trustbar__rail');
+      if (!scroller) return;
+      var prev = vp.querySelector('.strip-arrow--prev');
+      var next = vp.querySelector('.strip-arrow--next');
+
+      function step(dir){
+        var amount = scroller.clientWidth * 0.7;
+        scroller.scrollBy({ left: dir * amount, behavior: 'smooth' });
+      }
+      vp.querySelectorAll('[data-strip-scroll]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          step(btn.getAttribute('data-strip-scroll') === 'next' ? 1 : -1);
+        });
+      });
+
+      function update(){
+        var atStart = scroller.scrollLeft <= 4;
+        var atEnd   = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 4;
+        if (prev) prev.classList.toggle('is-hidden', atStart);
+        if (next) next.classList.toggle('is-hidden', atEnd);
+      }
+      scroller.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    });
   })();
 </script>
 
