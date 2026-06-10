@@ -1083,7 +1083,12 @@
       });
 
       function update(){
-        var atStart = scroller.scrollLeft <= 4;
+        /* The rail's padding-inline + scroll-snap pushes the initial scrollLeft
+           to the first item's offset (e.g. 24 on mobile), so atStart can't just
+           check scrollLeft<=0 — compare to the first item's natural offsetLeft. */
+        var firstItem = scroller.firstElementChild;
+        var startThreshold = firstItem ? firstItem.offsetLeft : 0;
+        var atStart = scroller.scrollLeft <= startThreshold + 4;
         var atEnd   = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 4;
         if (prev) prev.classList.toggle('is-hidden', atStart);
         if (next) next.classList.toggle('is-hidden', atEnd);
