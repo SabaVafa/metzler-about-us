@@ -2821,24 +2821,25 @@ END OF LEGACY DEAD CSS */
 }
 
 /* Linked-badge affordances (currently scoped to NTV only — opt-in via
-   the .trustbar__cue / .trustbar__cta-arrow elements in the markup).
-   FRONT cue: small ↗ in the top-right corner of the badge frame, telling
-   users this badge leads somewhere before they tap it. */
-.trustbar__cue{
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 18px;
-  height: 18px;
-  display: grid;
-  place-items: center;
+   the .trustbar__cue-text / .trustbar__cta-arrow elements in the markup).
+   FRONT cue: text pill 'Zur Auszeichnung →' sits below the badge label,
+   always visible, telling users this badge leads somewhere before they
+   tap it. Word-based cue reads as a clear action — more discoverable
+   than a small corner glyph. */
+.trustbar__cue-text{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--teal);
-  background: rgba(255,255,255,0.92);
-  border-radius: 999px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-  pointer-events: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
-.trustbar__cue svg{ width: 12px; height: 12px; display: block; }
+.trustbar__cue-text svg{ width: 12px; height: 12px; }
 /* BACK CTA arrow: small → next to the "Zur Auszeichnung" headline so the
    back face reads as a clear action, not just descriptive context. */
 .trustbar__cta-arrow{
