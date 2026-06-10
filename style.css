@@ -505,7 +505,7 @@ main.about .section-title i{
   .about-truststrip__stat{
     flex: 0 0 22%;                    /* ~4 stats visible + a peek on tablet */
     min-width: 120px;
-    scroll-snap-align: center;
+    scroll-snap-align: start;         /* start-snap so the last stat doesn't need trailing space to center */
   }
 }
 @media (max-width: 767px){
@@ -2856,7 +2856,7 @@ END OF LEGACY DEAD CSS */
   .trustbar__item{
     flex: 0 0 30%;                    /* ~3 badges visible + a peek on tablet */
     min-width: 150px;
-    scroll-snap-align: center;
+    scroll-snap-align: start;         /* start-snap so the last badge doesn't need trailing space to center */
     margin-bottom: 0;
   }
   .trustbar__sub{ white-space: normal; }
