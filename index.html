@@ -1018,28 +1018,36 @@
         tab.classList.toggle('is-active', i === idx);
       });
       // Keep the active label in view when the strip is a horizontal scroller
-      // (mobile / tablet). Centers the active tab inside its scroll container
-      // so reaching the last chapter doesn't leave its label off-screen.
-      // Use getBoundingClientRect — the tab's offsetParent is the chrome
-      // header, not the tabStrip, so .offsetLeft would be wrong. Manual
-      // tween instead of scrollTo({behavior:'smooth'}) — the latter is no-op
-      // on this strip (probably the html-level scroll-behavior cascade).
+      // (mobile / tablet). Use getBoundingClientRect — the tab's offsetParent
+      // is the chrome header, not the tabStrip, so offsetLeft would be wrong.
       const active = tabs[idx];
       if (active && tabStrip && tabStrip.scrollWidth > tabStrip.clientWidth){
         const tabRect = active.getBoundingClientRect();
         const stripRect = tabStrip.getBoundingClientRect();
         const tabLeftInStrip = (tabRect.left - stripRect.left) + tabStrip.scrollLeft;
-        const target = Math.max(0, tabLeftInStrip - (tabStrip.clientWidth - tabRect.width) / 2);
-        const start = tabStrip.scrollLeft;
-        const duration = 300;
-        const t0 = performance.now();
-        const tween = (now) => {
-          const p = Math.min(1, (now - t0) / duration);
-          const eased = 1 - Math.pow(1 - p, 3);
-          tabStrip.scrollLeft = start + (target - start) * eased;
-          if (p < 1) requestAnimationFrame(tween);
-        };
-        requestAnimationFrame(tween);
+        const maxScroll = tabStrip.scrollWidth - tabStrip.clientWidth;
+        const target = Math.max(0, Math.min(
+          maxScroll,
+          tabLeftInStrip - (tabStrip.clientWidth - tabRect.width) / 2
+        ));
+        if (Math.abs(target - tabStrip.scrollLeft) > 1){
+          // Instant assignment first guarantees the final position (smooth
+          // scroll on this strip is no-op on some setups). Tween animates
+          // for visual smoothness; final assignment locks it in.
+          const start = tabStrip.scrollLeft;
+          const t0 = performance.now();
+          const duration = 320;
+          tabStrip.scrollLeft = target;        // guaranteed final position
+          tabStrip.scrollLeft = start;         // reset, then animate from here
+          const tween = (now) => {
+            const p = Math.min(1, (now - t0) / duration);
+            const eased = 1 - Math.pow(1 - p, 3);
+            tabStrip.scrollLeft = start + (target - start) * eased;
+            if (p < 1) requestAnimationFrame(tween);
+            else tabStrip.scrollLeft = target;
+          };
+          requestAnimationFrame(tween);
+        }
       }
     };
     setActive(0);
@@ -1072,17 +1080,33 @@
     }
 
     // ── Track the most-centered chapter to drive the active tab ──
-    if (hasIO){
-      const activeObs = new IntersectionObserver((entries) => {
-        let best = null;
-        entries.forEach(e => { if (!best || e.intersectionRatio > best.intersectionRatio) best = e; });
-        if (best && best.isIntersecting){
-          const idx = parseInt(best.target.dataset.chapter, 10);
-          if (!Number.isNaN(idx)) setActive(idx);
-        }
-      }, { rootMargin: '-40% 0px -40% 0px', threshold: [0, 0.1, 0.5, 1] });
-      chapters.forEach(c => activeObs.observe(c));
-    }
+    // Scroll-driven check (works everywhere, including when the IO below
+    // misses an edge — e.g. fast momentum scroll past the last chapter).
+    // Picks the chapter whose vertical center is closest to the viewport's
+    // chrome-aware midline.
+    let activeIdx = -1;
+    const pickActive = () => {
+      const chromeH = chrome ? chrome.offsetHeight : 0;
+      const targetY = chromeH + (window.innerHeight - chromeH) / 2;
+      let bestI = -1, bestDist = Infinity;
+      chapters.forEach((c, i) => {
+        const r = c.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        const center = (r.top + r.bottom) / 2;
+        const dist = Math.abs(center - targetY);
+        if (dist < bestDist){ bestDist = dist; bestI = i; }
+      });
+      if (bestI !== -1 && bestI !== activeIdx){
+        activeIdx = bestI;
+        setActive(bestI);
+      }
+    };
+    let pickRaf = null;
+    window.addEventListener('scroll', () => {
+      if (pickRaf) return;
+      pickRaf = requestAnimationFrame(() => { pickActive(); pickRaf = null; });
+    }, { passive: true });
+    pickActive();
   })();
 </script>
 
