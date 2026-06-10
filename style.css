@@ -2840,20 +2840,6 @@ END OF LEGACY DEAD CSS */
   text-decoration-thickness: 1px;
 }
 .trustbar__cue-text svg{ width: 12px; height: 12px; }
-/* BACK CTA arrow: small → next to the "Zur Auszeichnung" headline so the
-   back face reads as a clear action, not just descriptive context. */
-.trustbar__cta-arrow{
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
-  display: grid;
-  place-items: center;
-  color: var(--teal);
-  pointer-events: none;
-}
-.trustbar__cta-arrow svg{ width: 14px; height: 14px; display: block; }
 /* Image inside the front face */
 .trustbar__face--front img{
   width: 64px;
@@ -2964,9 +2950,7 @@ END OF LEGACY DEAD CSS */
    bottom of the card on hover/focus; clicking scrolls to the section. */
 .trustbar__item--link{ cursor: pointer; }
 .trustbar__item--link:hover .trustbar__title,
-.trustbar__item--link:focus-visible .trustbar__title,
-.trustbar__item--link:hover .trustbar__sub,
-.trustbar__item--link:focus-visible .trustbar__sub{
+.trustbar__item--link:focus-visible .trustbar__title{
   text-decoration: underline;
   text-underline-offset: 3px;
 }
