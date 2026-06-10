@@ -1339,6 +1339,11 @@ main.about .about-editorial__tier--bottom .section-title i{
   .craft-chapter--flip .craft-media{ order: 1; }
   .craft-chapter--flip .craft-copy{ order: 2; }
   .craft-copy{ max-width: none; }
+  /* Body's 46ch cap (a desktop reading-measure) leaves wide blank
+     space on stacked layouts where the copy column already spans
+     the full container width — drop the cap so body fills the
+     column like the headline does. */
+  .craft-body{ max-width: none; }
 }
 @media (max-width: 767px){
   /* Four longer labels don't fit a fixed row on phones — make the tab strip a
