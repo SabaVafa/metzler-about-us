@@ -1290,6 +1290,13 @@ main.about .about-editorial__tier--bottom .section-title i{
 }
 .craft-headline span{ display: block; }
 .craft-accent{ font-style: normal; color: inherit; }
+/* Mobile: let the two phrases flow as one wrapping line instead of
+   forcing a stair-step on narrow widths. An em-dash between them
+   reads as the same editorial separator used in section-title pairs. */
+@media (max-width: 767px){
+  .craft-headline span{ display: inline; }
+  .craft-headline span:first-child::after{ content: " — "; }
+}
 .craft-body{
   margin: 0;
   max-width: 46ch;
