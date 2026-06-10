@@ -61,10 +61,10 @@ main .section{ padding-block: var(--about-section-y); }
 }
 .about-section-header .section-sub{ margin-left: auto; margin-right: auto; }
 
-/* Brand pattern: italic accent inside any section-title is teal.
+/* Brand pattern: accent inside any section-title is teal + bold (upright).
    Single source of truth — every section's "Heading. <i>accent.</i>" works. */
 main.about .section-title i{
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
   color: var(--teal);
 }
@@ -1063,7 +1063,7 @@ main.about .section-title i{
 }
 main.about .about-editorial__tier--bottom .section-title i{
   color: var(--white);
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
 }
 
@@ -2869,7 +2869,7 @@ END OF LEGACY DEAD CSS */
   color: var(--schwarz);
 }
 .news__title i{
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
   color: var(--teal);
 }
@@ -2973,9 +2973,9 @@ END OF LEGACY DEAD CSS */
 }
 /* Headline color on light bg */
 .about-closing .section-title{ color: var(--schwarz); margin-bottom: var(--sp-3); }
-/* Italic teal accent on key phrase */
+/* Teal accent on key phrase (upright) */
 .about-closing .section-title i{
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
   color: var(--teal);
 }
