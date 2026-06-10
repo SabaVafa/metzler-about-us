@@ -1292,8 +1292,12 @@ main.about .about-editorial__tier--bottom .section-title i{
 .craft-accent{ font-style: normal; color: inherit; }
 /* Mobile: let the two phrases flow as one wrapping line instead of
    forcing a stair-step on narrow widths. An em-dash between them
-   reads as the same editorial separator used in section-title pairs. */
+   reads as the same editorial separator used in section-title pairs.
+   Bigger font-size pushes each wrapped line closer to the column's
+   right edge so the headline fills the horizontal space instead of
+   leaving wide ragged-right whitespace. */
 @media (max-width: 767px){
+  .craft-headline{ font-size: clamp(40px, 11vw, 48px); }
   .craft-headline span{ display: inline; }
   .craft-headline span:first-child::after{ content: " — "; }
 }
