@@ -1960,13 +1960,22 @@ main.about .about-editorial__tier--bottom .section-title i{
 .msty__tab:hover .msty__tab-num{ color: var(--msty-fg); }
 
 /* Tablet (≤1023px): shrink the brand mark + tighten tab gaps so the
-   chrome row (brand + 3 chapter tabs) doesn't overflow horizontally. */
+   chrome row (brand + 3 chapter tabs) doesn't overflow horizontally.
+   Pull the underline track out of flow so the label centers against
+   the brand title — otherwise the track inflates the tab box and the
+   label drifts above the title's vertical center. */
 @media (max-width: 1023px){
   .msty__brand-title{ font-size: 24px; }
   .msty__brand{ gap: 10px; }
-  .msty__tabs{ gap: 24px; }
-  .msty__tab{ min-width: 0; }
-  .msty__tab-track{ max-width: 48px; }
+  .msty__tabs{ gap: 24px; align-items: center; }
+  .msty__tab{ min-width: 0; padding-bottom: 0; }
+  .msty__tab-track{
+    max-width: 48px;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    margin-top: 0;
+  }
 }
 /* Mobile (≤767px): compact chrome — show the city names (numbers removed) */
 @media (max-width: 767px){
