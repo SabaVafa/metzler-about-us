@@ -3416,12 +3416,12 @@ END OF LEGACY DEAD CSS */
 }
 
 /* ============== FOOTER GROUPS — Informationen / Service collapse on mobile only ==============
-   Desktop markup + behavior are unchanged (h4 + ul, both visible). On
-   ≤1023px a JS-added .is-collapsible class wires the h4 as an accordion
-   toggle: tap it to flip .is-open, which reveals the ul + rotates the
-   chevron. The chevron is also injected by JS so the desktop HTML stays
-   byte-for-byte identical. */
-@media (max-width: 1023px){
+   Desktop + tablet markup + behavior are unchanged (h4 + ul, both
+   visible). On ≤767px a JS-added .is-collapsible class wires the h4 as
+   an accordion toggle: tap it to flip .is-open, which reveals the ul +
+   rotates the chevron. The chevron is also injected by JS so the
+   non-mobile HTML stays byte-for-byte identical. */
+@media (max-width: 767px){
   .footer__group.is-collapsible{
     border-top: 1px solid rgba(255,255,255,0.10);
     padding-block: var(--sp-4);
