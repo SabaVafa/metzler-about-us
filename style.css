@@ -1918,12 +1918,15 @@ main.about .about-editorial__tier--bottom .section-title i{
   transition: box-shadow 320ms ease;
 }
 /* Pinned state — chrome is fixed at viewport top while scrolling through the section.
-   transform: translateZ(0) forces a compositing layer; iOS Safari otherwise
-   sometimes fails to repaint position:fixed + backdrop-filter combos and the
-   pinned chrome scrolls away with the page. */
+   z-index 95 beats the mobile sticky site header (z-index 90 at ≤720px); without
+   this the pinned chrome was painted behind the header and looked like it never
+   pinned at all. transform: translateZ(0) forces a compositing layer; iOS Safari
+   otherwise sometimes fails to repaint position:fixed + backdrop-filter combos
+   and the pinned chrome scrolls away with the page. */
 .msty__chrome.is-pinned{
   position: fixed;
   top: 0;
+  z-index: 95;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
