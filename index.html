@@ -698,8 +698,8 @@
         </div>
       </div>
 
-      <details class="footer__group">
-        <summary>Informationen<svg class="footer__group-chevron" aria-hidden="true"><use href="#i-chevron-right"/></svg></summary>
+      <div class="footer__group">
+        <h4>Informationen</h4>
         <ul class="footer__links">
           <li><a href="#">Auszeichnungen</a></li>
           <li><a href="#">Fotowettbewerb</a></li>
@@ -708,10 +708,10 @@
           <li><a href="#">News</a></li>
           <li><a href="#">Zahlung und Versand</a></li>
         </ul>
-      </details>
+      </div>
 
-      <details class="footer__group">
-        <summary>Service<svg class="footer__group-chevron" aria-hidden="true"><use href="#i-chevron-right"/></svg></summary>
+      <div class="footer__group">
+        <h4>Service</h4>
         <ul class="footer__links">
           <li><a href="#">Begriffserklärung</a></li>
           <li><a href="#">FAQ</a></li>
@@ -719,7 +719,7 @@
           <li><a href="#">Newsletter</a></li>
           <li><a href="#">VDM10 FAQ</a></li>
         </ul>
-      </details>
+      </div>
 
       <div class="footer__follow">
         <h4>Follow us</h4>
@@ -1151,6 +1151,51 @@
       window.addEventListener('resize', update);
       update();
     });
+  })();
+</script>
+
+<!-- Footer accordion — Informationen + Service collapse on ≤1023px only.
+     Desktop HTML stays untouched: the chevron is injected by this script,
+     and the click-toggle is wired only inside the matching media query.
+     Above 1023px nothing runs and the footer renders exactly as before. -->
+<script>
+  (function(){
+    var mq = window.matchMedia('(max-width: 1023px)');
+    var groups = document.querySelectorAll('.footer__group');
+    if (!groups.length) return;
+
+    var chevronSVG = '<svg class="footer__group-chevron" aria-hidden="true"><use href="#i-chevron-right"/></svg>';
+
+    function wire(group){
+      if (group.dataset.collapsibleWired) return;
+      group.dataset.collapsibleWired = '1';
+      var h4 = group.querySelector('h4');
+      if (!h4) return;
+      // Inject the chevron at the end of the h4 (only once).
+      h4.insertAdjacentHTML('beforeend', chevronSVG);
+      h4.setAttribute('role', 'button');
+      h4.setAttribute('tabindex', '0');
+      h4.setAttribute('aria-expanded', 'false');
+      var toggle = function(){
+        var open = group.classList.toggle('is-open');
+        h4.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      h4.addEventListener('click', toggle);
+      h4.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+      });
+    }
+
+    function apply(){
+      if (mq.matches){
+        groups.forEach(function(g){ g.classList.add('is-collapsible'); wire(g); });
+      } else {
+        groups.forEach(function(g){ g.classList.remove('is-collapsible', 'is-open'); });
+      }
+    }
+    apply();
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+    else mq.addListener(apply); // older Safari fallback
   })();
 </script>
 
