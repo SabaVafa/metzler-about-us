@@ -61,12 +61,13 @@ main .section{ padding-block: var(--about-section-y); }
 }
 .about-section-header .section-sub{ margin-left: auto; margin-right: auto; }
 
-/* Brand pattern: accent inside any section-title is teal + bold (upright).
-   Single source of truth — every section's "Heading. <i>accent.</i>" works. */
+/* Brand pattern: accent inside any section-title stays the same color
+   as the rest of the title — upright, bold, inherits color. Single
+   source of truth — every section's "Heading. <i>accent.</i>" works. */
 main.about .section-title i{
   font-style: normal;
   font-weight: 700;
-  color: var(--teal);
+  color: inherit;
 }
 
 /* Soft alternating-section background, using homepage token */
@@ -1254,7 +1255,7 @@ main.about .about-editorial__tier--bottom .section-title i{
   color: var(--craft-fg);
 }
 .craft-headline span{ display: block; }
-.craft-accent{ font-style: normal; color: var(--teal); }
+.craft-accent{ font-style: normal; color: inherit; }
 .craft-body{
   margin: 0;
   max-width: 46ch;
@@ -2871,7 +2872,7 @@ END OF LEGACY DEAD CSS */
 .news__title i{
   font-style: normal;
   font-weight: 700;
-  color: var(--teal);
+  color: inherit;
 }
 .news__sub{
   margin-top: 0;
@@ -2973,11 +2974,11 @@ END OF LEGACY DEAD CSS */
 }
 /* Headline color on light bg */
 .about-closing .section-title{ color: var(--schwarz); margin-bottom: var(--sp-3); }
-/* Teal accent on key phrase (upright) */
+/* Accent on key phrase (upright, inherits title color) */
 .about-closing .section-title i{
   font-style: normal;
   font-weight: 700;
-  color: var(--teal);
+  color: inherit;
 }
 .about-closing p{ color: #4a4a4a; }
 .about-closing__hours{
