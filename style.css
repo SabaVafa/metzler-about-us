@@ -3416,18 +3416,25 @@ END OF LEGACY DEAD CSS */
 }
 
 /* ============== FOOTER GROUPS — Informationen / Service collapse on mobile only ==============
-   Desktop + tablet markup + behavior are unchanged (h4 + ul, both
-   visible). On ≤767px a JS-added .is-collapsible class wires the h4 as
-   an accordion toggle: tap it to flip .is-open, which reveals the ul +
-   rotates the chevron. The chevron is also injected by JS so the
-   non-mobile HTML stays byte-for-byte identical. */
+   Desktop + tablet: wrapper uses display:contents so the two
+   .footer__group elements remain direct children of the footer__top
+   grid — markup and visual layout are unchanged.
+   Mobile (≤767px): the wrapper becomes a block container, removing the
+   grid's 40px row-gap between the two collapsibles so they stack
+   tightly as one accordion list. Borders sit between rows + top/bottom
+   of the list. */
+.footer__accordion{ display: contents; }
 @media (max-width: 767px){
-  .footer__group.is-collapsible{
-    /* Hairline between accordion strips for visual separation. NO extra
-       padding-top/bottom — the footer__top grid's 40px row-gap already
-       separates the rows, and any extra padding here makes the
-       Informationen↔Service gap read larger than its neighbours. */
+  .footer__accordion{
+    display: block;
+    grid-column: 1 / -1;
+  }
+  .footer__accordion .footer__group{
     border-top: 1px solid rgba(255,255,255,0.10);
+    padding-block: var(--sp-4);
+  }
+  .footer__accordion .footer__group:last-child{
+    border-bottom: 1px solid rgba(255,255,255,0.10);
   }
   .footer__group.is-collapsible > h4{
     display: flex;
