@@ -2817,13 +2817,21 @@ END OF LEGACY DEAD CSS */
 .trustbar__item:focus-visible{
   z-index: 5;
 }
-.trustbar__item:hover .trustbar__face--front,
+/* Hover flip is scoped to devices that actually support hover so iOS/
+   Android don't keep a sticky :hover after a tap (which would block
+   the JS-driven tap-toggle from flipping the badge back). */
+@media (hover: hover){
+  .trustbar__item:hover .trustbar__face--front{ transform: rotateY(-180deg); }
+  .trustbar__item:hover .trustbar__face--back{
+    transform: rotateY(0deg);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+  }
+}
 .trustbar__item:focus-visible .trustbar__face--front,
 .trustbar__item.is-hinting .trustbar__face--front,
 .trustbar__item.is-flipped .trustbar__face--front{
   transform: rotateY(-180deg);
 }
-.trustbar__item:hover .trustbar__face--back,
 .trustbar__item:focus-visible .trustbar__face--back,
 .trustbar__item.is-hinting .trustbar__face--back,
 .trustbar__item.is-flipped .trustbar__face--back{

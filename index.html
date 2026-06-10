@@ -1050,9 +1050,11 @@
   })();
 </script>
 
-<!-- Clickable badges — scroll to their linked section.
-     Mobile two-step: first tap flips the badge to reveal context, second tap
-     scrolls. Avoids surprising users who tapped just to read the back. -->
+<!-- Trust badges — touch-device flip-toggle.
+     On coarse-pointer devices: tap 1 flips the badge to reveal context;
+     tap 2 on the same badge either scrolls (linked badges) or flips back
+     (plain badges). Tapping anywhere else also flips back. Desktop/mouse
+     keeps the simple behavior — scroll on click for linked badges. -->
 <script>
   (function(){
     var isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
@@ -1068,24 +1070,37 @@
       }, true);
     }
 
-    document.querySelectorAll('[data-scroll]').forEach(function(el){
-      var go = function(){
-        var t = document.querySelector(el.getAttribute('data-scroll'));
+    document.querySelectorAll('.trustbar__item').forEach(function(el){
+      var scrollSel = el.getAttribute('data-scroll');
+      var go = scrollSel ? function(){
+        var t = document.querySelector(scrollSel);
         if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      };
+      } : null;
+
       el.addEventListener('click', function(e){
-        if (isCoarse && flippedEl !== el){
-          e.preventDefault();
+        if (isCoarse){
+          if (flippedEl !== el){
+            if (go) e.preventDefault();
+            unflip();
+            el.classList.add('is-flipped');
+            flippedEl = el;
+            return;
+          }
+          // second tap on the same flipped badge: scroll (linked) or unflip (plain)
           unflip();
-          el.classList.add('is-flipped');
-          flippedEl = el;
+          if (go) go();
           return;
         }
-        unflip();
-        go();
+        // Desktop / mouse: linked badges scroll, plain badges do nothing
+        if (go) go();
       });
+
       el.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); unflip(); go(); }
+        if (e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          unflip();
+          if (go) go();
+        }
       });
     });
   })();
