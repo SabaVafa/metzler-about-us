@@ -1254,7 +1254,7 @@ main.about .about-editorial__tier--bottom .section-title i{
   color: var(--craft-fg);
 }
 .craft-headline span{ display: block; }
-.craft-accent{ font-style: italic; color: var(--teal); }
+.craft-accent{ font-style: normal; color: var(--teal); }
 .craft-body{
   margin: 0;
   max-width: 46ch;
