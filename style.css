@@ -2080,9 +2080,16 @@ main.about .about-editorial__tier--bottom .section-title i{
   .msty__brand-title{ font-size: 18px; }
   .msty__brand-eyebrow{ display: none; }
   .msty__tabs{ gap: 22px; align-items: flex-end; width: 100%; }
-  .msty__tab{ min-width: 0; padding-bottom: 4px; }
-  .msty__tab-name{ display: block; font-size: 10px; letter-spacing: 0.04em; }
-  .msty__tab-track{ max-width: 48px; margin-top: 6px; }
+  .msty__tab{ min-width: 0; padding-bottom: 8px; }
+  .msty__tab-name{ display: block; font-size: 11px; letter-spacing: 0.04em; }
+  /* Full-label-width track (override the tablet 48px cap), back in normal
+     grid flow so the underline sits cleanly below the label like desktop. */
+  .msty__tab-track{
+    max-width: none;
+    position: relative;
+    top: auto;
+    margin-top: 8px;
+  }
 }
 
 /* ─── Chapter (one story = one composed scene) ─── */
