@@ -43,13 +43,31 @@ main.about .trustbar,
 main.about .about-pillars,
 main.about .reviews,
 main.about .about-closing{ background: var(--about-bg-soft); }
-/* Reviews head: stop the rating block from being pushed past the grid's right
-   edge — let the title column shrink/wrap, keep the rating at its natural size.
-   align-items: flex-end aligns the rating with the title (not the eyebrow+title
-   stack's visual middle) since the title sits at the bottom of the text column. */
-main.about .reviews__head{ align-items: flex-end; }
+/* Reviews head: eyebrow above, title + rating share a centered row.
+   Putting the title in its own row (separate from the eyebrow) lets
+   align-items: center actually center the rating against the title,
+   not against the eyebrow+title stack. */
+main.about .reviews__head{
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-2);
+}
+main.about .reviews__head-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  width: 100%;
+}
 main.about .reviews__head-text{ min-width: 0; }
 main.about .reviews__rating{ flex-shrink: 0; }
+@media (max-width: 1023px){
+  main.about .reviews__head-row{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-4);
+  }
+}
 /* Inline span inside the reviews .section-title — small muted count
    sits next to the bold title. vertical-align + top nudge centers it
    within the title's x-height band so "n" of "Bewertungen" lines up
