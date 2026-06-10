@@ -2821,11 +2821,10 @@ END OF LEGACY DEAD CSS */
 }
 
 /* Linked-badge affordances (currently scoped to NTV only — opt-in via
-   the .trustbar__cue-text / .trustbar__cta-arrow elements in the markup).
-   FRONT cue: text pill 'Zur Auszeichnung →' sits below the badge label,
-   always visible, telling users this badge leads somewhere before they
-   tap it. Word-based cue reads as a clear action — more discoverable
-   than a small corner glyph. */
+   the .trustbar__cue-text element in the markup).
+   Cue revealed only when the badge is in its flipped/hover/focus state
+   — keeps the front face clean while still making the link discoverable
+   the moment the user engages with the badge. */
 .trustbar__cue-text{
   display: inline-flex;
   align-items: center;
@@ -2838,8 +2837,19 @@ END OF LEGACY DEAD CSS */
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
+  opacity: 0;
+  transform: translateY(-2px);
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 .trustbar__cue-text svg{ width: 12px; height: 12px; }
+.trustbar__item.is-flipped .trustbar__cue-text,
+.trustbar__item:hover .trustbar__cue-text,
+.trustbar__item:focus-visible .trustbar__cue-text{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 /* Image inside the front face */
 .trustbar__face--front img{
   width: 64px;
