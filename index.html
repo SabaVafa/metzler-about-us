@@ -1011,11 +1011,36 @@
     }
 
     // ── Chapter tabs (active / past) ──
+    const tabStrip = section.querySelector('.msty__tabs');
     const setActive = (idx) => {
       tabs.forEach((tab, i) => {
         tab.classList.toggle('is-past', i < idx);
         tab.classList.toggle('is-active', i === idx);
       });
+      // Keep the active label in view when the strip is a horizontal scroller
+      // (mobile / tablet). Centers the active tab inside its scroll container
+      // so reaching the last chapter doesn't leave its label off-screen.
+      // Use getBoundingClientRect — the tab's offsetParent is the chrome
+      // header, not the tabStrip, so .offsetLeft would be wrong. Manual
+      // tween instead of scrollTo({behavior:'smooth'}) — the latter is no-op
+      // on this strip (probably the html-level scroll-behavior cascade).
+      const active = tabs[idx];
+      if (active && tabStrip && tabStrip.scrollWidth > tabStrip.clientWidth){
+        const tabRect = active.getBoundingClientRect();
+        const stripRect = tabStrip.getBoundingClientRect();
+        const tabLeftInStrip = (tabRect.left - stripRect.left) + tabStrip.scrollLeft;
+        const target = Math.max(0, tabLeftInStrip - (tabStrip.clientWidth - tabRect.width) / 2);
+        const start = tabStrip.scrollLeft;
+        const duration = 300;
+        const t0 = performance.now();
+        const tween = (now) => {
+          const p = Math.min(1, (now - t0) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          tabStrip.scrollLeft = start + (target - start) * eased;
+          if (p < 1) requestAnimationFrame(tween);
+        };
+        requestAnimationFrame(tween);
+      }
     };
     setActive(0);
     tabs.forEach((tab, i) => {
