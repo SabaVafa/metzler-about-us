@@ -1208,8 +1208,9 @@
   })();
 </script>
 
-<!-- Newsletter — show the success banner after a valid email is submitted.
-     Hides the form + hint, swaps in the confirmation message. -->
+<!-- Newsletter — show the success banner after a valid email is submitted,
+     then fade it out after ~5s. Form stays hidden; the section keeps its
+     heading + intro paragraph so the layout doesn't snap empty. -->
 <script>
   (function(){
     var form = document.querySelector('.news__form');
@@ -1229,6 +1230,17 @@
       // Move focus to the banner so screen readers announce it.
       success.setAttribute('tabindex', '-1');
       success.focus();
+      // Auto-dismiss after 5s. Add .is-dismissing for the fade (CSS owns
+      // the transition timing), then hide the element 600ms later — a
+      // fixed timeout is more reliable than transitionend, which can be
+      // skipped if the browser collapses the initial style change.
+      setTimeout(function(){
+        success.classList.add('is-dismissing');
+        setTimeout(function(){
+          success.hidden = true;
+          success.classList.remove('is-dismissing');
+        }, 600);
+      }, 5000);
     });
   })();
 </script>

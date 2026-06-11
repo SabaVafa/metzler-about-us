@@ -3154,6 +3154,13 @@ END OF LEGACY DEAD CSS */
   color: #1B6FAE;
   text-align: left;
   max-width: 520px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease, transform 500ms cubic-bezier(.2,.7,.2,1);
+}
+.news__success.is-dismissing{
+  opacity: 0;
+  transform: translateY(-4px);
 }
 .news__success-icon{
   width: 20px;
