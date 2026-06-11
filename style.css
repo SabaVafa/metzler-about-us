@@ -3124,6 +3124,52 @@ END OF LEGACY DEAD CSS */
   flex-shrink: 0;
 }
 
+/* Pre-submit hint — small muted disclosure inside the form. Spans the full
+   row beneath the input + button so it doesn't crowd either element. */
+.news__hint{
+  flex-basis: 100%;
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #7a7a7a;
+  letter-spacing: 0.02em;
+}
+
+/* Post-submit confirmation — replaces the form after successful signup.
+   Light-blue info box, matches the reference screenshot. The explicit
+   [hidden] rule wins over `display: flex` so the banner stays hidden
+   until JS removes the attribute. */
+.news__success[hidden]{ display: none; }
+.news__success{
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  background: #E7F3FB;
+  border: 1px solid #C9E2F3;
+  border-radius: var(--r-m, 4px);
+  color: #1B6FAE;
+  text-align: left;
+  max-width: 520px;
+}
+.news__success-icon{
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: #2C8DD2;
+}
+.news__success-text{
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: inherit;
+}
+/* Subscribed state — hide the form + hint, show the success banner */
+.news__inner.is-subscribed .news__form,
+.news__inner.is-subscribed .news__note{ display: none; }
+
 /* Mobile — stack form */
 @media (max-width: 767px){
   .news__form{ flex-direction: column; gap: 10px; }

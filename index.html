@@ -637,7 +637,23 @@
           <button class="btn btn-primary btn-lg news__submit" type="submit">
             Newsletter abonnieren
           </button>
+          <!-- Pre-submit disclosure: small muted hint so users know
+               what happens after they click — sets expectation before
+               action, GDPR Art. 13 informed-consent friendly. -->
+          <p class="news__hint">Bestätigung per E-Mail · Doppel-Opt-in</p>
         </form>
+
+        <!-- Post-submit confirmation: replaces the form after successful
+             validation; tells the user where to look next. -->
+        <div class="news__success" role="status" aria-live="polite" hidden>
+          <svg class="news__success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+          <p class="news__success-text">
+            Wir senden Ihnen eine E-Mail mit einem Freischalt-Link für den Erhalt unseres Newsletters. Die Abmeldung ist jederzeit möglich.
+          </p>
+        </div>
 
         <p class="news__note">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1196,6 +1212,31 @@
     apply();
     if (mq.addEventListener) mq.addEventListener('change', apply);
     else mq.addListener(apply); // older Safari fallback
+  })();
+</script>
+
+<!-- Newsletter — show the success banner after a valid email is submitted.
+     Hides the form + hint, swaps in the confirmation message. -->
+<script>
+  (function(){
+    var form = document.querySelector('.news__form');
+    if (!form) return;
+    var inner = form.closest('.news__inner');
+    var success = inner && inner.querySelector('.news__success');
+    if (!inner || !success) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var input = form.querySelector('input[type="email"]');
+      if (!input || !input.checkValidity()){
+        input && input.reportValidity();
+        return;
+      }
+      inner.classList.add('is-subscribed');
+      success.hidden = false;
+      // Move focus to the banner so screen readers announce it.
+      success.setAttribute('tabindex', '-1');
+      success.focus();
+    });
   })();
 </script>
 
