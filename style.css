@@ -3124,16 +3124,18 @@ END OF LEGACY DEAD CSS */
   flex-shrink: 0;
 }
 
-/* Pre-submit hint — small muted disclosure inside the form. Spans the full
-   row beneath the input + button so it doesn't crowd either element. */
+/* Pre-submit hint — single quiet line below the form. Centered to match
+   the rest of the newsletter copy, sits in the same slot the old
+   'Ihre Daten bleiben bei uns' lock note used to occupy. */
 .news__hint{
-  flex-basis: 100%;
-  margin: 4px 0 0;
+  margin: 0;
   font-size: 12px;
   font-weight: 500;
   color: #7a7a7a;
   letter-spacing: 0.02em;
+  text-align: center;
 }
+.news__inner.is-subscribed .news__hint{ display: none; }
 
 /* Post-submit confirmation — replaces the form after successful signup.
    Light-blue info box, matches the reference screenshot. The explicit
@@ -3167,8 +3169,7 @@ END OF LEGACY DEAD CSS */
   color: inherit;
 }
 /* Subscribed state — hide the form + hint, show the success banner */
-.news__inner.is-subscribed .news__form,
-.news__inner.is-subscribed .news__note{ display: none; }
+.news__inner.is-subscribed .news__form{ display: none; }
 
 /* Mobile — stack form */
 @media (max-width: 767px){

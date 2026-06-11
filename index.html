@@ -637,11 +637,12 @@
           <button class="btn btn-primary btn-lg news__submit" type="submit">
             Newsletter abonnieren
           </button>
-          <!-- Pre-submit disclosure: small muted hint so users know
-               what happens after they click — sets expectation before
-               action, GDPR Art. 13 informed-consent friendly. -->
-          <p class="news__hint">Bestätigung per E-Mail · Doppel-Opt-in</p>
         </form>
+
+        <!-- Pre-submit disclosure: one quiet line below the form sets the
+             double-opt-in expectation. Replaces the older 'Ihre Daten
+             bleiben bei uns' note (vague) and the inline hint (cluttered). -->
+        <p class="news__hint">Bestätigung per E-Mail · Ihre Daten bleiben bei uns.</p>
 
         <!-- Post-submit confirmation: replaces the form after successful
              validation; tells the user where to look next. -->
@@ -654,14 +655,6 @@
             Wir senden Ihnen eine E-Mail mit einem Freischalt-Link für den Erhalt unseres Newsletters. Die Abmeldung ist jederzeit möglich.
           </p>
         </div>
-
-        <p class="news__note">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          Ihre Daten bleiben bei uns.
-        </p>
 
       </div>
     </div>
