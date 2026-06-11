@@ -1230,15 +1230,18 @@
       // Move focus to the banner so screen readers announce it.
       success.setAttribute('tabindex', '-1');
       success.focus();
-      // Auto-dismiss after 5s. Add .is-dismissing for the fade (CSS owns
-      // the transition timing), then hide the element 600ms later — a
-      // fixed timeout is more reliable than transitionend, which can be
-      // skipped if the browser collapses the initial style change.
+      // Auto-dismiss after 5s and return the section to its default
+       // state (form + hint visible, banner gone). CSS-owned fade via
+       // .is-dismissing; fixed setTimeout for cleanup since transitionend
+       // can be skipped on the initial style change.
       setTimeout(function(){
         success.classList.add('is-dismissing');
         setTimeout(function(){
           success.hidden = true;
           success.classList.remove('is-dismissing');
+          // Restore default state — form + hint come back, input cleared.
+          inner.classList.remove('is-subscribed');
+          if (input) input.value = '';
         }, 600);
       }, 5000);
     });
