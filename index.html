@@ -420,18 +420,22 @@
         </div>
         <nav class="msty__tabs" aria-label="Kapitel">
           <a class="msty__tab is-active" href="#" data-tab="0">
-            <span class="msty__tab-name">Maßanfertigung</span>
+            <span class="msty__tab-name">Vorwort</span>
             <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
           </a>
           <a class="msty__tab" href="#" data-tab="1">
-            <span class="msty__tab-name">Konstruktion</span>
+            <span class="msty__tab-name">Maßanfertigung</span>
             <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
           </a>
           <a class="msty__tab" href="#" data-tab="2">
-            <span class="msty__tab-name">Sicherheit</span>
+            <span class="msty__tab-name">Konstruktion</span>
             <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
           </a>
           <a class="msty__tab" href="#" data-tab="3">
+            <span class="msty__tab-name">Sicherheit</span>
+            <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
+          </a>
+          <a class="msty__tab" href="#" data-tab="4">
             <span class="msty__tab-name">Nachhaltigkeit</span>
             <span class="msty__tab-track" aria-hidden="true"><span class="msty__tab-fill"></span></span>
           </a>
@@ -439,9 +443,9 @@
       </div>
     </header>
 
-    <!-- FOUNDER'S NOTE — preamble to the Qualität chapters.
+    <!-- FOUNDER'S NOTE — chapter 0 of the Qualität run.
          Image placeholder + signature placeholder for the team to swap. -->
-    <div class="about-founder">
+    <div class="about-founder" data-chapter="0">
       <div class="container">
         <div class="about-founder__inner">
           <figure class="about-founder__media">
@@ -471,7 +475,7 @@
       </div>
     </div>
 
-    <article class="craft-chapter" data-chapter="0">
+    <article class="craft-chapter" data-chapter="1">
       <div class="craft-chapter__inner container">
         <div class="craft-media">
           <div class="craft-media__frame">
@@ -490,7 +494,7 @@
       </div>
     </article>
 
-    <article class="craft-chapter craft-chapter--flip" data-chapter="1">
+    <article class="craft-chapter craft-chapter--flip" data-chapter="2">
       <div class="craft-chapter__inner container">
         <div class="craft-media">
           <div class="craft-media__frame">
@@ -512,7 +516,7 @@
       </div>
     </article>
 
-    <article class="craft-chapter" data-chapter="2" id="sicherheit">
+    <article class="craft-chapter" data-chapter="3" id="sicherheit">
       <div class="craft-chapter__inner container">
         <div class="craft-media">
           <div class="craft-media__frame">
@@ -534,7 +538,7 @@
       </div>
     </article>
 
-    <article class="craft-chapter craft-chapter--flip" data-chapter="3">
+    <article class="craft-chapter craft-chapter--flip" data-chapter="4">
       <div class="craft-chapter__inner container">
         <div class="craft-media">
           <div class="craft-media__frame">
@@ -1036,7 +1040,12 @@
   (function(){
     const section = document.querySelector('.about-craft');
     if (!section) return;
-    const chapters = Array.prototype.slice.call(section.querySelectorAll('.craft-chapter'));
+    // Tracked sections: [data-chapter] includes the founder note (chapter 0)
+    // and each .craft-chapter (1..4). The entrance reveal still targets
+    // only .craft-chapter so the founder note doesn't get the chapter
+    // fade-in animation.
+    const chapters = Array.prototype.slice.call(section.querySelectorAll('[data-chapter]'));
+    const craftChapters = Array.prototype.slice.call(section.querySelectorAll('.craft-chapter'));
     const tabs     = Array.prototype.slice.call(section.querySelectorAll('.msty__tab'));
     if (!chapters.length) return;
 
@@ -1045,7 +1054,7 @@
 
     // ── Entrance reveal ──
     if (reduced || !hasIO){
-      chapters.forEach(c => c.classList.add('is-visible'));
+      craftChapters.forEach(c => c.classList.add('is-visible'));
     } else {
       // Toggle (not one-shot) so the entrance replays every time a chapter
       // scrolls back into view — not just on the first pass.
@@ -1054,7 +1063,7 @@
           e.target.classList.toggle('is-visible', e.isIntersecting);
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-      chapters.forEach(c => enterObs.observe(c));
+      craftChapters.forEach(c => enterObs.observe(c));
     }
 
     // ── Chapter tabs (active / past) ──
