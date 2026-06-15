@@ -585,21 +585,12 @@ main.about .section-title i{
   gap: clamp(var(--sp-8), 4vw, var(--sp-12));
   align-items: center;
 }
-.about-topshop__trio{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(var(--sp-3), 1.6vw, var(--sp-5));
-  align-items: center;
-  justify-items: center;
-  padding: clamp(var(--sp-6), 3vw, var(--sp-8));
-  background: var(--about-bg-soft);
-  border: 1px solid var(--graphite-300);
-  border-radius: var(--r-l);
-}
-.about-topshop__trio img{
+.about-topshop__media{ margin: 0; }
+.about-topshop__hero{
   width: 100%;
-  max-width: 140px;
   height: auto;
+  display: block;
+  border-radius: var(--r-l);
   object-fit: contain;
 }
 .about-topshop__media .about-caption{
