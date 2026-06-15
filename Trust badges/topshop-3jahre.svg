@@ -1,0 +1,40 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Computer BILD Top Shop · 3 Jahre in Folge">
+  <defs>
+    <radialGradient id="ts-bg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#9F1A1F"/>
+      <stop offset="100%" stop-color="#6E0F13"/>
+    </radialGradient>
+    <linearGradient id="ts-ribbon" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="100%" stop-color="#000"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer dark ring -->
+  <circle cx="50" cy="50" r="48" fill="#1A1A1A"/>
+  <!-- Inner red field -->
+  <circle cx="50" cy="50" r="43" fill="url(#ts-bg)"/>
+  <!-- Subtle inner highlight -->
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#C7383D" stroke-width="0.6" opacity="0.55"/>
+
+  <!-- 'TOP SHOP' arcing across the top -->
+  <path id="ts-arc" d="M16 50 a34 34 0 0 1 68 0" fill="none"/>
+  <text font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="9.5" fill="#FFF" letter-spacing="2.2">
+    <textPath href="#ts-arc" startOffset="50%" text-anchor="middle">TOP SHOP</textPath>
+  </text>
+
+  <!-- Big '3' centered -->
+  <text x="50" y="62" text-anchor="middle" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="40" fill="#FFF">3</text>
+
+  <!-- 'JAHRE' ribbon under the 3 -->
+  <g>
+    <rect x="29" y="70" width="42" height="11" rx="1.5" fill="url(#ts-ribbon)"/>
+    <!-- Ribbon notches -->
+    <polygon points="29,81 25,84 29,81" fill="#000" opacity="0.7"/>
+    <polygon points="71,81 75,84 71,81" fill="#000" opacity="0.7"/>
+    <text x="50" y="78.4" text-anchor="middle" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="7.5" fill="#FFF" letter-spacing="1.4">JAHRE</text>
+  </g>
+
+  <!-- Computer BILD micro-credit -->
+  <text x="50" y="91" text-anchor="middle" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="4" fill="#F1B2B4" letter-spacing="0.8">COMPUTER BILD</text>
+</svg>
