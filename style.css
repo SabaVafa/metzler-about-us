@@ -941,6 +941,79 @@ main.about .section-title i{
   }
 }
 
+/* ============== SECTION 4 — FOUNDER'S NOTE ==============
+   Personal letter from the Geschäftsführung. Two-column on desktop
+   (portrait left, copy right); stacks on mobile. White section
+   between the soft stance section and the white craft chapters. */
+.about-founder{ background: var(--white); }
+.about-founder__inner{
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(var(--sp-8), 5vw, var(--sp-16));
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.about-founder__media{ margin: 0; }
+.about-founder__placeholder{
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-l);
+  background: linear-gradient(180deg, #F5F1EC 0%, #ECE4D9 100%);
+  color: rgba(0, 0, 0, 0.32);
+  display: grid;
+  place-items: center;
+  gap: var(--sp-3);
+  position: relative;
+  overflow: hidden;
+}
+.about-founder__placeholder svg{ width: 96px; height: 96px; opacity: 0.65; }
+.about-founder__placeholder-label{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.about-founder__copy .section-title{ margin-bottom: clamp(var(--sp-5), 2.4vw, var(--sp-6)); }
+.about-founder__body{
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.about-founder__body p{
+  font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.65;
+  color: var(--schwarz);
+  margin: 0;
+}
+.about-founder__sign{
+  margin-top: clamp(var(--sp-6), 3vw, var(--sp-8));
+  padding-top: clamp(var(--sp-4), 2vw, var(--sp-5));
+  border-top: 1px solid var(--graphite-300);
+}
+.about-founder__signature{
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: clamp(22px, 1.8vw, 26px);
+  font-weight: 400;
+  color: var(--schwarz);
+  line-height: 1.2;
+}
+.about-founder__role{
+  margin: 4px 0 0;
+  font-size: var(--text-body-sm);
+  color: #6a6a6a;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 1023px){
+  .about-founder__inner{
+    grid-template-columns: 1fr;
+    gap: clamp(var(--sp-6), 4vw, var(--sp-8));
+    max-width: 640px;
+  }
+  .about-founder__placeholder{ aspect-ratio: 5 / 4; }
+}
+
 /* ============== SECTION 4 — SORTIMENT (BENTO) ============== */
 .about-bento{
   display: grid;
