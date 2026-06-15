@@ -941,11 +941,19 @@ main.about .section-title i{
   }
 }
 
-/* ============== SECTION 4 — FOUNDER'S NOTE ==============
-   Personal letter from the Geschäftsführung. Two-column on desktop
-   (portrait left, copy right); stacks on mobile. White section
-   between the soft stance section and the white craft chapters. */
-.about-founder{ background: var(--white); }
+/* ============== FOUNDER'S NOTE (inside Qualität section) ==============
+   Personal letter from the Geschäftsführung. Sits between the sticky
+   Qualität chrome and the first craft chapter as a preamble. Two-column
+   on desktop (portrait left, copy right); stacks on mobile.
+
+   Vertical padding here replaces the .section class padding that the
+   standalone version had — the founder note is now a <div> nested in
+   .about-craft, so it needs its own breathing room. */
+.about-founder{
+  background: var(--white);
+  padding-block: clamp(56px, 6vw, 88px);
+  border-bottom: 1px solid var(--craft-rule);
+}
 .about-founder__inner{
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
