@@ -3011,7 +3011,7 @@ END OF LEGACY DEAD CSS */
 .trustbar__item:nth-child(4) .trustbar__face--front img{ width: 92px; height: 92px; } /* Red Dot */
 .trustbar__item:nth-child(5) .trustbar__face--front img{ width: 94px; height: 94px; } /* Trusted Shops */
 .trustbar__item:nth-child(6) .trustbar__face--front img{ width: 94px; height: 94px; } /* Garantie */
-.trustbar__item:nth-child(7) .trustbar__face--front img{ width: 84px; height: 84px; } /* Customers */
+.trustbar__item:nth-child(7) .trustbar__face--front img{ width: 70px; height: 70px; } /* Customers — scaled down to match the visual mass of neighbouring badges */
 
 /* Timeline dots removed */
 .trustbar__node{ display: none; }
