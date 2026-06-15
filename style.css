@@ -672,6 +672,9 @@ main.about .section-title i{
     grid-template-columns: 1fr;
     gap: clamp(var(--sp-6), 4vw, var(--sp-8));
   }
+  /* Stacked: image leads, like every other section. */
+  .about-topshop__media{ order: 1; }
+  .about-topshop__copy{ order: 2; }
 }
 @media (max-width: 640px){
   .about-topshop__criteria-list{ grid-template-columns: 1fr; }
@@ -1122,6 +1125,9 @@ main.about .section-title i{
     gap: clamp(var(--sp-6), 4vw, var(--sp-8));
     max-width: 640px;
   }
+  /* Stacked: portrait leads, like every other section. */
+  .about-founder__media{ order: 1; }
+  .about-founder__copy{ order: 2; }
   .about-founder__placeholder{ aspect-ratio: 5 / 4; }
 }
 
