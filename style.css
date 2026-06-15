@@ -3006,7 +3006,7 @@ END OF LEGACY DEAD CSS */
 .trustbar__item:nth-child(4) .trustbar__face--front img{ width: 94px; height: 94px; } /* Trusted Shops */
 .trustbar__item:nth-child(5) .trustbar__face--front img{ width: 94px; height: 94px; } /* Garantie */
 .trustbar__item:nth-child(6) .trustbar__face--front img{ width: 84px; height: 84px; } /* Customers */
-.trustbar__item:nth-child(7) .trustbar__face--front img{ width: 88px; height: 88px; } /* Top Shop 3 Jahre */
+.trustbar__item:nth-child(7) .trustbar__face--front img{ width: 72px; height: 72px; } /* Top Shop 3 Jahre — Frame.svg fills its viewBox edge-to-edge, so a smaller box matches the visual mass of the other badges that have padding inside their viewBox */
 
 /* Timeline dots removed */
 .trustbar__node{ display: none; }
