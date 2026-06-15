@@ -577,6 +577,86 @@ main.about .section-title i{
   box-shadow: var(--shadow-lg);
 }
 
+/* ============== SECTION 2b — TOP SHOP (Computer BILD × Statista) ============== */
+.about-topshop{ background: var(--white); }
+.about-topshop__grid{
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(var(--sp-8), 4vw, var(--sp-12));
+  align-items: center;
+}
+.about-topshop__trio{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(var(--sp-3), 1.6vw, var(--sp-5));
+  align-items: center;
+  justify-items: center;
+  padding: clamp(var(--sp-6), 3vw, var(--sp-8));
+  background: var(--about-bg-soft);
+  border: 1px solid var(--graphite-300);
+  border-radius: var(--r-l);
+}
+.about-topshop__trio img{
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+  object-fit: contain;
+}
+.about-topshop__media .about-caption{
+  margin-top: var(--sp-4);
+  text-align: center;
+  font-size: var(--text-body-sm);
+  color: #6a6a6a;
+  letter-spacing: 0.02em;
+}
+.about-topshop__copy .section-sub{ margin-bottom: clamp(var(--sp-5), 2.4vw, var(--sp-6)); }
+.about-topshop__criteria{
+  padding: clamp(var(--sp-4), 2vw, var(--sp-5)) clamp(var(--sp-5), 2.4vw, var(--sp-6));
+  background: var(--about-bg-soft);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--r-m);
+}
+.about-topshop__criteria-title{
+  margin: 0 0 var(--sp-3);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--schwarz);
+}
+.about-topshop__criteria-list{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2) var(--sp-5);
+}
+.about-topshop__criteria-list li{
+  position: relative;
+  padding-left: 18px;
+  font-size: var(--text-body-sm);
+  line-height: 1.5;
+  color: var(--schwarz);
+}
+.about-topshop__criteria-list li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--teal);
+}
+@media (max-width: 1023px){
+  .about-topshop__grid{
+    grid-template-columns: 1fr;
+    gap: clamp(var(--sp-6), 4vw, var(--sp-8));
+  }
+}
+@media (max-width: 640px){
+  .about-topshop__criteria-list{ grid-template-columns: 1fr; }
+}
+
 /* Asymmetric ceremony gallery — one dominant hero + two supporting shots. */
 .about-story__gallery{
   display: grid;
