@@ -597,10 +597,10 @@ main.about .section-title i{
   display: block;
   border-radius: var(--r-l);
   object-fit: contain;
-  /* Match the NTV carousel image's rendered scale so both images
-     read at the same visual width when stacked. */
-  transform: scale(1.12);
-  transform-origin: center;
+  /* No transform — the hero sits at its natural column width. The
+     NTV carousel uses scale(1.12) to compensate for its slide
+     transition, but for a static image that visual lift just makes
+     it read wider than the NTV image stacked above it. */
 }
 .about-topshop__media .about-caption{
   /* Extra top margin offsets the scaled image so the caption doesn't
