@@ -631,10 +631,7 @@ main.about .section-title i{
 }
 .about-topshop__copy .section-sub{ margin-bottom: clamp(var(--sp-5), 2.4vw, var(--sp-6)); }
 .about-topshop__criteria{
-  padding: clamp(var(--sp-4), 2vw, var(--sp-5)) clamp(var(--sp-5), 2.4vw, var(--sp-6));
-  background: var(--about-bg-soft);
-  border-left: 3px solid var(--teal);
-  border-radius: var(--r-m);
+  padding: 0;
 }
 .about-topshop__criteria-title{
   margin: 0 0 var(--sp-3);
@@ -665,7 +662,7 @@ main.about .section-title i{
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: var(--teal);
+  background: var(--schwarz);
 }
 @media (max-width: 1023px){
   .about-topshop__grid{
@@ -1062,8 +1059,9 @@ main.about .section-title i{
   grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(var(--sp-8), 5vw, var(--sp-16));
   align-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
+  /* Fills the container like the other sections — the container is now
+     capped to match the main site (1400px content), so no separate cap is
+     needed and the note lines up edge-to-edge with the rows around it. */
 }
 /* Portrait sits on the right so the founder note opens the zig-zag:
    founder image right → chapter 1 image left → chapter 2 right … */

@@ -122,25 +122,13 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   padding-inline: clamp(var(--sp-6), 4vw, 56px);
 }
 
-/* Laptop+ (≥1440): slightly larger gutters, but cap the content width so the
-   grid doesn't stretch out and leave sparse gaps in rows (nav, stats, etc.). */
+/* Desktop (≥1440): match the main metzler site (edelstahl-tuerklingel.de)
+   — a flat 1600px container with 100px gutters (1400px content), held at
+   that cap on every larger screen so the layout stays consistent with the
+   rest of the site instead of stretching out on wide monitors. */
 @media (min-width: 1440px) {
-  :root { --container: 1440px; }
-  .container { padding-inline: clamp(92px, 5vw, 116px); }
-}
-
-/* Large desktop (≥1920): widen the cap so the content fills more of the
-   viewport instead of stranding wide blank margins on big monitors. */
-@media (min-width: 1920px) {
-  :root { --container: 1720px; }
-  .container { padding-inline: clamp(92px, 5vw, 140px); }
-}
-
-/* Ultra-wide (≥2400): covers maximised browsers on 2560-wide monitors
-   (viewport ≈ 2543 after the scrollbar). Wider still, with generous
-   gutters rather than the content sprawling to the edges. */
-@media (min-width: 2400px) {
-  :root { --container: 2080px; }
+  :root { --container: 1600px; }
+  .container { padding-inline: 100px; }
 }
 .section { padding-block: var(--section-y); }
 .eyebrow {
