@@ -578,7 +578,12 @@ main.about .section-title i{
 }
 
 /* ============== SECTION 2b — TOP SHOP (Computer BILD × Statista) ============== */
-.about-topshop{ background: var(--white); }
+.about-topshop{
+  background: var(--white);
+  /* Hairline separator from the NTV section above — both sit on the
+     same white canvas, so the rule keeps them visually distinct. */
+  border-top: 1px solid var(--graphite-300);
+}
 .about-topshop__grid{
   display: grid;
   grid-template-columns: 1.05fr 1fr;
