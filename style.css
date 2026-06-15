@@ -41,6 +41,7 @@ html, body{ overflow-x: clip; }
    reviews G · newsletter W · closing G · footer. */
 main.about .trustbar,
 main.about .about-pillars,
+main.about .about-stance,
 main.about .reviews,
 main.about .about-closing{ background: var(--about-bg-soft); }
 /* Reviews head: eyebrow above, title + rating share a centered row.
@@ -880,6 +881,65 @@ main.about .section-title i{
   border-radius: var(--r-s);
 }
 .about-pillars article p{ font-size: var(--text-body); color: var(--schwarz); }
+
+/* ============== SECTION 3b — KLARE HALTUNG (stance: against vs for) ============== */
+.about-stance__grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(var(--sp-5), 2.4vw, var(--sp-8));
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.stance-card{
+  padding: clamp(var(--sp-6), 2.4vw, var(--sp-8));
+  border-radius: var(--r-l);
+  border: 1px solid transparent;
+}
+.stance-card--against{
+  background: #FAF3EE;
+  border-color: #EFE0D2;
+  --stance-icon: #B8553A;
+}
+.stance-card--for{
+  background: #E7F2EF;
+  border-color: #CFE5DD;
+  --stance-icon: var(--teal);
+}
+.stance-card__title{
+  font-size: var(--text-h4);
+  font-weight: 700;
+  color: var(--schwarz);
+  margin: 0 0 clamp(var(--sp-4), 1.6vw, var(--sp-5));
+}
+.stance-card__list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--sp-3), 1.4vw, var(--sp-4));
+}
+.stance-card__list li{
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--schwarz);
+}
+.stance-card__icon{
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--stance-icon);
+}
+@media (max-width: 767px){
+  .about-stance__grid{
+    grid-template-columns: 1fr;
+    gap: var(--sp-5);
+  }
+}
 
 /* ============== SECTION 4 — SORTIMENT (BENTO) ============== */
 .about-bento{
