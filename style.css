@@ -581,7 +581,7 @@ main.about .section-title i{
 .about-topshop{ background: var(--white); }
 .about-topshop__grid{
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
+  grid-template-columns: 1.05fr 1fr;
   gap: clamp(var(--sp-8), 4vw, var(--sp-12));
   align-items: center;
 }
@@ -592,9 +592,15 @@ main.about .section-title i{
   display: block;
   border-radius: var(--r-l);
   object-fit: contain;
+  /* Match the NTV carousel image's rendered scale so both images
+     read at the same visual width when stacked. */
+  transform: scale(1.12);
+  transform-origin: center;
 }
 .about-topshop__media .about-caption{
-  margin-top: var(--sp-4);
+  /* Extra top margin offsets the scaled image so the caption doesn't
+     crowd it. */
+  margin-top: clamp(28px, 2.4vw, 40px);
   text-align: center;
   font-size: var(--text-body-sm);
   color: #6a6a6a;
