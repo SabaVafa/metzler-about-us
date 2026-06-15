@@ -586,27 +586,45 @@ main.about .section-title i{
 }
 .about-topshop__grid{
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-columns: 1fr 1.05fr;
   gap: clamp(var(--sp-8), 4vw, var(--sp-12));
   align-items: center;
 }
-.about-topshop__media{ margin: 0; }
+/* Image on the right, copy on the left — alternates against the NTV
+   section above (image left) so the two awards zig-zag instead of
+   stacking on the same side. */
+.about-topshop__media{ margin: 0; order: 2; }
+.about-topshop__copy{ order: 1; }
 .about-topshop__hero{
   width: 100%;
-  height: auto;
   display: block;
-  border-radius: var(--r-l);
+  /* Same frame as the NTV stage above: identical aspect-ratio so both
+     images render at the same height, with the matching dark backdrop
+     so the near-square trophy letterboxes seamlessly instead of being
+     cropped. */
+  aspect-ratio: 1800 / 1286;
+  height: auto;
   object-fit: contain;
-  /* No transform — the hero sits at its natural column width. The
-     NTV carousel uses scale(1.12) to compensate for its slide
-     transition, but for a static image that visual lift just makes
-     it read wider than the NTV image stacked above it. */
+  /* Continues the badge photo's own backdrop into the letterbox bars —
+     a vertical slate gradient sampled from the image's edges (dark top,
+     lighter table-reflection toward the bottom) so the fill reads as one
+     seamless surface rather than black bars beside the image. */
+  background: linear-gradient(180deg,
+    #434d56 0%,
+    #454f57 15%,
+    #49525a 35%,
+    #49525b 55%,
+    #454d55 72%,
+    #555b62 85%,
+    #5f676f 100%);
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-lg);
 }
 .about-topshop__media .about-caption{
   /* Extra top margin offsets the scaled image so the caption doesn't
      crowd it. */
   margin-top: clamp(28px, 2.4vw, 40px);
-  text-align: center;
+  text-align: left;
   font-size: var(--text-body-sm);
   color: #6a6a6a;
   letter-spacing: 0.02em;
@@ -629,8 +647,8 @@ main.about .section-title i{
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-2) var(--sp-5);
+  grid-template-columns: 1fr;
+  gap: var(--sp-2);
 }
 .about-topshop__criteria-list li{
   position: relative;
@@ -1038,13 +1056,16 @@ main.about .section-title i{
 }
 .about-founder__inner{
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(var(--sp-8), 5vw, var(--sp-16));
   align-items: center;
   max-width: 1100px;
   margin: 0 auto;
 }
-.about-founder__media{ margin: 0; }
+/* Portrait sits on the right so the founder note opens the zig-zag:
+   founder image right → chapter 1 image left → chapter 2 right … */
+.about-founder__media{ margin: 0; order: 2; }
+.about-founder__copy{ order: 1; }
 .about-founder__placeholder{
   aspect-ratio: 4 / 5;
   border-radius: var(--r-l);
@@ -1572,7 +1593,7 @@ main.about .about-editorial__tier--bottom .section-title i{
    instead of leaving wide ragged-right whitespace. */
 @media (max-width: 1023px){
   .craft-headline span{ display: inline; }
-  .craft-headline span:first-child::after{ content: " — "; }
+  .craft-headline span:first-child::after{ content: " – "; }
 }
 @media (max-width: 767px){
   .craft-headline{ font-size: clamp(40px, 11vw, 48px); }
