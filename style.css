@@ -136,7 +136,10 @@ main.about .section-title i{
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: calc(42% + 32px) calc(58% - 32px);
+  /* Dark copy panel tracks ~42% on normal screens but caps at 760px, so on
+     wide monitors it hugs the (540px-capped) copy instead of leaving the
+     text floating in a sea of dark space. The image takes the rest. */
+  grid-template-columns: min(calc(42% + 32px), 760px) 1fr;
   aspect-ratio: 3.4 / 1;
   align-items: stretch;
   background: transparent;
