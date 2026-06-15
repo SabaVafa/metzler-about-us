@@ -3003,11 +3003,12 @@ END OF LEGACY DEAD CSS */
 .trustbar__item:nth-child(1) .trustbar__face--front img{ width: 62px; height: 62px; } /* NTV — baseline */
 .trustbar__item:nth-child(2) .trustbar__face--front img{ width: 86px; height: 86px; } /* Vergleich */
 .trustbar__item:nth-child(3) .trustbar__face--front img{
-  width: 72px; height: 72px;
-  /* Top Shop 3 Jahre — Frame.svg fills its viewBox edge-to-edge, so a
-     smaller box matches the visual mass of the other badges. Lighten
-     the gold gradient + dial back saturation so the badge sits at the
-     same visual weight as the others on the soft section background. */
+  width: 62px; height: 62px;
+  /* Top Shop 3 Jahre — Frame.svg fills its viewBox edge-to-edge, so
+     match the NTV baseline size (62px) for visual consistency with the
+     smallest neighbouring badge. Lighten the gold gradient + dial back
+     saturation so the badge sits at the same calm visual weight as the
+     rest. */
   filter: brightness(1.12) saturate(0.78);
 }
 .trustbar__item:nth-child(4) .trustbar__face--front img{ width: 92px; height: 92px; } /* Red Dot */
