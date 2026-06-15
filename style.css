@@ -2868,7 +2868,7 @@ END OF LEGACY DEAD CSS */
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: clamp(8px, 1vw, 16px);
   position: relative;
 }
