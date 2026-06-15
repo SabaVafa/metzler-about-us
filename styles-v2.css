@@ -129,16 +129,18 @@ h1, h2, h3, h4, h5, h6, p { margin: 0; }
   .container { padding-inline: clamp(92px, 5vw, 116px); }
 }
 
-/* Large desktop (≥1920): hold the cap — content stays dense and centered,
-   with the extra width becoming comfortable side margins rather than stretch. */
+/* Large desktop (≥1920): widen the cap so the content fills more of the
+   viewport instead of stranding wide blank margins on big monitors. */
 @media (min-width: 1920px) {
-  :root { --container: 1440px; }
+  :root { --container: 1720px; }
   .container { padding-inline: clamp(92px, 5vw, 140px); }
 }
 
-/* Ultra-wide (≥2560): a touch wider, still capped well short of sprawling. */
-@media (min-width: 2560px) {
-  :root { --container: 1600px; }
+/* Ultra-wide (≥2400): covers maximised browsers on 2560-wide monitors
+   (viewport ≈ 2543 after the scrollbar). Wider still, with generous
+   gutters rather than the content sprawling to the edges. */
+@media (min-width: 2400px) {
+  :root { --container: 2080px; }
 }
 .section { padding-block: var(--section-y); }
 .eyebrow {
