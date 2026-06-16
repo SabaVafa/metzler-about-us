@@ -3166,7 +3166,11 @@ END OF LEGACY DEAD CSS */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;            /* Firefox */
+    /* Shadow room stays inside the rail (clipped by overflow-y: hidden),
+       but the negative margin cancels its layout height so the section's
+       top/bottom padding stays symmetric on tablet + mobile. */
     padding-bottom: var(--sp-2);      /* room for the flip-card shadow */
+    margin-bottom: calc(-1 * var(--sp-2));
     /* Match the section margin: viewport extends to the screen edge for
        the arrows, so the rail content needs its own inset to keep badges
        inside the page's 24px margin. */
