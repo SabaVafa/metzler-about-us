@@ -372,7 +372,7 @@
           <p class="trustbar__sub">Trusted Shops</p>
         </li>
 
-        <li class="trustbar__item" tabindex="0">
+        <li class="trustbar__item trustbar__item--link" tabindex="0" role="link" data-href="https://edelstahl-tuerklingel.de/metzler-garantieerklaerung" aria-label="Metzler Garantie – zu den Garantiebedingungen">
           <div class="trustbar__icon">
             <div class="trustbar__face trustbar__face--front">
               <img src="Trust%20badges/Garantie2.svg" alt="Metzler Garantie" />
@@ -385,7 +385,7 @@
           <span class="trustbar__node" aria-hidden="true"></span>
           <h3 class="trustbar__title">Metzler Garantie</h3>
           <p class="trustbar__sub">Bis zu 10 Jahre</p>
-          <a class="trustbar__cue-text" href="https://edelstahl-tuerklingel.de/metzler-garantieerklaerung" target="_blank" rel="noopener">Zu den Garantiebedingungen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <span class="trustbar__cue-text">Zu den Garantiebedingungen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </li>
 
         <li class="trustbar__item" tabindex="0">
@@ -475,38 +475,6 @@
             <li>Transparenz im Bestell- und Zahlungsprozess</li>
           </ul>
         </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- SECTION 3 - KLARE HALTUNG (what we reject vs what we stand for) -->
-  <section class="about-stance section">
-    <div class="container">
-      <header class="about-section-header">
-        <p class="eyebrow">Klare Haltung</p>
-        <h2 class="section-title">Wofür wir stehen – <i>und wogegen</i></h2>
-        <p class="section-sub">Spezialisiert auf den Eingangsbereich seit 2013. Diese Haltung prägt jede Entscheidung – von der Konstruktion in Reutlingen bis zum Anruf bei unserer Hotline.</p>
-      </header>
-      <div class="about-stance__grid">
-        <article class="stance-card stance-card--against">
-          <h3 class="stance-card__title">Das lehnen wir ab</h3>
-          <ul class="stance-card__list">
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Anonyme Massenware ohne eigenen Charakter</span></li>
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Lockangebote mit versteckten Folgekosten</span></li>
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Service-Wüsten, in denen niemand zurückruft</span></li>
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Kurzlebige Imitate aus dünnem Kunststoff</span></li>
-          </ul>
-        </article>
-        <article class="stance-card stance-card--for">
-          <h3 class="stance-card__title">Dafür stehen wir</h3>
-          <ul class="stance-card__list">
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span>Konzeption und Qualitätskontrolle in unserer Hand</span></li>
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span>Faire Preise vom ersten Klick bis zur Rechnung</span></li>
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span>Direkte Beratung am Telefon – Menschen, keine Bots</span></li>
-            <li><svg class="stance-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg><span>Echter Edelstahl V2A/V4A, wo es darauf ankommt</span></li>
-          </ul>
-        </article>
       </div>
     </div>
   </section>
@@ -1429,9 +1397,12 @@
 
     document.querySelectorAll('.trustbar__item').forEach(function(el){
       var scrollSel = el.getAttribute('data-scroll');
+      var hrefUrl = el.getAttribute('data-href');
       var go = scrollSel ? function(){
         var t = document.querySelector(scrollSel);
         if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } : hrefUrl ? function(){
+        window.open(hrefUrl, '_blank', 'noopener');
       } : null;
 
       el.addEventListener('click', function(e){

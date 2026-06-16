@@ -3005,8 +3005,9 @@ END OF LEGACY DEAD CSS */
   padding: 0 clamp(4px, 0.6vw, 10px);
   cursor: default;
   outline: none;
-  /* Reserve a small gap below for visual rhythm */
-  margin-bottom: clamp(16px, 2vw, 24px);
+  /* No bottom gap — keeps the section's top and bottom padding symmetric
+     (the badge row sits the same distance from both edges). */
+  margin-bottom: 0;
 }
 
 /* Icon container — 3D flip card with front (logo) and back (context) */
