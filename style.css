@@ -1071,7 +1071,8 @@ main.about .section-title i{
 .about-founder__media{ margin: 0; order: 2; }
 .about-founder__copy{ order: 1; }
 .about-founder__placeholder{
-  aspect-ratio: 4 / 5;
+  /* 1:1 to match the craft-chapter frames in this Qualität run. */
+  aspect-ratio: 1 / 1;
   border-radius: var(--r-l);
   background: linear-gradient(180deg, #F5F1EC 0%, #ECE4D9 100%);
   color: rgba(0, 0, 0, 0.32);
@@ -1129,7 +1130,7 @@ main.about .section-title i{
   /* Stacked: portrait leads, like every other section. */
   .about-founder__media{ order: 1; }
   .about-founder__copy{ order: 2; }
-  .about-founder__placeholder{ aspect-ratio: 5 / 4; }
+  .about-founder__placeholder{ aspect-ratio: 1 / 1; }
 }
 
 /* ============== SECTION 4 — SORTIMENT (BENTO) ============== */
@@ -3103,7 +3104,8 @@ END OF LEGACY DEAD CSS */
   pointer-events: auto;
 }
 /* Image inside the front face */
-.trustbar__face--front img{
+.trustbar__face--front img,
+.trustbar__face--front svg{
   width: 64px;
   height: 64px;
   object-fit: contain;
