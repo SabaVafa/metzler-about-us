@@ -3096,6 +3096,7 @@ END OF LEGACY DEAD CSS */
 .trustbar__cue-text svg{ width: 12px; height: 12px; }
 .trustbar__item.is-flipped .trustbar__cue-text,
 .trustbar__item:hover .trustbar__cue-text,
+.trustbar__item:focus-within .trustbar__cue-text,
 .trustbar__item:focus-visible .trustbar__cue-text{
   opacity: 1;
   transform: translateY(0);
