@@ -153,8 +153,13 @@ main.about .section-title i{
 @media (min-width: 1920px){
   .about-hero__primary{
     aspect-ratio: 2.8 / 1;
-    max-width: 2300px;
-    margin-inline: auto;
+  }
+  /* Narrow just the photo (not the whole banner): cap it and anchor it to
+     the right edge. The photo column's dark backdrop fills the gap, so the
+     banner stays full-bleed and the copy panel keeps hugging the copy. */
+  .about-hero__photo{
+    max-width: 1500px;
+    margin-left: auto;
   }
 }
 
