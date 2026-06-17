@@ -146,6 +146,18 @@ main.about .section-title i{
   overflow: hidden;
 }
 
+/* Wide screens: the building photo is 4:3, so the wide hero strip crops it
+   hard (only ~56% of its height shows at 2560 → reads as "zoomed"). Make the
+   banner a touch taller (less vertical crop) and cap + centre it so it isn't
+   excessively wide on big monitors. */
+@media (min-width: 1920px){
+  .about-hero__primary{
+    aspect-ratio: 2.8 / 1;
+    max-width: 2300px;
+    margin-inline: auto;
+  }
+}
+
 /* Left column — anthracite / dark slate gray.
    flex-direction: column + justify-content: center vertically centers
    the copy block reliably within the column. Hairline divider on the
