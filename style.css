@@ -1212,7 +1212,9 @@ main.about .section-title i{
 @media (max-width: 1023px){
   .about-founder__inner{
     grid-template-columns: 1fr;
-    gap: clamp(var(--sp-6), 4vw, var(--sp-8));
+    /* Same stacked gap as the craft chapters so the image-to-copy spacing is
+       consistent across the Qualität run. */
+    gap: clamp(28px, 6vw, 44px);
     max-width: 640px;
   }
   /* Stacked: portrait leads, like every other section. */
