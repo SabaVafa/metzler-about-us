@@ -1139,7 +1139,7 @@ main.about .section-title i{
 .about-founder__media{ margin: 0; order: 2; }
 /* Same vertical copy padding as .craft-copy so the image-to-text spacing
    matches the craft chapters (gap + copy padding) on every breakpoint. */
-.about-founder__copy{ order: 1; padding-block: clamp(20px, 3vw, 48px); }
+.about-founder__copy{ order: 1; padding-block: clamp(20px, 3vw, 48px); max-width: 480px; }
 .about-founder__frame{
   /* Frame matches the craft-chapter frames in this Qualität run: 1:1 ratio,
      same radius, same layered shadow and white inner hairline border. */
@@ -1221,7 +1221,7 @@ main.about .section-title i{
   }
   /* Stacked: portrait leads, like every other section. */
   .about-founder__media{ order: 1; }
-  .about-founder__copy{ order: 2; }
+  .about-founder__copy{ order: 2; max-width: none; }
   .about-founder__frame{ aspect-ratio: 1 / 1; }
 }
 
