@@ -170,52 +170,36 @@ main.about .section-title i{
   min-width: 0;
 }
 
-/* Right column — the photo as a premium, contained showcase: rounded and
-   lifted off the dark band with a soft shadow. Because it's sized to its
-   grid column (~730px) rather than a full-bleed ~1800px strip, the image
-   downscales (sharp) instead of being stretched up on big screens. */
-/* Photo area = a scattered moodboard: several framed photos at varied
-   angles, overlapping each other on the dark band. */
+/* Right column — the building photo as a premium, contained showcase:
+   rounded and lifted off the dark band with a crisp edge + deep shadow.
+   It fills (maximises) its grid column and downscales sharp on big screens. */
 .about-hero__photo-col{
   position: relative;
   padding: 0;
   box-sizing: border-box;
   min-height: 0;
   min-width: 0;
-  overflow: visible;
+  overflow: hidden;
+  border-radius: var(--r-l);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.85);
 }
-.about-hero__collage{
-  position: relative;
+.about-hero__photo{
   width: 100%;
   height: 100%;
-}
-.about-hero__frame{
-  position: absolute;
   object-fit: cover;
-  border: 6px solid #fff;
-  border-radius: 3px;
-  box-shadow: 0 22px 45px -14px rgba(0, 0, 0, 0.7);
-  background: #fff;
+  object-position: center;
+  display: block;
+  transition: transform 700ms cubic-bezier(.2, .7, .2, 1);
 }
-/* HQ building — the priority: largest and on top, gently tilted. */
-.about-hero__frame--1{ width: 62%; aspect-ratio: 4 / 3; top: 11%; left: 3%;  transform: rotate(-4deg); z-index: 3; }
-/* Sprechanlage — peeks from the upper-right, behind the building. */
-.about-hero__frame--3{ width: 37%; aspect-ratio: 1 / 1; top: 2%;  right: 2%; transform: rotate(8deg);  z-index: 2; }
-/* Briefkasten/Paketbox — peeks from the lower-right, behind the building. */
-.about-hero__frame--2{ width: 41%; aspect-ratio: 1 / 1; bottom: 5%; right: 7%; transform: rotate(-9deg); z-index: 1; }
+@media (hover: hover){
+  .about-hero__photo-col:hover .about-hero__photo{ transform: scale(1.05); }
+}
 
 /* ── Signature page-entrance choreography ─────────────────────────────────
    On load the copy rises in a refined stagger (headline line-by-line) while
    the framed photos scatter into place one after another. */
 @keyframes heroRise{ from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
-/* Per-frame scatter-in keeps each frame's resting tilt baked into the keyframe.
-   fill: backwards (not both) so after the entrance the frame reverts to its
-   own transform — letting :hover take over and bring it forward. */
-/* Transform-only (no opacity) so the photos are never invisible if the
-   animation is throttled/blocked — they just settle into place. */
-@keyframes frameIn1{ from { transform: rotate(-4deg) scale(.9) translateY(16px); } to { transform: rotate(-4deg) scale(1); } }
-@keyframes frameIn2{ from { transform: rotate(-9deg) scale(.9) translateY(16px); } to { transform: rotate(-9deg) scale(1); } }
-@keyframes frameIn3{ from { transform: rotate(8deg)  scale(.9) translateY(16px); } to { transform: rotate(8deg)  scale(1); } }
 
 .about-hero__kicker{ animation: heroRise 820ms cubic-bezier(.2,.7,.2,1) 80ms both; }
 .about-hero__copy h1 span{ display: block; animation: heroRise 880ms cubic-bezier(.2,.7,.2,1) both; }
@@ -225,18 +209,8 @@ main.about .section-title i{
 .about-hero__copy .about-hero__sub{ animation: heroRise 820ms cubic-bezier(.2,.7,.2,1) 520ms both; }
 .about-hero__copy .about-hero__ctas{ animation: heroRise 820ms cubic-bezier(.2,.7,.2,1) 620ms both; }
 
-/* Product frames scatter in first, then the building lands on top. */
-.about-hero__frame{ transition: transform 380ms cubic-bezier(.2,.7,.2,1), box-shadow 380ms ease; }
-.about-hero__frame--3{ animation: frameIn3 720ms cubic-bezier(.2,.7,.2,1) 120ms backwards; }
-.about-hero__frame--2{ animation: frameIn2 720ms cubic-bezier(.2,.7,.2,1) 220ms backwards; }
-.about-hero__frame--1{ animation: frameIn1 720ms cubic-bezier(.2,.7,.2,1) 320ms backwards; }
-
-/* Hover brings the relevant photo forward — straightened, lifted, on top. */
-.about-hero__frame:hover{
-  transform: translateY(-8px) rotate(0deg) scale(1.04);
-  z-index: 10;
-  box-shadow: 0 38px 72px -16px rgba(0, 0, 0, 0.85);
-}
+/* The building photo fades + lifts in alongside the copy. */
+.about-hero__photo-col{ animation: heroRise 1000ms cubic-bezier(.2,.7,.2,1) both; }
 
 @media (prefers-reduced-motion: reduce){
   .about-hero__kicker,
@@ -244,7 +218,7 @@ main.about .section-title i{
   .about-hero__copy .about-hero__chips,
   .about-hero__copy .about-hero__sub,
   .about-hero__copy .about-hero__ctas,
-  .about-hero__frame{
+  .about-hero__photo-col{
     animation: none;
     opacity: 1;
   }
@@ -481,6 +455,7 @@ main.about .section-title i{
   }
   .about-hero__photo-col{
     aspect-ratio: 16 / 9;
+    min-height: clamp(200px, 52vw, 360px); /* never collapse if aspect-ratio is unsupported */
     padding: 0;
     order: -1;            /* photo on top, copy below, when stacked */
   }
