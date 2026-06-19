@@ -1576,7 +1576,7 @@ main.about .about-editorial__tier--bottom .section-title i{
 }
 .craft-eyebrow{
   margin: 0 0 clamp(20px, 2vw, 28px);
-  font-size: 11px;
+  font-size: var(--text-caption);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
