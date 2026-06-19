@@ -181,6 +181,8 @@ main.about .section-title i{
   overflow: hidden;
   border-radius: 0;
   border: 1px solid rgba(255, 255, 255, 0.10);
+  /* Crisp white frame on the left/right edges of the image. */
+  border-inline: 1px solid #fff;
 }
 .about-hero__photo{
   width: 100%;
@@ -192,15 +194,6 @@ main.about .section-title i{
 }
 @media (hover: hover){
   .about-hero__photo-col:hover .about-hero__photo{ transform: scale(1.05); }
-}
-
-/* Desktop split layout: pull the image flush to the right edge by negating
-   the container's right page padding. */
-@media (min-width: 1024px){
-  .about-hero__photo-col{ margin-right: calc(-1 * clamp(var(--sp-6), 4vw, 56px)); }
-}
-@media (min-width: 1440px){
-  .about-hero__photo-col{ margin-right: -100px; }
 }
 
 /* ── Signature page-entrance choreography ─────────────────────────────────
