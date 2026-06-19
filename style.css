@@ -424,10 +424,13 @@ main.about .section-title i{
 
 /* ─── Responsive ─── */
 /* Tablet + mobile: the split-screen needs full desktop width to breathe.
-   Below 1024px we stack copy over photo. Crucially, the desktop layout
-   absolutely-centers the copy inside a fixed-aspect column — so here we
-   return the copy to normal flow and let the column grow with its content. */
-@media (max-width: 1023px){
+   Below 1280px we stack copy over photo — the fixed 3.4:1 band gets too short
+   for the copy below this width (cramming the headline, chips, sub and CTAs at
+   iPad-Pro-portrait 1024px, and still slightly overflowing at 1200px).
+   Crucially, the desktop layout absolutely-centers the copy inside a
+   fixed-aspect column — so here we return the copy to normal flow and let the
+   column grow with its content. */
+@media (max-width: 1279px){
   .about-hero__primary{
     display: grid;
     grid-template-columns: 1fr;
@@ -452,22 +455,23 @@ main.about .section-title i{
     font-size: clamp(28px, 4.4vw, 40px);
     max-width: none;
   }
+  /* Full-bleed banner: break out of the container's page inset so the image
+     spans edge-to-edge across the whole stacked range (tablet + phone). */
   .about-hero__photo-col{
     aspect-ratio: 16 / 9;
     min-height: clamp(200px, 52vw, 360px); /* never collapse if aspect-ratio is unsupported */
     padding: 0;
     order: -1;            /* photo on top, copy below, when stacked */
+    margin-inline: calc(-1 * clamp(var(--sp-6), 4vw, 56px));
+    border-inline: 0;
   }
   .about-hero__photo{ object-position: center 40%; }
 }
 
 @media (max-width: 767px){
-  /* Full-bleed banner: break out of the container's page inset so the
-     image spans edge-to-edge on phones. */
+  /* Taller crop on phones; full-bleed is inherited from the stacked range. */
   .about-hero__photo-col{
     aspect-ratio: 3 / 2;
-    margin-inline: calc(-1 * clamp(var(--sp-6), 4vw, 56px));
-    border-inline: 0;
   }
   /* Consistent vertical breathing room around the text block: drop the grid
      row-gap (it only padded the top) so the copy's own symmetric padding-block
@@ -3279,6 +3283,14 @@ END OF LEGACY DEAD CSS */
     margin-bottom: 0;
   }
   .trustbar__sub{ white-space: normal; }
+}
+
+/* Tablet: without scroll-padding, mandatory snap aligns the first badge to the
+   scrollport edge and cancels the rail's padding-inline — pulling the badge
+   flush to the screen edge. Matching scroll-padding keeps the first badge on
+   the container content edge, consistent with the section below. */
+@media (min-width: 768px) and (max-width: 1279px){
+  .trustbar__rail{ scroll-padding-inline: clamp(var(--sp-6), 4vw, 56px); }
 }
 
 /* Hover / focus state — 3D flip card */
