@@ -194,6 +194,15 @@ main.about .section-title i{
   .about-hero__photo-col:hover .about-hero__photo{ transform: scale(1.05); }
 }
 
+/* Desktop split layout: pull the image flush to the right edge by negating
+   the container's right page padding. */
+@media (min-width: 1024px){
+  .about-hero__photo-col{ margin-right: calc(-1 * clamp(var(--sp-6), 4vw, 56px)); }
+}
+@media (min-width: 1440px){
+  .about-hero__photo-col{ margin-right: -100px; }
+}
+
 /* ── Signature page-entrance choreography ─────────────────────────────────
    On load the copy rises in a refined stagger (headline line-by-line) while
    the framed photos scatter into place one after another. */
@@ -461,7 +470,12 @@ main.about .section-title i{
 }
 
 @media (max-width: 767px){
-  .about-hero__photo-col{ aspect-ratio: 3 / 2; }
+  /* Full-bleed banner: break out of the container's page inset so the
+     image spans edge-to-edge on phones. */
+  .about-hero__photo-col{
+    aspect-ratio: 3 / 2;
+    margin-inline: calc(-1 * clamp(var(--sp-6), 4vw, 56px));
+  }
   .about-hero__photo{ object-position: center 35%; }
   .about-hero h1{ font-size: clamp(32px, 8vw, 44px); }
   /* Drop the desktop hard line break — let the sub wrap naturally on phones */
