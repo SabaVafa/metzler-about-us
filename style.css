@@ -1137,7 +1137,9 @@ main.about .section-title i{
 /* Portrait sits on the right so the founder note opens the zig-zag:
    founder image right → chapter 1 image left → chapter 2 right … */
 .about-founder__media{ margin: 0; order: 2; }
-.about-founder__copy{ order: 1; }
+/* Same vertical copy padding as .craft-copy so the image-to-text spacing
+   matches the craft chapters (gap + copy padding) on every breakpoint. */
+.about-founder__copy{ order: 1; padding-block: clamp(20px, 3vw, 48px); }
 .about-founder__frame{
   /* Frame matches the craft-chapter frames in this Qualität run: 1:1 ratio,
      same radius, same layered shadow and white inner hairline border. */
