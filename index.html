@@ -528,12 +528,8 @@
       <div class="container">
         <div class="about-founder__inner">
           <figure class="about-founder__media">
-            <div class="about-founder__placeholder" role="img" aria-label="Portrait des Geschäftsführers – Platzhalter">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
-                <circle cx="32" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M10 56c4-10 12-15 22-15s18 5 22 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-              <span class="about-founder__placeholder-label">Portrait folgt</span>
+            <div class="about-founder__frame">
+              <img src="images/Gemini_Generated_Image_rytpu0rytpu0rytp.png" alt="Denis Metzler, Geschäftsführer der Metzler GmbH" />
             </div>
           </figure>
           <div class="about-founder__copy">
@@ -1122,11 +1118,14 @@
     const section = document.querySelector('.about-craft');
     if (!section) return;
     // Tracked sections: [data-chapter] includes the founder note (chapter 0)
-    // and each .craft-chapter (1..4). The entrance reveal still targets
-    // only .craft-chapter so the founder note doesn't get the chapter
-    // fade-in animation.
+    // and each .craft-chapter (1..4). The entrance reveal targets the
+    // .craft-chapter rows plus the founder note — the founder note only has
+    // image-frame reveal CSS (no copy fade-in), so its portrait wipes in like
+    // the craft images while the text stays put.
     const chapters = Array.prototype.slice.call(section.querySelectorAll('[data-chapter]'));
     const craftChapters = Array.prototype.slice.call(section.querySelectorAll('.craft-chapter'));
+    const founderNote = section.querySelector('.about-founder');
+    const revealTargets = founderNote ? craftChapters.concat([founderNote]) : craftChapters;
     const tabs     = Array.prototype.slice.call(section.querySelectorAll('.msty__tab'));
     if (!chapters.length) return;
 
@@ -1135,7 +1134,7 @@
 
     // ── Entrance reveal ──
     if (reduced || !hasIO){
-      craftChapters.forEach(c => c.classList.add('is-visible'));
+      revealTargets.forEach(c => c.classList.add('is-visible'));
     } else {
       // Toggle (not one-shot) so the entrance replays every time a chapter
       // scrolls back into view – not just on the first pass.
@@ -1144,7 +1143,7 @@
           e.target.classList.toggle('is-visible', e.isIntersecting);
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-      craftChapters.forEach(c => enterObs.observe(c));
+      revealTargets.forEach(c => enterObs.observe(c));
     }
 
     // ── Chapter tabs (active / past) ──

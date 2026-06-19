@@ -181,8 +181,7 @@ main.about .section-title i{
   overflow: hidden;
   border-radius: 0;
   border: 1px solid rgba(255, 255, 255, 0.10);
-  /* Crisp white frame on the left/right edges of the image. */
-  border-inline: 1px solid #fff;
+  border-inline: 0;
 }
 .about-hero__photo{
   width: 100%;
@@ -1126,8 +1125,10 @@ main.about .section-title i{
 }
 .about-founder__inner{
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: clamp(var(--sp-8), 5vw, var(--sp-16));
+  /* Image sits on the right in the wider 1.1fr column — same size as the
+     flip craft chapters (0.9fr copy / 1.1fr image). Gap matches them too. */
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(48px, 5vw, 96px);
   align-items: center;
   /* Fills the container like the other sections — the container is now
      capped to match the main site (1400px content), so no separate cap is
@@ -1137,25 +1138,45 @@ main.about .section-title i{
    founder image right → chapter 1 image left → chapter 2 right … */
 .about-founder__media{ margin: 0; order: 2; }
 .about-founder__copy{ order: 1; }
-.about-founder__placeholder{
-  /* 1:1 to match the craft-chapter frames in this Qualität run. */
+.about-founder__frame{
+  /* Frame matches the craft-chapter frames in this Qualität run: 1:1 ratio,
+     same radius, same layered shadow and white inner hairline border. */
   aspect-ratio: 1 / 1;
   border-radius: var(--r-l);
-  background: linear-gradient(180deg, #F5F1EC 0%, #ECE4D9 100%);
-  color: rgba(0, 0, 0, 0.32);
-  display: grid;
-  place-items: center;
-  gap: var(--sp-3);
+  background: color-mix(in srgb, var(--craft-fg) 6%, #fff);
   position: relative;
   overflow: hidden;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.06),
+    0 16px 32px rgba(0,0,0,0.08),
+    0 40px 80px rgba(0,0,0,0.10);
 }
-.about-founder__placeholder svg{ width: 96px; height: 96px; opacity: 0.65; }
-.about-founder__placeholder-label{
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+.about-founder__frame::after{
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,0.18);
+  pointer-events: none;
 }
+.about-founder__frame img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+/* Same scroll-reveal as the craft frames: clip-path wipe + image scale,
+   played when the founder note scrolls into view (.is-visible). */
+.about-founder__frame{
+  clip-path: inset(6% round 8px);
+  transition: clip-path 1100ms cubic-bezier(.2, .7, .2, 1), box-shadow 600ms ease;
+  will-change: clip-path;
+}
+.about-founder__frame img{
+  transform: scale(1.06);
+  transition: transform 1200ms cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
+}
+.about-founder.is-visible .about-founder__frame{ clip-path: inset(0 round 8px); }
+.about-founder.is-visible .about-founder__frame img{ transform: scale(1); }
 .about-founder__copy .section-title{ margin-bottom: clamp(var(--sp-5), 2.4vw, var(--sp-6)); }
 .about-founder__body{
   display: flex;
@@ -1197,7 +1218,7 @@ main.about .section-title i{
   /* Stacked: portrait leads, like every other section. */
   .about-founder__media{ order: 1; }
   .about-founder__copy{ order: 2; }
-  .about-founder__placeholder{ aspect-ratio: 1 / 1; }
+  .about-founder__frame{ aspect-ratio: 1 / 1; }
 }
 
 /* ============== SECTION 4 — SORTIMENT (BENTO) ============== */
