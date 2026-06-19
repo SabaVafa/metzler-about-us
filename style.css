@@ -475,7 +475,13 @@ main.about .section-title i{
   .about-hero__photo-col{
     aspect-ratio: 3 / 2;
     margin-inline: calc(-1 * clamp(var(--sp-6), 4vw, 56px));
+    border-inline: 0;
   }
+  /* Consistent vertical breathing room around the text block: drop the grid
+     row-gap (it only padded the top) so the copy's own symmetric padding-block
+     governs both the space above the kicker and below the CTAs. */
+  .about-hero__primary{ row-gap: 0; }
+  .about-hero__copy{ padding-block: 40px; }
   .about-hero__photo{ object-position: center 35%; }
   .about-hero h1{ font-size: clamp(32px, 8vw, 44px); }
   /* Drop the desktop hard line break — let the sub wrap naturally on phones */
