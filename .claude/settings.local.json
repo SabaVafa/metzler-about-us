@@ -19,7 +19,16 @@
       "Bash(git push *)",
       "Bash(awk '/<section class=\"trustbar/,/<\\\\/section>/{print NR\": \"$0; if\\(/<\\\\/section>/\\) exit}' \"C:/Users/s.vafakhah/Desktop/About us/index.html\")",
       "mcp__Claude_Preview__preview_start",
-      "Bash(git commit -m 'fix: 3 audit errors + add v2 banner experiment *)"
+      "Bash(git commit -m 'fix: 3 audit errors + add v2 banner experiment *)",
+      "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\Home\" log --oneline --all --grep=\"drawer\\\\|hamburger\\\\|burger\\\\|mobile.*nav\\\\|mobile.*menu\" -20)",
+      "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us\" add styles-v2.css)",
+      "Bash(git -C 'C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us' commit -m ' *)",
+      "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us\" push)",
+      "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us\" add style.css)",
+      "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us\" add index.html)",
+      "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us\" add index.html style.css)",
+      "Bash(node /tmp/pup-shot/capture-trustbar.mjs \"C:/Users/s.vafakhah/AppData/Local/Temp/trustbar-preview.png\")",
+      "Bash(node /tmp/pup-shot/capture-stack-tall.mjs \"C:/Users/s.vafakhah/AppData/Local/Temp/stories-narrow.png\")"
     ]
   }
 }
