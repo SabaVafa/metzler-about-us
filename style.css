@@ -120,9 +120,8 @@ main.about .section-title i{
 
 /* ============== SECTION 1 — HERO (Unified Scene, full-bleed) ============== */
 .about-hero{
-  /* Vertical breathing room so the photo showcase (and copy) sit inset from
-     the band's top/bottom edges rather than running flush to them. */
-  padding-block: clamp(40px, 4vw, 72px);
+  /* Image runs flush to the band's top/bottom edges (no vertical inset). */
+  padding-block: 0;
   padding-inline: 0;
   /* Full-bleed dark band; the hero content sits on the page grid (.container)
      so the copy aligns with the nav, and the photo stays contained (sharp). */
@@ -180,9 +179,8 @@ main.about .section-title i{
   min-height: 0;
   min-width: 0;
   overflow: hidden;
-  border-radius: var(--r-l);
+  border-radius: 0;
   border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.85);
 }
 .about-hero__photo{
   width: 100%;
