@@ -13,11 +13,12 @@ index.html              Markup (header → hero → ntv carousel → pillars →
 style.css               About-page-specific styles (loaded AFTER styles-v2.css)
 styles-v2.css           Shared design system from the homepage project (tokens, .btn, .container, .header, .footer, .hero-banner)
 
-Banner/                 Hero photography (image 1.png … image 13.png — iterations from the design process)
+Banner/                 Hero building photo (image 96.png)
 Carousel Images/NTV V2/ ntv ceremony photos for the award carousel
-images/                 Product photography (Briefkasten, Sprechanlage, Türklingel, etc.)
+images/                 Product & founder photography (Briefkasten, Sprechanlage, Türklingel, founder portrait, etc.)
 Trust badges/           Award badges (ntv, red dot, TrustedShops, Vergleich.org, Top Shop years)
-Awards/                 Ceremony shots
+TopShop/                Computer BILD Top Shop award image (image 93.png)
+Reviews/                Review-platform logos (Google, Trustpilot, Trusted Shops)
 Logo/                   Metzler logo (SVG, red-on-white + red-on-black)
 ICONS/                  UI icons (cart, profile, menu, search, star rating)
 Paymentshipping logos/  DHL, DPD, GoGreen, payment methods (used in footer)
@@ -36,7 +37,7 @@ Key tokens used:
 
 ## Placeholders still to fill
 
-- `[GESCHÄFTSFÜHRER NAME]` and signature image (Section 2, once relevant)
+- Founder portrait (Section 2 / founder note) is an **AI-generated stand-in** (`images/Gemini_Generated_Image_*.png`) — replace with a real photo of the Geschäftsführer before launch
 - Standorte 2–5 (Section 7) — city + function
 - Sustainability mid-target year + milestone (Section 6, middle column)
 - 3 customer quotes from TrustedShops (Section 8 testimonials)
