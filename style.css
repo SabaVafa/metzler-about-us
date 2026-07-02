@@ -118,6 +118,34 @@ main.about .section-title i{
 }
 .about-hint a{ color: var(--teal); text-decoration: underline; }
 
+/* ============== BREADCRUMB (consistent with the category / PLP pages) ======
+   Same markup + typography as plp.css .crumb, but it sits inside the dark hero
+   band — so the background is transparent and the colours are inverted to
+   light-on-dark. Overlaid on the band (absolute) so it's part of the banner and
+   doesn't push the hero content down; the image stays flush to the top. */
+.crumb{
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 4;
+  background: transparent;
+  padding-block: 16px;
+  pointer-events: none;   /* let the empty right half not block the image */
+}
+.crumb .container{ pointer-events: none; }
+.crumb ol{
+  display: flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--text-body-sm); color: rgba(255,255,255,0.65);
+  margin: 0; padding: 0; list-style: none;
+  width: max-content;             /* only the links area is interactive */
+  pointer-events: auto;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);   /* legibility if it overlaps the photo (mobile) */
+}
+.crumb a{ color: rgba(255,255,255,0.65); text-decoration: none; }
+.crumb a:hover{ color: #fff; }
+.crumb li{ display: inline-flex; align-items: center; }
+.crumb li svg{ width: 14px; height: 14px; color: rgba(255,255,255,0.45); }
+.crumb [aria-current]{ color: #fff; font-weight: 500; }
+
 /* ============== SECTION 1 — HERO (Unified Scene, full-bleed) ============== */
 .about-hero{
   /* Image runs flush to the band's top/bottom edges (no vertical inset). */
@@ -126,6 +154,8 @@ main.about .section-title i{
   /* Full-bleed dark band; the hero content sits on the page grid (.container)
      so the copy aligns with the nav, and the photo stays contained (sharp). */
   background: #1A171B;
+  /* Positioning context for the overlaid breadcrumb. */
+  position: relative;
 }
 
 /* ─── Primary scene — edge-to-edge single image at natural aspect ─── */
