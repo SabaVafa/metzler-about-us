@@ -210,8 +210,9 @@ main.about .section-title i{
   min-width: 0;
   overflow: hidden;
   border-radius: 0;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-inline: 0;
+  /* No border: the image fills its column edge-to-edge — full height on the
+     desktop split, full width in the stacked (mobile/tablet) layout. */
+  border: 0;
 }
 .about-hero__photo{
   width: 100%;
