@@ -145,6 +145,14 @@ main.about .section-title i{
 .crumb li{ display: inline-flex; align-items: center; }
 .crumb li svg{ width: 14px; height: 14px; color: rgba(255,255,255,0.45); }
 .crumb [aria-current]{ color: #fff; font-weight: 500; }
+/* Stacked layout (tablet/mobile): the image sits on top, so an overlay would
+   land on the photo (poor contrast). Put the breadcrumb into normal flow at the
+   top of the dark band instead — same light-on-dark, but off the image and
+   fully legible. It leads the band, above the image. */
+@media (max-width: 1279px){
+  .crumb{ position: static; pointer-events: auto; }
+  .crumb .container{ pointer-events: auto; }
+}
 
 /* ============== SECTION 1 — HERO (Unified Scene, full-bleed) ============== */
 .about-hero{
