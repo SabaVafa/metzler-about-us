@@ -28,7 +28,8 @@
       "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us\" add index.html)",
       "Bash(git -C \"C:\\\\Users\\\\s.vafakhah\\\\Desktop\\\\About us\" add index.html style.css)",
       "Bash(node /tmp/pup-shot/capture-trustbar.mjs \"C:/Users/s.vafakhah/AppData/Local/Temp/trustbar-preview.png\")",
-      "Bash(node /tmp/pup-shot/capture-stack-tall.mjs \"C:/Users/s.vafakhah/AppData/Local/Temp/stories-narrow.png\")"
+      "Bash(node /tmp/pup-shot/capture-stack-tall.mjs \"C:/Users/s.vafakhah/AppData/Local/Temp/stories-narrow.png\")",
+      "Bash(git revert *)"
     ]
   }
 }
