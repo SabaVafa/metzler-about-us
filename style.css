@@ -1044,7 +1044,7 @@ main.about .section-title i{
    eyebrow → H2 = 20 px, H2 → sub = 20 px (same as banner's chips → H1 → sub). */
 .about .eyebrow{
   margin-bottom: var(--sp-5);
-  color: var(--graphite-700, #54545C);
+  color: var(--graphite-600, #7A7A82);
 }
 .about .section-sub{ margin-top: var(--sp-5); }
 
@@ -1713,8 +1713,8 @@ main.about .about-editorial__tier--bottom .section-title i{
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  /* All eyebrows share the section eyebrow colour (graphite-700). */
-  color: var(--graphite-700, #54545C);
+  /* All eyebrows share the section eyebrow colour (graphite-600, DS overline). */
+  color: var(--graphite-600, #7A7A82);
 }
 .craft-headline{
   margin: 0 0 clamp(20px, 2vw, 28px);
@@ -2053,8 +2053,8 @@ main.about .about-editorial__tier--bottom .section-title i{
   font-weight: 500;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  /* All eyebrows share the section eyebrow colour (graphite-700). */
-  color: var(--graphite-700, #54545C);
+  /* All eyebrows share the section eyebrow colour (graphite-600, DS overline). */
+  color: var(--graphite-600, #7A7A82);
 }
 .msty__brand-title{
   font-size: 30px;
@@ -2529,7 +2529,7 @@ main.about .about-editorial__tier--bottom .section-title i{
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--graphite-700, #54545C);
+  color: var(--graphite-600, #7A7A82);
   line-height: 1;
 }
 .news__title{
@@ -2723,7 +2723,7 @@ main.about .about-editorial__tier--bottom .section-title i{
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--graphite-700, #54545C);
+  color: var(--graphite-600, #7A7A82);
   line-height: 1;
   text-align: center !important;
 }
