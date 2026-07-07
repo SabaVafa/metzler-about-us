@@ -28,7 +28,7 @@ html, body{ overflow-x: clip; }
   --about-header-gap: clamp(32px, 4vw, 48px);  /* header → content */
   /* Background palette — duo-tone rhythm.
      White = brand-showcase sections; soft = human-voice sections. */
-  --about-bg-white: #FFFFFF;
+  --about-bg-white: #fff;
   --about-bg-soft:  #F5F6FA;  /* matches homepage --paper-white — cool, engineered */
 }
 /* ─────────────────────────────────────────────────────────
@@ -76,7 +76,7 @@ main.about .reviews__rating{ flex-shrink: 0; }
 .reviews__rating-count{
   font-size: var(--text-body-sm);
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.55);
+  color: #6a6a6a;
   letter-spacing: 0;
   margin-left: 4px;
   vertical-align: middle;
@@ -572,7 +572,7 @@ main.about .section-title i{
 .about-truststrip__stat span{
   font-size: var(--text-caption);
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.55);
+  color: #6a6a6a;
   letter-spacing: 0.10em;
   text-transform: uppercase;
 }
@@ -832,7 +832,7 @@ main.about .section-title i{
   overflow: hidden;
   border-radius: var(--r-l);
   box-shadow: var(--shadow-lg);
-  background: #0e0e10;
+  background: #1A171B;
 }
 
 /* Event badge — small floating label on the image so the meta row stays clean */
@@ -913,7 +913,7 @@ main.about .section-title i{
 .ntv-counter__sep{ opacity: .5; }
 .ntv-caption-text{
   font-size: var(--text-body-sm);
-  color: #555;
+  color: #6a6a6a;
   transition: opacity 300ms ease;
 }
 .ntv-caption-text.is-fading{ opacity: 0; }
@@ -1624,12 +1624,12 @@ main.about .about-editorial__tier--bottom .section-title i{
   position: relative;                          /* anchor for the sticky chrome */
   padding-top: var(--craft-chrome-h, 72px);    /* reserve space for the chrome */
   padding-bottom: 0;                            /* chapters own the rest */
-  --craft-fg: #1A1A1A;
+  --craft-fg: #1A171B;
   --craft-muted: rgba(0, 0, 0, 0.55);
   --craft-rule: rgba(0, 0, 0, 0.12);
   /* Tokens consumed by the reused .msty__chrome / .msty__tab styling */
   --msty-bg: var(--white);
-  --msty-fg: #1A1A1A;
+  --msty-fg: #1A171B;
   --msty-muted: rgba(0, 0, 0, 0.55);
   --msty-rule: rgba(0, 0, 0, 0.12);
 }
@@ -1702,10 +1702,11 @@ main.about .about-editorial__tier--bottom .section-title i{
 .craft-eyebrow{
   margin: 0 0 clamp(20px, 2vw, 28px);
   font-size: var(--text-caption);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--craft-muted);
+  /* Match the section eyebrow (.eyebrow) so all eyebrows are consistent. */
+  color: #54545c;
 }
 .craft-headline{
   margin: 0 0 clamp(20px, 2vw, 28px);
@@ -2274,7 +2275,7 @@ main.about .about-editorial__tier--bottom .section-title i{
 /* ============== SECTION 9 — METZLER STORIES (anchored chapters + parallax) ============== */
 .msty{
   --msty-bg: var(--about-bg-soft);
-  --msty-fg: #1A1A1A;
+  --msty-fg: #1A171B;
   --msty-muted: rgba(0,0,0,0.55);
   --msty-rule: rgba(0,0,0,0.12);
   background: var(--msty-bg);
@@ -2705,7 +2706,7 @@ main.about .about-editorial__tier--bottom .section-title i{
 /* LEGACY DEAD CSS BELOW — kept commented out as reference, not parsed
 .__legacy_dead_marker{
   --cine-bg: #FAFAF8;
-  --cine-fg: #1A1A1A;
+  --cine-fg: #1A171B;
   --cine-muted: rgba(0,0,0,0.55);
   --cine-rule: rgba(0,0,0,0.10);
   /* The chrome's vertical padding token — used by BOTH the chrome's
@@ -2779,7 +2780,7 @@ main.about .about-editorial__tier--bottom .section-title i{
 
 /* Story 2 — CAD on white */
 .cine__media[data-media="2"]{
-  background: #FFFFFF;
+  background: #fff;
   color: var(--teal);
 }
 .cine__cad{
@@ -3078,7 +3079,7 @@ main.about .about-editorial__tier--bottom .section-title i{
       url('images/T%C3%BCrklingel.jpg');
   }
   .cine__panel[data-panel="2"]{
-    background-image: linear-gradient(180deg, #ffffff, #f4f4f2);
+    background-image: linear-gradient(180deg, #fff, #f4f4f2);
   }
   .cine__panel[data-panel="3"]{
     background-color: var(--teal-dark);
@@ -3210,7 +3211,7 @@ END OF LEGACY DEAD CSS */
   font-weight: 500;
   letter-spacing: 0.04em;
   line-height: 1.3;
-  color: #4a4a4a;
+  color: #6a6a6a;
 }
 
 /* Linked-badge affordances (currently scoped to NTV only — opt-in via
@@ -3472,7 +3473,7 @@ END OF LEGACY DEAD CSS */
   margin-right: auto;
   font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.6;
-  color: #4a4a4a;
+  color: #6a6a6a;
   /* No max-width — inherits the .news__inner 720px so it aligns
      proportionally with the title above */
   text-align: center !important;
@@ -3545,7 +3546,7 @@ END OF LEGACY DEAD CSS */
   margin: 0;
   font-size: 12px;
   font-weight: 500;
-  color: #7a7a7a;
+  color: #6a6a6a;
   letter-spacing: 0.02em;
   text-align: center;
 }
@@ -3625,7 +3626,7 @@ END OF LEGACY DEAD CSS */
   font-weight: 700;
   color: inherit;
 }
-.about-closing p{ color: #4a4a4a; }
+.about-closing p{ color: #6a6a6a; }
 .about-closing__hours{
   margin: clamp(16px, 1.7vw, 24px) auto 0 !important;
   max-width: 600px;
