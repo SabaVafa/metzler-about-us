@@ -312,7 +312,8 @@ main.about .section-title i{
   margin: 0 0 var(--sp-5);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
 }
@@ -1046,6 +1047,13 @@ main.about .section-title i{
   margin-bottom: var(--sp-5);
   color: var(--graphite-600, #7A7A82);
 }
+/* Uniform eyebrow line-height (1.4) across the page — high enough specificity
+   to beat `.about p`'s body line-height on the <p>-based eyebrows, so every
+   eyebrow matches the DS overline spec exactly. */
+main.about .eyebrow,
+main.about .about-hero__kicker,
+main.about .craft-eyebrow,
+main.about .news__eyebrow{ line-height: 1.4; }
 .about .section-sub{ margin-top: var(--sp-5); }
 
 /* Story-section CTA — text link, consistent with the craft/stories links
@@ -1711,7 +1719,8 @@ main.about .about-editorial__tier--bottom .section-title i{
   margin: 0 0 clamp(20px, 2vw, 28px);
   font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
   text-transform: uppercase;
   /* All eyebrows share the section eyebrow colour (graphite-600, DS overline). */
   color: var(--graphite-600, #7A7A82);
@@ -2049,9 +2058,10 @@ main.about .about-editorial__tier--bottom .section-title i{
   line-height: 1;
 }
 .msty__brand-eyebrow{
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.26em;
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
   text-transform: uppercase;
   /* All eyebrows share the section eyebrow colour (graphite-600, DS overline). */
   color: var(--graphite-600, #7A7A82);
@@ -2527,10 +2537,10 @@ main.about .about-editorial__tier--bottom .section-title i{
   margin: 0 0 var(--sp-5);
   font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--graphite-600, #7A7A82);
-  line-height: 1;
+  line-height: 1.4;
 }
 .news__title{
   margin: 0 0 clamp(16px, 1.6vw, 22px);
@@ -2721,10 +2731,10 @@ main.about .about-editorial__tier--bottom .section-title i{
   max-width: 600px;
   font-size: var(--text-caption);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--graphite-600, #7A7A82);
-  line-height: 1;
+  line-height: 1.4;
   text-align: center !important;
 }
 /* Headline color on light bg */
