@@ -324,14 +324,13 @@ main.about .section-title i{
 .about-hero__copy .about-hero__chips,
 .about-hero__copy .hero-banner__chips{ margin: 0 0 calc(var(--sp-6) - 5px); }
 
-/* H1 — a single fluid clamp across ALL breakpoints so the size only ever grows
-   with the viewport (monotonic). Previously three competing clamp() rules made
-   the heading shrink from 40px at 1024px down to ~35px on desktop; here it rises
-   smoothly 32px → 40px and then holds, never dropping below the tablet size.
-   The headline is split into two fixed <span> lines, so it never re-wraps. */
+/* H1 — flat 2rem (32px) at every breakpoint. A single constant size is
+   inherently monotonic (it can't shrink as the viewport grows — the bug the old
+   three competing clamp() rules had). 2rem also equals the DS display-4 mobile
+   size. The headline is split into two fixed <span> lines, so it never re-wraps. */
 .about-hero h1{
   color: var(--white);
-  font-size: clamp(32px, calc(1.23vw + 27.4px), 40px);
+  font-size: 2rem;   /* 32px */
   line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.015em;
