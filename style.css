@@ -1054,6 +1054,12 @@ main.about .eyebrow,
 main.about .about-hero__kicker,
 main.about .craft-eyebrow,
 main.about .news__eyebrow{ line-height: 1.4; }
+/* Eyebrow → title gap rule: 20px everywhere, 12px in the craft chapters.
+   High specificity so it beats `.about p`'s 1em body margin, which was
+   silently overriding the single-class eyebrows (hero kicker, newsletter). */
+main.about .about-hero__kicker,
+main.about .news__eyebrow{ margin-bottom: var(--sp-5); }   /* 20px */
+main.about .craft-eyebrow{ margin-bottom: var(--sp-3); }    /* 12px — chapters */
 .about .section-sub{ margin-top: var(--sp-5); }
 
 /* Story-section CTA — text link, consistent with the craft/stories links
