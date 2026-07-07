@@ -2426,7 +2426,7 @@ main.about .about-editorial__tier--bottom .section-title i{
   height: 2px;
   width: 100%;
   background: color-mix(in srgb, var(--msty-fg) 12%, transparent);
-  border-radius: 1px;
+  border-radius: var(--r-s);
   overflow: hidden;
 }
 .msty__tab-fill{
