@@ -757,10 +757,10 @@
         </div>
 
         <form class="news__form" action="#" method="post" novalidate>
-          <label class="news__field">
-            <span class="news__label">E-Mail-Adresse</span>
-            <input class="news__input" type="email" name="email" placeholder="name@beispiel.de" autocomplete="email" required />
-          </label>
+          <div class="news__field">
+            <input class="news__input" type="email" id="news-email" name="email" placeholder=" " autocomplete="email" required />
+            <label for="news-email">E-Mail-Adresse</label>
+          </div>
           <button class="btn btn-primary btn-lg news__submit" type="submit">
             Newsletter abonnieren
           </button>

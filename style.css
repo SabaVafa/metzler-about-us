@@ -3519,13 +3519,31 @@ END OF LEGACY DEAD CSS */
   position: relative;
   display: flex;
 }
-.news__label{
+/* Floating label — DS §12 pattern: rests like a placeholder inside the input,
+   floats above the border on focus or when a value is present. Requires the
+   input's placeholder to be a single space (":not(:placeholder-shown)"). */
+.news__field label{
   position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.125rem;
+  color: var(--graphite-500);
+  pointer-events: none;
+  transition: all 0.15s ease;
+  line-height: 1.4;
   white-space: nowrap;
+  z-index: 1;
+}
+.news__input:focus + label,
+.news__input:not(:placeholder-shown) + label{
+  top: -0.5625rem;
+  left: 0.6875rem;
+  transform: none;
+  font-size: 0.75rem;
+  color: var(--schwarz);
+  background: var(--white);
+  padding: 0 0.3125rem;
 }
 /* Newsletter input — aligned with the DS .form-control pattern
    (1px graphite-300 border, padding-based sizing, teal focus). */
