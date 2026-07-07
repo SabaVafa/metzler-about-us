@@ -439,8 +439,10 @@ main.about .section-title i{
 /* Large screens: drive the copy's vertical rhythm with explicit, even spacing
    (instead of the mix of inherited margins that reads as a misaligned stack).
    Equal gaps between headline / chips / sub, with a slightly larger gap before
-   the action buttons so they group as the call-to-action. */
-@media (min-width: 1536px){
+   the action buttons so they group as the call-to-action. Applies across the
+   whole desktop 2-column hero (≥1280px), not just very wide screens, so the
+   headline→chips and chips→sub gaps stay consistent. */
+@media (min-width: 1280px){
   .about-hero__copy{ gap: 0; }
   .about-hero__copy h1{ margin: 0 0 30px; }
   .about-hero__copy .about-hero__chips{ margin: 0 0 30px; }
