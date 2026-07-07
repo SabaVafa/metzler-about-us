@@ -376,9 +376,6 @@ main.about .section-title i{
   font-size: var(--text-body);
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.85);
-  /* Balance the wrap so the first clause splits into two even lines instead of
-     orphaning a single word ("Paketboxen") on its own line. */
-  text-wrap: balance;
 }
 
 /* CTAs — buttons size to content + padding so increased side padding
