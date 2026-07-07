@@ -1001,7 +1001,17 @@ main.about .section-title i{
     column-gap: var(--sp-3);
   }
   .ntv-carousel__meta .about-caption{ display: contents; }
-  .ntv-caption-text{ grid-area: title; }
+  .ntv-caption-text{
+    grid-area: title;
+    /* Reserve two lines (like desktop) so a 1- vs 2-line caption doesn't shift
+       the counter/dots and the content below when slides change. */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.5;
+    min-height: 3em;
+  }
   .ntv-counter{ grid-area: counter; }
   .ntv-carousel__dots{ grid-area: dots; justify-self: end; }
   /* Shrink the floating event badge so it doesn't crowd the photo */
@@ -1719,7 +1729,9 @@ main.about .about-editorial__tier--bottom .section-title i{
   .craft-headline span:first-child::after{ content: " – "; }
 }
 @media (max-width: 767px){
-  .craft-headline{ font-size: clamp(40px, 11vw, 48px); }
+  /* Match the shared .section-title mobile size (2rem/32px) so every section
+     header is consistent on phones. */
+  .craft-headline{ font-size: 2rem; }
 }
 .craft-body{
   margin: 0;
