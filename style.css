@@ -376,6 +376,11 @@ main.about .section-title i{
   font-size: var(--text-body);
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.85);
+  /* Trim the first line's top half-leading so the gap above the subtitle
+     matches the (already trimmed) gap above the chips — the chip row then
+     sits equidistant from the headline and the subtitle. */
+  text-box-trim: trim-start;
+  text-box-edge: cap alphabetic;
 }
 
 /* CTAs — buttons size to content + padding so increased side padding
