@@ -376,11 +376,6 @@ main.about .section-title i{
   font-size: var(--text-body);
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.85);
-  /* Trim the first line's top half-leading so the gap above the subtitle
-     matches the (already trimmed) gap above the chips — the chip row then
-     sits equidistant from the headline and the subtitle. */
-  text-box-trim: trim-start;
-  text-box-edge: cap alphabetic;
 }
 
 /* CTAs — buttons size to content + padding so increased side padding
@@ -446,11 +441,16 @@ main.about .section-title i{
    Equal gaps between headline / chips / sub, with a slightly larger gap before
    the action buttons so they group as the call-to-action. Applies across the
    whole desktop 2-column hero (≥1280px), not just very wide screens, so the
-   headline→chips and chips→sub gaps stay consistent. */
+   headline→chips and chips→sub gaps stay consistent.
+   Equal margins don't look equal here (the h1's trailing leading sits below its
+   trimmed box, shrinking the gap under it; the sub's leading sits above its
+   text, growing the gap over it), so the headline gets a little more (35px) and
+   the chips a little less (25px). Their sum (60px) keeps the block height
+   unchanged. Matches the metzler-produktionsprozess hero exactly. */
 @media (min-width: 1280px){
   .about-hero__copy{ gap: 0; }
-  .about-hero__copy h1{ margin: 0 0 30px; }
-  .about-hero__copy .about-hero__chips{ margin: 0 0 30px; }
+  .about-hero__copy h1{ margin: 0 0 35px; }
+  .about-hero__copy .about-hero__chips{ margin: 0 0 25px; }
   .about-hero__copy .about-hero__sub{ margin: 0 0 44px; }
   .about-hero__ctas{ margin-top: 0; }
 }
