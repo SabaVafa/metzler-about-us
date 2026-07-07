@@ -1717,7 +1717,9 @@ main.about .about-editorial__tier--bottom .section-title i{
 }
 .craft-headline{
   margin: 0 0 clamp(20px, 2vw, 28px);
-  font-size: clamp(34px, 4.2vw, 56px);
+  /* Match the shared .section-title display size so every section-leading
+     heading down the page is the same scale (was clamp up to 56px). */
+  font-size: var(--text-display);
   line-height: 1.05;
   letter-spacing: -0.025em;
   font-weight: 700;
@@ -3462,7 +3464,9 @@ END OF LEGACY DEAD CSS */
 }
 .news__title{
   margin: 0 0 clamp(16px, 1.6vw, 22px);
-  font-size: clamp(28px, 3.2vw, 42px);
+  /* Match the shared .section-title display size for a consistent heading
+     scale across the page (was clamp up to 42px). */
+  font-size: var(--text-display);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -3472,6 +3476,16 @@ END OF LEGACY DEAD CSS */
   font-style: normal;
   font-weight: 700;
   color: inherit;
+}
+/* Keep the craft-chapter and news headings on the same responsive steps as
+   .section-title (36px tablet, 32px phone) so the heading size stays
+   consistent with every other section title at every breakpoint. */
+@media (min-width: 768px) and (max-width: 1023px){
+  .craft-headline,
+  .news__title{ font-size: 2.25rem; }
+}
+@media (max-width: 767px){
+  .news__title{ font-size: 2rem; }
 }
 .news__sub{
   margin-top: 0;
