@@ -1713,8 +1713,7 @@ main.about .about-editorial__tier--bottom .section-title i{
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  /* Match the section eyebrow (.eyebrow) so all eyebrows are consistent. */
-  color: #54545c;
+  color: var(--craft-muted);
 }
 .craft-headline{
   margin: 0 0 clamp(20px, 2vw, 28px);
