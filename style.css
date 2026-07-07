@@ -324,12 +324,14 @@ main.about .section-title i{
 .about-hero__copy .about-hero__chips,
 .about-hero__copy .hero-banner__chips{ margin: 0 0 calc(var(--sp-6) - 5px); }
 
-/* H1 — slightly reduced font-size cap so the headline reliably fits
-   into 2 lines at common viewport widths (was wrapping to 3 lines at
-   1440 px or below). */
+/* H1 — a single fluid clamp across ALL breakpoints so the size only ever grows
+   with the viewport (monotonic). Previously three competing clamp() rules made
+   the heading shrink from 40px at 1024px down to ~35px on desktop; here it rises
+   smoothly 32px → 40px and then holds, never dropping below the tablet size.
+   The headline is split into two fixed <span> lines, so it never re-wraps. */
 .about-hero h1{
   color: var(--white);
-  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  font-size: clamp(32px, calc(1.23vw + 27.4px), 40px);
   line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.015em;
@@ -485,7 +487,7 @@ main.about .section-title i{
     max-width: none;
   }
   .about-hero h1{
-    font-size: clamp(28px, 4.4vw, 40px);
+    /* font-size handled by the single monotonic clamp on the base rule */
     max-width: none;
   }
   /* Full-bleed banner: break out of the container's page inset so the image
@@ -512,7 +514,7 @@ main.about .section-title i{
   .about-hero__primary{ row-gap: 0; }
   .about-hero__copy{ padding-block: 40px; }
   .about-hero__photo{ object-position: center 35%; }
-  .about-hero h1{ font-size: clamp(32px, 8vw, 44px); }
+  /* H1 font-size handled by the single monotonic clamp on the base rule */
   /* Drop the desktop hard line break — let the sub wrap naturally on phones */
   .about-hero__sub br{ display: none; }
   /* CTAs stack full-width — two German labels are too long to sit
@@ -1795,9 +1797,12 @@ main.about .about-editorial__tier--bottom .section-title i{
      column like the headline does. */
   .craft-body{ max-width: none; }
 }
-@media (max-width: 767px){
-  /* Four longer labels don't fit a fixed row on phones — make the tab strip a
-     single-line horizontal scroller (labels stay on one line, swipe to reveal). */
+@media (max-width: 1023px){
+  /* The five chapter labels don't fit a fixed row below 1024px — at 768–1023px
+     the tablet rules shrink each tab below its (nowrap) label width, so the text
+     overflowed and adjacent labels collided. Make the tab strip a single-line
+     horizontal scroller across the whole tablet+phone range: tabs keep their
+     content width (no shrink) and the strip scrolls instead of overlapping. */
   .craft-chrome .msty__tabs{
     flex: 1 1 auto;
     min-width: 0;
