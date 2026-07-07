@@ -358,7 +358,7 @@ main.about .section-title i{
   gap: var(--sp-1);
 }
 .about-hero__stat b{
-  font-size: clamp(20px, 1.6vw, 26px);
+  font-size: clamp(20px, 1.6vw, 24px);   /* DS h3→h2; was 26px off-scale */
   font-weight: 700;
   color: var(--white);
   line-height: 1;
@@ -552,7 +552,7 @@ main.about .section-title i{
   gap: var(--sp-1);
 }
 .about-truststrip__stat b{
-  font-size: clamp(20px, 1.6vw, 26px);
+  font-size: clamp(20px, 1.6vw, 24px);   /* DS h3→h2; was 26px off-scale */
   font-weight: 700;
   color: var(--schwarz);
   line-height: 1;
@@ -1251,7 +1251,7 @@ main.about .section-title i{
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
   font-style: italic;
-  font-size: clamp(22px, 1.8vw, 26px);
+  font-size: clamp(20px, 1.8vw, 24px);   /* DS scale (h3→h2); was 22/26px off-scale */
   font-weight: 400;
   color: var(--schwarz);
   line-height: 1.2;
@@ -1748,7 +1748,7 @@ main.about .about-editorial__tier--bottom .section-title i{
 .craft-body{
   margin: 0;
   max-width: 46ch;
-  font-size: clamp(17px, 1.3vw, 20px);
+  font-size: clamp(16px, 1.3vw, 20px);   /* endpoints on the DS scale (was 17px floor) */
   line-height: 1.6;
   color: var(--craft-fg);
   opacity: 0.92;
@@ -1759,7 +1759,7 @@ main.about .about-editorial__tier--bottom .section-title i{
 .craft-subhead{
   margin: 0 0 clamp(8px, 0.8vw, 12px);
   max-width: 46ch;
-  font-size: clamp(16px, 1.15vw, 19px);
+  font-size: clamp(16px, 1.15vw, 20px);   /* 20px = DS h3; was off-scale 19px */
   font-weight: 700;
   line-height: 1.35;
   color: var(--craft-fg);
@@ -3497,7 +3497,7 @@ END OF LEGACY DEAD CSS */
   margin-bottom: clamp(32px, 3.5vw, 48px);
   margin-left: auto;
   margin-right: auto;
-  font-size: clamp(15px, 1.15vw, 17px);
+  font-size: clamp(14px, 1.15vw, 16px);   /* DS body-sm→body; was 15/17px forbidden */
   line-height: 1.6;
   color: #6a6a6a;
   /* No max-width — inherits the .news__inner 720px so it aligns
@@ -3755,7 +3755,7 @@ END OF LEGACY DEAD CSS */
 .about-closing__phone{
   display: inline-block;
   margin-top: clamp(28px, 3vw, 40px);
-  font-size: clamp(20px, 1.8vw, 26px);
+  font-size: clamp(20px, 1.8vw, 24px);   /* DS h3→h2; was 26px off-scale */
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--white);
