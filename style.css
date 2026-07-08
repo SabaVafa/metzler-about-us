@@ -1248,7 +1248,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   text-align: left;
 }
 .about-founder__body p{
-  font-size: var(--text-h4);   /* 18px — matches .craft-body / page-wide lead (same Qualität run) */
+  font-size: clamp(16px, 1.3vw, 20px);   /* matches .craft-body — same Qualität run (chapter 0) */
   line-height: var(--lh-body);           /* 1.5 — same as .craft-body renders (via .about p) */
   color: var(--schwarz);
   margin: 0;
@@ -1472,7 +1472,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
 .craft-body{
   margin: 0;
   max-width: 46ch;
-  font-size: var(--text-h4);   /* 18px — page-wide lead/body token (matches .section-sub, Geschichte) */
+  font-size: clamp(16px, 1.3vw, 20px);   /* fluid chapter reading body — endpoints on the DS scale */
   line-height: 1.6;
   color: var(--craft-fg);
   opacity: 0.92;
@@ -1483,13 +1483,14 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
 .craft-subhead{
   margin: 0 0 clamp(8px, 0.8vw, 12px);
   max-width: 46ch;
-  /* Credential block: one step (2px) below the 18px chapter body above it. */
-  font-size: var(--text-body);   /* 16px */
+  /* Credential block: always exactly 2px smaller than the chapter body above
+     it (.craft-body = clamp(16px,1.3vw,20px)), holding the step at every width. */
+  font-size: calc(clamp(16px, 1.3vw, 20px) - 2px);
   font-weight: 700;
   line-height: 1.35;
   color: var(--craft-fg);
 }
-.craft-subhead + .craft-body{ font-size: var(--text-body); }   /* 16px — 2px below the 18px body */
+.craft-subhead + .craft-body{ font-size: calc(clamp(16px, 1.3vw, 20px) - 2px); }
 .craft-footer{
   margin-top: clamp(28px, 3vw, 40px);
   padding-top: clamp(20px, 2vw, 28px);
