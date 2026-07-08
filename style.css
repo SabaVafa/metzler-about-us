@@ -1044,7 +1044,7 @@ main.about .section-title i{
    eyebrow → H2 = 20 px, H2 → sub = 20 px (same as banner's chips → H1 → sub). */
 .about .eyebrow{
   margin-bottom: var(--sp-5);
-  color: var(--graphite-600, #7A7A82);
+  color: var(--text-muted);
 }
 /* Uniform eyebrow line-height (1.4) across the page — high enough specificity
    to beat `.about p`'s body line-height on the <p>-based eyebrows, so every
@@ -1439,7 +1439,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   line-height: 1.4;
   text-transform: uppercase;
   /* All eyebrows share the section eyebrow colour (graphite-600, DS overline). */
-  color: var(--graphite-600, #7A7A82);
+  color: var(--text-muted);
 }
 .craft-headline{
   margin: 0 0 clamp(20px, 2vw, 28px);
@@ -1780,7 +1780,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   line-height: 1.4;
   text-transform: uppercase;
   /* All eyebrows share the section eyebrow colour (graphite-600, DS overline). */
-  color: var(--graphite-600, #7A7A82);
+  color: var(--text-muted);
 }
 .msty__brand-title{
   font-size: 30px;
@@ -2255,7 +2255,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--graphite-600, #7A7A82);
+  color: var(--text-muted);
   line-height: 1.4;
 }
 .news__title{
@@ -2449,7 +2449,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--graphite-600, #7A7A82);
+  color: var(--text-muted);
   line-height: 1.4;
   text-align: center !important;
 }
