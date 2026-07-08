@@ -2288,7 +2288,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   margin-bottom: clamp(32px, 3.5vw, 48px);
   margin-left: auto;
   margin-right: auto;
-  font-size: clamp(14px, 1.15vw, 16px);   /* DS body-sm→body; was 15/17px forbidden */
+  font-size: var(--text-h4);   /* 18px body-lg — matches the other section-lead paragraphs */
   line-height: 1.6;
   color: var(--schwarz);
   /* No max-width — inherits the .news__inner 720px so it aligns
