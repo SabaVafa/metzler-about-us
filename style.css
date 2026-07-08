@@ -2290,7 +2290,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   margin-right: auto;
   font-size: clamp(14px, 1.15vw, 16px);   /* DS body-sm→body; was 15/17px forbidden */
   line-height: 1.6;
-  color: var(--text-muted);
+  color: var(--schwarz);
   /* No max-width — inherits the .news__inner 720px so it aligns
      proportionally with the title above */
   text-align: center !important;
@@ -2461,7 +2461,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   font-weight: 700;
   color: inherit;
 }
-.about-closing p{ color: var(--text-muted); }
+.about-closing p{ color: var(--schwarz); }
 .about-closing__hours{
   margin: clamp(16px, 1.7vw, 24px) auto 0 !important;
   max-width: 600px;
