@@ -762,7 +762,7 @@ main.about .section-title i{
 .about-topshop__criteria-list li{
   position: relative;
   padding-left: 18px;
-  font-size: var(--text-body-sm);
+  font-size: var(--text-body);   /* 16px — matches the "Geprüft werden" title above */
   line-height: 1.5;
   color: var(--schwarz);
 }
