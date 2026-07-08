@@ -1053,12 +1053,12 @@ main.about .eyebrow,
 main.about .about-hero__kicker,
 main.about .craft-eyebrow,
 main.about .news__eyebrow{ line-height: 1.4; }
-/* Eyebrow → title gap rule: 20px everywhere, 12px in the craft chapters.
-   High specificity so it beats `.about p`'s 1em body margin, which was
-   silently overriding the single-class eyebrows (hero kicker, newsletter). */
-main.about .about-hero__kicker,
-main.about .news__eyebrow{ margin-bottom: var(--sp-5); }   /* 20px */
-main.about .craft-eyebrow{ margin-bottom: var(--sp-3); }    /* 12px — chapters */
+/* Eyebrow -> title gap: a uniform 20px across the whole page. High enough
+   specificity to beat .about p's 1em body margin, which otherwise
+   overrode the single-class eyebrows (hero kicker, newsletter, craft). */
+main.about .about-hero__kicker,
+main.about .news__eyebrow,
+main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
 .about .section-sub{ margin-top: var(--sp-5); }
 
 /* Story-section CTA — text link, consistent with the craft/stories links
@@ -1204,8 +1204,7 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-3); }    /* 12px — chapters
 /* Same text entrance choreography as the craft chapters: eyebrow → headline →
    body → signature stagger in as the note scrolls into view. */
 .about-founder__copy .eyebrow{
-  /* Match the craft-eyebrow's tighter gap to the headline (was 20px). */
-  margin-bottom: 12px;
+  margin-bottom: var(--sp-5);
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.7,.2,1);
