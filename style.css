@@ -326,13 +326,13 @@ main.about .section-title i{
 .about-hero__copy .about-hero__chips,
 .about-hero__copy .hero-banner__chips{ margin: 0 0 calc(var(--sp-6) - 5px); }
 
-/* H1 — flat 2rem (32px) at every breakpoint. A single constant size is
-   inherently monotonic (it can't shrink as the viewport grows — the bug the old
-   three competing clamp() rules had). 2rem also equals the DS display-4 mobile
-   size. The headline is split into two fixed <span> lines, so it never re-wraps. */
+/* H1 — display-4 (46px), matching the section-title scale so the hero
+   headline is never smaller than the section headings, then steps down
+   to 32px on phones. Fits the copy column with headroom; the headline is
+   split into two fixed <span> lines, so it never re-wraps. */
 .about-hero h1{
   color: var(--white);
-  font-size: 2rem;   /* 32px */
+  font-size: var(--text-display);   /* 46px (32px on phones) */
   line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.015em;
@@ -513,7 +513,7 @@ main.about .section-title i{
   .about-hero__primary{ row-gap: 0; }
   .about-hero__copy{ padding-block: 40px; }
   .about-hero__photo{ object-position: center 35%; }
-  /* H1 font-size handled by the single monotonic clamp on the base rule */
+  .about-hero h1{ font-size: 2rem; }   /* 32px on phones */
   /* Drop the desktop hard line break — let the sub wrap naturally on phones */
   .about-hero__sub br{ display: none; }
   /* CTAs stack full-width — two German labels are too long to sit
