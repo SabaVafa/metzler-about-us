@@ -2466,9 +2466,8 @@ main.about .craft-eyebrow{ margin-bottom: var(--sp-5); }
   margin: clamp(16px, 1.7vw, 24px) auto 0 !important;
   max-width: 600px;
   font-size: var(--text-caption) !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-weight: 500 !important;              /* match .news__hint (caption/meta style) */
+  letter-spacing: 0.02em;
   color: var(--text-muted) !important;
   text-align: center !important;
 }
