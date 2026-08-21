@@ -8,3 +8,9 @@ desktop.ini
 
 # Logs
 *.log
+
+# Local tooling config (personal machine paths / permissions)
+.claude/settings.local.json
+
+# Internal design-system reference (company IP, not used by the prototype)
+metzler-design-system.md
